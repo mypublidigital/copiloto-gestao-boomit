@@ -5,6 +5,7 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 const RAIZ_MOTOR = path.resolve(import.meta.dirname, '../supabase/functions/_shared/motor')
+const RAIZ_PROMPTS = path.resolve(import.meta.dirname, '../supabase/functions/_shared/prompts')
 
 function arquivosDoMotor(dir: string): string[] {
   return readdirSync(dir).flatMap((nome) => {
@@ -28,13 +29,14 @@ export function violacoes(conteudo: string): string[] {
 }
 
 describe('motor-isolado', () => {
-  const arquivos = arquivosDoMotor(RAIZ_MOTOR)
+  // Os prompts do motor também precisam ser genéricos.
+  const arquivos = [...arquivosDoMotor(RAIZ_MOTOR), ...arquivosDoMotor(RAIZ_PROMPTS)]
 
   it('encontra os arquivos do motor', () => {
     expect(arquivos.length).toBeGreaterThan(0)
   })
 
-  it.each(arquivos.map((a) => [path.relative(RAIZ_MOTOR, a), a]))('%s não depende da Boomit, de adaptadores nem do app', (_nome, arquivo) => {
+  it.each(arquivos.map((a) => [path.relative(path.dirname(RAIZ_MOTOR), a), a]))('%s não depende da Boomit, de adaptadores nem do app', (_nome, arquivo) => {
     expect(violacoes(readFileSync(arquivo, 'utf8'))).toEqual([])
   })
 

@@ -767,6 +767,7 @@ export type Database = {
           tokens_entrada: number | null
           tokens_saida: number | null
           user_id: string
+          versao_prompt: string | null
         }
         Insert: {
           avaliacao_lider?: number | null
@@ -783,6 +784,7 @@ export type Database = {
           tokens_entrada?: number | null
           tokens_saida?: number | null
           user_id?: string
+          versao_prompt?: string | null
         }
         Update: {
           avaliacao_lider?: number | null
@@ -799,6 +801,7 @@ export type Database = {
           tokens_entrada?: number | null
           tokens_saida?: number | null
           user_id?: string
+          versao_prompt?: string | null
         }
         Relationships: [
           {

@@ -7,7 +7,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
-import type { Database } from '../supabase/functions/_shared/tipos/banco.ts'
+import type { Database, Json } from '../supabase/functions/_shared/tipos/banco.ts'
 import { FonteMock } from '../supabase/functions/_shared/adaptadores/boomit/fonte.ts'
 import { sincronizar } from '../supabase/functions/_shared/adaptadores/boomit/sincronizar.ts'
 import { PERSONAS } from '../src/demo/personas.ts'
@@ -31,6 +31,16 @@ const resumo = await sincronizar(db, new FonteMock())
 console.log(`Conector (mock): ${resumo.status} · ${resumo.registros_lidos} colaboradores · ${resumo.snapshots_novos} snapshots novos · ${resumo.alertas} alertas`)
 if (resumo.erros.length) console.log(`  erros: ${resumo.erros.join(' | ')}`)
 const empresaId = resumo.empresa_id
+
+// Canais de encaminhamento fictícios (modo encaminhamento, docs/03 §8). Os reais vêm do RH (N18).
+const empresa = exigir(await db.from('empresa').select('config').eq('id', empresaId).single(), 'ler empresa')
+const config = { ...((empresa.config ?? {}) as Record<string, unknown>) }
+config.canais_encaminhamento = {
+  rh: 'RH da Exemplo Tech (fictício) · pessoas@exemplotech.com',
+  juridico: 'Jurídico da Exemplo Tech (fictício) · juridico@exemplotech.com',
+  etica: 'Canal de ética da Exemplo Tech (fictício) · formulário anônimo na intranet',
+}
+exigir(await db.from('empresa').update({ config: config as Json }).eq('id', empresaId), 'gravar canais de encaminhamento')
 
 const colaboradores = exigir(await db.from('colaborador').select('id, email').eq('empresa_id', empresaId), 'ler colaboradores')
 const idPorEmail = new Map(colaboradores.map((c) => [c.email.toLowerCase(), c.id]))

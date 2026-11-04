@@ -6,7 +6,10 @@ import { SECOES } from '@/config/navegacao'
 import { Entrar } from '@/paginas/Entrar'
 import { FichaColaborador } from '@/paginas/FichaColaborador'
 import { Inicio } from '@/paginas/Inicio'
+import { Preparar } from '@/paginas/Preparar'
 import { Secao } from '@/paginas/Secao'
+import { Simular } from '@/paginas/Simular'
+import { Situacao } from '@/paginas/Situacao'
 
 function Rotas() {
   const { carregando, sessao } = useSessao()
@@ -17,6 +20,9 @@ function Rotas() {
       <Route element={<Layout />}>
         <Route index element={<Inicio />} />
         <Route path="pessoas/:id" element={<FichaColaborador />} />
+        <Route path="preparar" element={<Preparar />} />
+        <Route path="situacoes/:id" element={<Situacao />} />
+        <Route path="simular/:id" element={<Simular />} />
         {SECOES.filter((s) => s.caminho !== '/').map((secao) => (
           <Route key={secao.caminho} path={secao.caminho.slice(1)} element={<Secao secao={secao} />} />
         ))}

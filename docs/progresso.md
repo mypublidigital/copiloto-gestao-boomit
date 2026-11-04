@@ -5,16 +5,18 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 
 ## Estado atual
 
-- **Etapa:** Sprint 0 · Checkpoint 2 (Dados fictícios, equipe e ficha) — **aceite atendido**
-- **Situação:** concluído em 04/11/2026. Itens 1, 2, 8 e 9 do roteiro verificados no navegador; Edge
-  Function `conector-boomit` publicada e testada. Próximo: Checkpoint 3 (preparar feedback e simular).
+- **Etapa:** Sprint 0 · Checkpoint 3 (Preparar feedback e simular)
+- **Situação:** código completo e testado (74 testes com modelo simulado; ensaio com o modelo real
+  pelo Node: plano com fontes e encaminhamento funcionando). **Falta:** publicar as Edge Functions
+  `preparar-situacao` e `simular`, gravar os segredos delas no Supabase (pergunta 1) e validar os
+  itens 3, 4 e 6 do roteiro no navegador. (CP2 concluído em 04/11/2026.)
 - **Última atualização:** 04/11/2026
 
 ## Perguntas abertas (dependem do Marcelo)
 
 | # | Pergunta | Onde responder | Bloqueia | Desde |
 |---|---|---|---|---|
-| — | Nenhuma no momento (deploy do conector autorizado em 04/11/2026) | — | — | — |
+| 1 | Autorizar publicar `preparar-situacao` e `simular` e gravar no Supabase os segredos `ANTHROPIC_API_KEY`, `MODELO_PRINCIPAL` e `MODELO_RAPIDO` (copiados do `.env.local`, sem exibir)? | Chat | Itens 3, 4 e 6 do roteiro no app | 04/11/2026 |
 
 ## Decisões provisórias (para revisar)
 
@@ -45,6 +47,11 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | Migration 0002: semente de `competencia_sinonimo`, gerada da lista em `sinonimos.ts` (teste confere que as duas batem). Migration 0003: valor `mock` em `fonte_snapshot`, para dado fictício não aparecer como vindo da API. |
 | 04/11/2026 | Seed de demonstração em `scripts/seed-demo.ts` (Node com remoção de tipos), via service role: roda `sincronizar()` com a `FonteMock`, importa a hierarquia do CSV e cria as 5 personas com papéis e mentoria. Idempotente. |
 | 04/11/2026 | Modo demonstração fora do build de produção: `vite.config.ts` troca `@/demo` por `src/demo/vazio.ts` quando `VITE_MODO_DEMO != true`. `npm run verificar:producao` gera esse build e confere a ausência de seletor, e-mails das personas, faixa e senha. (A primeira versão, com `lazy()` atrás de uma constante, vazava tudo isso — o verificador pegou.) |
+| 04/11/2026 | Motor (CP3): saída estruturada por `output_config.format`, com JSON Schema gerado do zod e validada de novo com zod (forçar ferramenta dá erro 400 no Sonnet 5.5). SDK oficial `@anthropic-ai/sdk` 1.4.0. Cache de prompt no bloco estável (guardrails + lente/skills + instruções). Recusa: `fallbacks: "default"` (beta `server-side-fallback-2026-07-01`) em Sonnet/Opus; o Haiku não tem fallback. |
+| 04/11/2026 | Fontes vão ao modelo com apelidos curtos (F1, F2…) e voltam a `fonte_id` na verificação, então o modelo não consegue inventar um id plausível. Indicadores sensíveis (PPL, quadrante, R3) nunca entram no contexto da IA. |
+| 04/11/2026 | Sensibilidade em duas camadas: termos no código (rede de segurança, nem chama o modelo) + classificador (Haiku). O ensaio real mostrou um caso que só o classificador pegou ("comentários de cunho sexual"); o padrão foi ampliado e virou teste. |
+| 04/11/2026 | Custo estimado por chamada com a tabela de preços em `motor/modelo.ts` (US$ por 1M tokens: Sonnet 5.5 2/10, Haiku 5.5 0,10/0,50, Opus 5.5 4/20). Ensaio real: preparação ≈ US$ 0,05 em 25 s; classificação ≈ US$ 0,0002. |
+| 04/11/2026 | Migration 0004: `interacao_ia.versao_prompt`. Prompts em `_shared/prompts/` com `VERSAO`, também cobertos pelo teste de isolamento do motor. `npm run ensaio:ia` roda o motor com o modelo real, sem gravar no banco. |
 | 04/11/2026 | UI valida o JSON do contexto com zod (`src/dominio/contexto.ts`); teste garante que a saída do normalizador para os 13 colaboradores do fixture passa nesse schema. |
 
 ## Insumos recebidos

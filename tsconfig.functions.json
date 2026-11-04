@@ -18,6 +18,6 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["supabase/functions/_shared"],
+  "include": ["supabase/functions"],
   "exclude": ["supabase/functions/**/*.test.ts"]
 }

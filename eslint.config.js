@@ -36,7 +36,7 @@ export default tseslint.config(
     rules: { 'react-refresh/only-export-components': 'off' },
   },
   {
-    files: ['supabase/functions/_shared/motor/**/*.ts'],
+    files: ['supabase/functions/_shared/motor/**/*.ts', 'supabase/functions/_shared/prompts/**/*.ts'],
     rules: { 'no-restricted-imports': ['error', BLOQUEIOS_DO_MOTOR] },
   },
 )

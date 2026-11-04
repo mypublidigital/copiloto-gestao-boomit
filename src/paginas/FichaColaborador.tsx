@@ -1,7 +1,9 @@
 // M2 · Ficha do colaborador: contexto Boomit resumido + linha do tempo unificada.
 // Leitura com o JWT do usuário; se a RLS não deixa ver, a ficha não aparece.
 import { Link, useParams } from 'react-router'
+import { useSessao } from '@/auth/sessao'
 import { Cartao, Estado } from '@/components/Estado'
+import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { lerContexto, lerSensivel, NIVEIS_IA, type ContextoColaborador } from '@/dominio/contexto'
 import { montarLinhaDoTempo, ROTULO_NATUREZA, type ItemLinhaDoTempo, type Natureza } from '@/dominio/linhaDoTempo'
@@ -32,6 +34,7 @@ const NIVEL: Record<string, string> = { operacional: 'Operacional', tatico: 'Tá
 export function FichaColaborador() {
   const { id = '' } = useParams()
   const consulta = useConsulta(() => carregar(id), [id])
+  const { vinculo } = useSessao()
 
   return (
     <div className="flex max-w-5xl flex-col gap-6">
@@ -50,6 +53,11 @@ export function FichaColaborador() {
                   {[dados.pessoa.cargo, dados.pessoa.area, dados.pessoa.nivel ? NIVEL[dados.pessoa.nivel] : null].filter(Boolean).join(' · ')}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">Contexto Boomit atualizado em {formatarData(dados.atualizadoEm)}</p>
+                {vinculo?.papel === 'lider' && (
+                  <Button asChild size="sm" className="mt-3">
+                    <Link to={`/preparar?pessoa=${dados.pessoa.id}`}>Preparar conversa</Link>
+                  </Button>
+                )}
               </header>
               {dados.contexto ? <ResumoBoomit ctx={dados.contexto} /> : <p className="text-sm text-muted-foreground">Contexto Boomit indisponível para esta pessoa.</p>}
               {dados.sensivel && <Sensiveis s={dados.sensivel} />}

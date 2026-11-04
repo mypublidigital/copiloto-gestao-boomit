@@ -59,10 +59,12 @@ export function MinhaEquipe({ vinculo, nome }: { vinculo: Vinculo; nome: string 
               <Numero rotulo="Preparações em andamento" valor={situacoesAbertas} />
             </div>
 
-            <section className="rounded-lg border border-dashed bg-card p-5">
-              <p className="font-semibold">O que você precisa preparar hoje?</p>
-              <p className="mt-1 text-sm text-muted-foreground">Preparar feedback e simular a conversa chegam no próximo checkpoint.</p>
-            </section>
+            {vinculo.papel === 'lider' && (
+              <Link to="/preparar" className="rounded-lg border bg-card p-5 transition-colors hover:border-primary">
+                <p className="font-semibold">O que você precisa preparar hoje?</p>
+                <p className="mt-1 text-sm text-muted-foreground">Prepare um feedback com o contexto da Boomit e simule a conversa antes.</p>
+              </Link>
+            )}
 
             <Cartao titulo={`${titulo} · ${pessoas.length}`}>
               {pessoas.length === 0 ? (
