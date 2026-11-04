@@ -6,17 +6,15 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 ## Estado atual
 
 - **Etapa:** Sprint 0 · Checkpoint 2 (Dados fictícios, equipe e ficha) — **aceite atendido**
-- **Situação:** itens 1, 2, 8 e 9 do roteiro de demonstração verificados no navegador.
-  Pendente só o **deploy da Edge Function `conector-boomit`**, que o CLI do Supabase exige
-  confirmar com o Marcelo (pergunta 1). Os dados já foram carregados pelo seed, que roda o
-  mesmo código da função. Próximo: Checkpoint 3 (preparar feedback e simular).
+- **Situação:** concluído em 04/11/2026. Itens 1, 2, 8 e 9 do roteiro verificados no navegador; Edge
+  Function `conector-boomit` publicada e testada. Próximo: Checkpoint 3 (preparar feedback e simular).
 - **Última atualização:** 04/11/2026
 
 ## Perguntas abertas (dependem do Marcelo)
 
 | # | Pergunta | Onde responder | Bloqueia | Desde |
 |---|---|---|---|---|
-| 1 | Autorizar o deploy da Edge Function `conector-boomit` no projeto `copiloto-gestao-boomit-dev`? O CLI pede confirmação explícita (`--yes`) | Chat | Conector rodando no Supabase (o seed já carregou os dados pelo mesmo código) | 04/11/2026 |
+| — | Nenhuma no momento (deploy do conector autorizado em 04/11/2026) | — | — | — |
 
 ## Decisões provisórias (para revisar)
 
@@ -63,4 +61,4 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | Repositório | Git iniciado e primeiro push | `b1a6da8` |
 | 04/11/2026 | Sprint 0 · CP1 (parte sem Supabase) | Front sobe local com a faixa de demonstração; typecheck, lint, 5 testes do motor e 28/28 de RLS (local) passam | `dc0b8a7` |
 | 04/11/2026 | Sprint 0 · CP1 concluído | Migration 0001 no remoto (27 tabelas, todas com RLS, 54 políticas); RLS 28/28 local e remoto; tipos gerados; front com cliente Supabase. Aceite: app sobe local, RLS e isolamento passam | `42e0b42` |
-| 04/11/2026 | Sprint 0 · CP2 | Conector mock + normalizador (R1, R5, R9; 8 regras da Sprint 1 como pendentes), migrations 0002 e 0003, seed com 13 colaboradores e 5 personas, telas M1 e M2, painel do admin. Testes: 32 unitários, 39 de RLS local e remoto, build de produção limpo. Roteiro 1, 2, 8 e 9 verificados no navegador. Deploy da Edge Function aguardando confirmação | ver `git log` |
+| 04/11/2026 | Sprint 0 · CP2 | Conector mock + normalizador (R1, R5, R9; 8 regras da Sprint 1 como pendentes), migrations 0002 e 0003, seed com 13 colaboradores e 5 personas, telas M1 e M2, painel do admin. Testes: 32 unitários, 39 de RLS local e remoto, build de produção limpo. Roteiro 1, 2, 8 e 9 verificados no navegador. Deploy autorizado pelo Marcelo e feito: service role e Admin RH sincronizam (200, sem snapshot novo), líder recebe 403, sem login 401 | `a969432` + ver `git log` |
