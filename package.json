@@ -15,7 +15,9 @@
     "test": "vitest run",
     "test:rls": "node scripts/testar-rls.mjs local",
     "test:rls:remoto": "bash scripts/com-env.sh 'node scripts/testar-rls.mjs remoto'",
-    "verificar": "npm run typecheck && npm run lint && npm test && npm run test:rls"
+    "verificar": "npm run typecheck && npm run lint && npm test && npm run test:rls",
+    "db:aplicar": "bash scripts/com-env.sh 'node scripts/aplicar-migrations.mjs'",
+    "db:tipos": "bash scripts/com-env.sh 'bash scripts/gerar-tipos.sh'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.118.0",
@@ -42,7 +44,6 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
     "globals": "^17.14.0",
-    "pg": "^8.23.1",
     "supabase": "^3.0.0",
     "tailwindcss": "^4.3.4",
     "typescript": "~6.0.3",

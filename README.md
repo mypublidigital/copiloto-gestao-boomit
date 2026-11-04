@@ -45,3 +45,5 @@ Base para construir o Copiloto no Claude Code, com a EasyJur como cliente-piloto
 | `npm run verificar` | Tipos, lint, testes do motor e RLS local (tudo o que roda sem Supabase) |
 | `npm run test:rls` | Migration + 28 testes de RLS (pgTAP) num Postgres embutido (PGlite), sem Docker |
 | `npm run test:rls:remoto` | Os mesmos testes no projeto Supabase de desenvolvimento, sem deixar dados |
+| `npm run db:aplicar` | Aplica no projeto remoto as migrations pendentes (por HTTPS; `-- --listar` só mostra) |
+| `npm run db:tipos` | Gera `src/tipos/banco.ts` a partir do banco remoto |
