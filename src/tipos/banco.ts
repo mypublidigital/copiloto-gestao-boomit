@@ -1435,7 +1435,7 @@ export type Database = {
       }
     }
     Enums: {
-      fonte_snapshot: "api" | "importacao_excel" | "importacao_pdf"
+      fonte_snapshot: "api" | "importacao_excel" | "importacao_pdf" | "mock"
       frente_gestao:
         | "desempenho"
         | "desenvolvimento"
@@ -1611,7 +1611,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      fonte_snapshot: ["api", "importacao_excel", "importacao_pdf"],
+      fonte_snapshot: ["api", "importacao_excel", "importacao_pdf", "mock"],
       frente_gestao: [
         "desempenho",
         "desenvolvimento",

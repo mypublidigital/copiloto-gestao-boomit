@@ -47,3 +47,5 @@ Base para construir o Copiloto no Claude Code, com a EasyJur como cliente-piloto
 | `npm run test:rls:remoto` | Os mesmos testes no projeto Supabase de desenvolvimento, sem deixar dados |
 | `npm run db:aplicar` | Aplica no projeto remoto as migrations pendentes (por HTTPS; `-- --listar` só mostra) |
 | `npm run db:tipos` | Gera `src/tipos/banco.ts` a partir do banco remoto |
+| `npm run seed:demo` | Carrega a empresa fictícia (conector mock), a hierarquia e as 5 personas de demonstração. Pode rodar de novo |
+| `npm run verificar:producao` | Gera o build de produção e confere que nada do modo demonstração foi junto |

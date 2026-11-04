@@ -1,9 +1,13 @@
 import { NavLink, Outlet } from 'react-router'
+import { ROTULO_PAPEL, useSessao } from '@/auth/sessao'
+import { Button } from '@/components/ui/button'
 import { SECOES } from '@/config/navegacao'
+import { PersonasCabecalho } from '@/demo'
 import { cn } from '@/lib/utils'
 import { FaixaDemo } from './FaixaDemo'
 
 export function Layout() {
+  const { nome, vinculo, sessao, sair } = useSessao()
   return (
     <div className="min-h-svh">
       <FaixaDemo />
@@ -32,9 +36,23 @@ export function Layout() {
             ))}
           </nav>
         </aside>
-        <main className="min-w-0 flex-1 px-6 py-8 md:px-10">
-          <Outlet />
-        </main>
+        <div className="min-w-0 flex-1">
+          <header className="flex flex-wrap items-center justify-between gap-3 border-b bg-card px-6 py-3 md:px-10">
+            <div className="text-sm">
+              <span className="font-semibold">{nome}</span>
+              {vinculo && <span className="text-muted-foreground"> · {ROTULO_PAPEL[vinculo.papel]}</span>}
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <PersonasCabecalho atual={sessao?.user.email ?? null} />
+              <Button variant="outline" size="sm" onClick={sair}>
+                Sair
+              </Button>
+            </div>
+          </header>
+          <main className="px-6 py-8 md:px-10">
+            <Outlet />
+          </main>
+        </div>
       </div>
     </div>
   )

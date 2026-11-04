@@ -34,6 +34,9 @@ feito à mão num painel entra aqui, com data. Se não está aqui nem no reposit
 | 04/11/2026 | Supabase | Projeto de desenvolvimento criado no painel; chaves, senha do banco e access token copiados para o `.env.local` | Criação de projeto e emissão de chaves | Criar o projeto no destino e preencher um `.env.local` novo |
 | 04/11/2026 | Supabase | `npx supabase link` e migration `0001` aplicada com `npm run db:aplicar` (Management API) | A rede local bloqueia as portas 5432/6543; `db push` não conecta | `npm run db:aplicar` (ou `npx supabase db push` numa rede que libere a porta) — o histórico é o mesmo |
 
+| 04/11/2026 | Supabase | Migrations 0002 e 0003 aplicadas; `npm run seed:demo` (empresa fictícia, hierarquia, 5 personas com senha de demonstração) | Seed usa a Admin API de Auth para criar usuários | `npm run seed:demo` no projeto novo (só dados fictícios) |
+| — | Supabase | **Pendente:** deploy de `conector-boomit` (`npx supabase functions deploy conector-boomit --use-api`). Sem `BOOMIT_FONTE` definida, a função usa `mock` | O CLI exige confirmação humana | Mesmo comando no projeto novo; `npx supabase secrets set BOOMIT_FONTE=api` quando a API da Boomit existir |
+
 **Rede sem porta do Postgres:** `db push`, `db pull` e `test db` do CLI precisam da porta 5432/6543.
 Onde ela estiver bloqueada, use `npm run db:aplicar`, `npm run test:rls:remoto` e `npm run db:tipos`,
 que vão pela Management API (HTTPS) com o `SUPABASE_ACCESS_TOKEN`. As migrations ficam registradas

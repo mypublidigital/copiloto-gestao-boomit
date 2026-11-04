@@ -1,22 +1,37 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
+import { useSessao } from '@/auth/sessao'
+import { SessaoProvider } from '@/auth/SessaoProvider'
 import { Layout } from '@/components/layout/Layout'
 import { SECOES } from '@/config/navegacao'
+import { Entrar } from '@/paginas/Entrar'
+import { FichaColaborador } from '@/paginas/FichaColaborador'
+import { Inicio } from '@/paginas/Inicio'
 import { Secao } from '@/paginas/Secao'
+
+function Rotas() {
+  const { carregando, sessao } = useSessao()
+  if (carregando) return <p className="p-8 text-sm text-muted-foreground">Carregando…</p>
+  if (!sessao) return <Entrar />
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Inicio />} />
+        <Route path="pessoas/:id" element={<FichaColaborador />} />
+        {SECOES.filter((s) => s.caminho !== '/').map((secao) => (
+          <Route key={secao.caminho} path={secao.caminho.slice(1)} element={<Secao secao={secao} />} />
+        ))}
+        <Route path="*" element={<Inicio />} />
+      </Route>
+    </Routes>
+  )
+}
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          {SECOES.map((secao) =>
-            secao.caminho === '/' ? (
-              <Route key="inicio" index element={<Secao secao={secao} />} />
-            ) : (
-              <Route key={secao.caminho} path={secao.caminho.slice(1)} element={<Secao secao={secao} />} />
-            ),
-          )}
-        </Route>
-      </Routes>
+      <SessaoProvider>
+        <Rotas />
+      </SessaoProvider>
     </BrowserRouter>
   )
 }

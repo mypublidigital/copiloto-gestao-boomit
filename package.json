@@ -17,10 +17,14 @@
     "test:rls:remoto": "bash scripts/com-env.sh 'node scripts/testar-rls.mjs remoto'",
     "verificar": "npm run typecheck && npm run lint && npm test && npm run test:rls",
     "db:aplicar": "bash scripts/com-env.sh 'node scripts/aplicar-migrations.mjs'",
-    "db:tipos": "bash scripts/com-env.sh 'bash scripts/gerar-tipos.sh'"
+    "db:tipos": "bash scripts/com-env.sh 'bash scripts/gerar-tipos.sh'",
+    "seed:demo": "bash scripts/com-env.sh 'node scripts/seed-demo.ts'",
+    "verificar:producao": "bash scripts/com-env.sh 'node scripts/verificar-build-producao.mjs'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.118.0",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cn": "^0.5.2",
