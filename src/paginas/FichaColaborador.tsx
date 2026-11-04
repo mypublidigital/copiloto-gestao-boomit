@@ -1,23 +1,27 @@
 // M2 · Ficha do colaborador: contexto Boomit resumido + linha do tempo unificada.
 // Leitura com o JWT do usuário; se a RLS não deixa ver, a ficha não aparece.
+import { useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { useSessao } from '@/auth/sessao'
 import { Cartao, Estado } from '@/components/Estado'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { lerContexto, lerSensivel, NIVEIS_IA, type ContextoColaborador } from '@/dominio/contexto'
-import { montarLinhaDoTempo, ROTULO_NATUREZA, type ItemLinhaDoTempo, type Natureza } from '@/dominio/linhaDoTempo'
+import { montarLinhaDoTempo } from '@/dominio/linhaDoTempo'
 import { formatarData } from '@/lib/datas'
 import { supabase } from '@/lib/supabase'
 import { exigir, useConsulta } from '@/lib/useConsulta'
+import { LinhaDoTempo, type MeuRegistro } from './ficha/LinhaDoTempo'
 
-async function carregar(id: string) {
-  const pessoa = await supabase.from('colaborador').select('id, nome, cargo, area, nivel, contexto_colaborador(dados, atualizado_em)').eq('id', id).maybeSingle()
+async function carregar(id: string, userId: string | null) {
+  const pessoa = await supabase.from('colaborador').select('id, nome, cargo, area, nivel, contexto_colaborador(dados, atualizado_em, alertas_qualidade)').eq('id', id).maybeSingle()
   if (pessoa.error) throw new Error(pessoa.error.message)
   if (!pessoa.data) return null
-  const [sensivel, linha] = await Promise.all([
+  const [sensivel, linha, meus] = await Promise.all([
     supabase.from('contexto_colaborador_sensivel').select('dados').eq('colaborador_id', id).maybeSingle(),
     supabase.from('linha_do_tempo').select('quando, natureza, subtipo, resumo, origem_id').eq('colaborador_id', id),
+    userId
+      ? supabase.from('registro').select('id, tipo, texto, visibilidade').eq('colaborador_id', id).eq('autor_user_id', userId)
+      : Promise.resolve({ data: [], error: null }),
   ])
   const contexto = lerContexto(pessoa.data.contexto_colaborador?.dados)
   return {
@@ -26,6 +30,8 @@ async function carregar(id: string) {
     contexto,
     sensivel: sensivel.data ? lerSensivel(sensivel.data.dados) : null,
     linhaDoTempo: montarLinhaDoTempo(exigir(linha), contexto),
+    meusRegistros: (meus.data ?? []) as MeuRegistro[],
+    alertas: pessoa.data.contexto_colaborador?.alertas_qualidade ?? [],
   }
 }
 
@@ -33,8 +39,10 @@ const NIVEL: Record<string, string> = { operacional: 'Operacional', tatico: 'Tá
 
 export function FichaColaborador() {
   const { id = '' } = useParams()
-  const consulta = useConsulta(() => carregar(id), [id])
-  const { vinculo } = useSessao()
+  const { vinculo, sessao } = useSessao()
+  const userId = sessao?.user.id ?? null
+  const [recarga, setRecarga] = useState(0)
+  const consulta = useConsulta(() => carregar(id, userId), [id, userId, recarga])
 
   return (
     <div className="flex max-w-5xl flex-col gap-6">
@@ -53,6 +61,11 @@ export function FichaColaborador() {
                   {[dados.pessoa.cargo, dados.pessoa.area, dados.pessoa.nivel ? NIVEL[dados.pessoa.nivel] : null].filter(Boolean).join(' · ')}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">Contexto Boomit atualizado em {formatarData(dados.atualizadoEm)}</p>
+                {dados.alertas.length > 0 && (
+                  <p className="mt-2 rounded-md border bg-secondary px-3 py-1.5 text-xs">
+                    Aviso de qualidade dos dados da Boomit: {dados.alertas.map((a) => a.replace(/^[a-z_]+:/, '').replaceAll('_', ' ')).join('; ')}. Confirme na conversa o que depender disso.
+                  </p>
+                )}
                 {vinculo?.papel === 'lider' && (
                   <Button asChild size="sm" className="mt-3">
                     <Link to={`/preparar?pessoa=${dados.pessoa.id}`}>Preparar conversa</Link>
@@ -66,7 +79,7 @@ export function FichaColaborador() {
               </header>
               {dados.contexto ? <ResumoBoomit ctx={dados.contexto} /> : <p className="text-sm text-muted-foreground">Contexto Boomit indisponível para esta pessoa.</p>}
               {dados.sensivel && <Sensiveis s={dados.sensivel} />}
-              <LinhaDoTempo itens={dados.linhaDoTempo} />
+              <LinhaDoTempo itens={dados.linhaDoTempo} meusRegistros={dados.meusRegistros} aoMudar={() => setRecarga((n) => n + 1)} />
             </>
           )
         }
@@ -201,36 +214,6 @@ function Sensiveis({ s }: { s: NonNullable<ReturnType<typeof lerSensivel>> }) {
         Visíveis para o admin e, só se a empresa autorizar, para a liderança. Referência da Boomit, não decisão: o Copiloto não usa estes
         números para recomendar promover, realocar ou desligar.
       </p>
-    </Cartao>
-  )
-}
-
-const COR_NATUREZA: Record<Natureza, string> = {
-  dado_boomit: 'bg-boomit-cinza-azulado text-boomit-preto',
-  ensaio: 'bg-boomit-neutro-quente text-boomit-preto',
-  relato_lider: 'bg-boomit-neutro-quente text-boomit-preto',
-  aplicacao: 'bg-boomit-verde text-boomit-claro',
-  combinado: 'bg-boomit-taupe text-boomit-claro',
-  fonte: 'bg-secondary text-boomit-preto',
-}
-
-function LinhaDoTempo({ itens }: { itens: ItemLinhaDoTempo[] }) {
-  return (
-    <Cartao titulo="Linha do tempo">
-      {itens.length === 0 ? (
-        <p className="text-sm text-muted-foreground">Nada registrado ainda.</p>
-      ) : (
-        <ol className="space-y-3">
-          {itens.map((i) => (
-            <li key={i.chave} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm">
-              <span className="w-24 shrink-0 text-muted-foreground">{formatarData(i.quando)}</span>
-              <Badge className={COR_NATUREZA[i.natureza]}>{ROTULO_NATUREZA[i.natureza]}</Badge>
-              <span>{i.titulo}</span>
-              {i.detalhe && <span className="text-muted-foreground">· {i.detalhe}</span>}
-            </li>
-          ))}
-        </ol>
-      )}
     </Cartao>
   )
 }

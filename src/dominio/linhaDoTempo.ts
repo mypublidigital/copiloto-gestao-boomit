@@ -21,6 +21,8 @@ export interface ItemLinhaDoTempo {
   natureza: Natureza
   titulo: string
   detalhe: string | null
+  /** Id do registro de origem (registro, situação, combinado…), quando vem do Copiloto. */
+  origemId: string | null
 }
 
 /** Linha da view linha_do_tempo (já filtrada pela RLS para quem está vendo). */
@@ -41,14 +43,14 @@ function daView(l: LinhaView): ItemLinhaDoTempo | null {
   // A view converte datas puras (registro.data_fato, combinado.concluido_em) para meia-noite UTC;
   // exibir isso em São Paulo voltaria um dia. Meia-noite UTC exata = data pura.
   const quando = /T00:00:00(?:\.0+)?(?:Z|\+00(?::?00)?)$/.test(l.quando) ? l.quando.slice(0, 10) : l.quando
-  return { chave: `${natureza}:${l.origem_id}`, quando, natureza, titulo: l.resumo ?? '(sem título)', detalhe: l.subtipo }
+  return { chave: `${natureza}:${l.origem_id}`, quando, natureza, titulo: l.resumo ?? '(sem título)', detalhe: l.subtipo, origemId: l.origem_id }
 }
 
 export function eventosBoomit(ctx: ContextoColaborador | null): ItemLinhaDoTempo[] {
   if (!ctx) return []
   const itens: ItemLinhaDoTempo[] = []
   const add = (chave: string, quando: string | null | undefined, titulo: string, detalhe: string | null = null) => {
-    if (quando) itens.push({ chave: `boomit:${chave}`, quando, natureza: 'dado_boomit', titulo, detalhe })
+    if (quando) itens.push({ chave: `boomit:${chave}`, quando, natureza: 'dado_boomit', titulo, detalhe, origemId: null })
   }
   add('assessment', ctx.jornada?.assessment_respondido_em, 'Assessment respondido')
   add('personalidade', ctx.personalidade?.data, 'Teste 16 Personalidades')
@@ -61,4 +63,15 @@ export function eventosBoomit(ctx: ContextoColaborador | null): ItemLinhaDoTempo
 export function montarLinhaDoTempo(view: LinhaView[], ctx: ContextoColaborador | null): ItemLinhaDoTempo[] {
   const itens = [...view.map(daView).filter((i): i is ItemLinhaDoTempo => i !== null), ...eventosBoomit(ctx)]
   return itens.sort((a, b) => instante(b.quando) - instante(a.quando))
+}
+
+export type OrigemLinha = 'todas' | 'boomit' | 'copiloto'
+
+/** Sprint 2: filtra a linha do tempo por natureza (vazio = todas) e por origem. */
+export function filtrarLinhaDoTempo(itens: ItemLinhaDoTempo[], naturezas: Natureza[], origem: OrigemLinha): ItemLinhaDoTempo[] {
+  return itens.filter(
+    (i) =>
+      (naturezas.length === 0 || naturezas.includes(i.natureza)) &&
+      (origem === 'todas' || (origem === 'boomit') === (i.natureza === 'dado_boomit')),
+  )
 }
