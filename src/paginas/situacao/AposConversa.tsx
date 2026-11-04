@@ -3,13 +3,13 @@
 // Regra 11: só a data registrada aqui transforma o ensaio em aplicação.
 import { useState } from 'react'
 import { Cartao, Estado } from '@/components/Estado'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { estaVencido, hojeSaoPaulo, ROTULO_STATUS_COMBINADO, somarDias, type StatusCombinado } from '@/dominio/combinados'
+import { hojeSaoPaulo, somarDias } from '@/dominio/combinados'
 import { type CombinadoProposto, type Extensao, ROTULO_RESPONSAVEL } from '@/dominio/preparacao'
 import { formatarData } from '@/lib/datas'
 import { supabase } from '@/lib/supabase'
 import { exigir, useConsulta } from '@/lib/useConsulta'
+import { CAMPOS_COMBINADO, type CombinadoLinha, ListaCombinados } from '../combinados/ListaCombinados'
 
 interface Props {
   situacaoId: string
@@ -28,15 +28,6 @@ interface Props {
 // docs/01 §3: boomit → referência ao PDI Boomit; integrado → sistema interno; nativo → Copiloto.
 const ORIGEM_POR_MODO: Record<string, 'boomit_pdi' | 'sistema_interno' | 'copiloto'> = { boomit: 'boomit_pdi', integrado: 'sistema_interno', nativo: 'copiloto' }
 
-interface CombinadoLinha {
-  id: string
-  descricao: string
-  responsavel_tipo: string
-  prazo: string | null
-  status: StatusCombinado
-  evidencia_esperada: string | null
-}
-
 export function AposConversa(p: Props) {
   const [recarga, setRecarga] = useState(0)
   const combinados = useConsulta(
@@ -44,7 +35,7 @@ export function AposConversa(p: Props) {
       exigir(
         await supabase
           .from('combinado')
-          .select('id, descricao, responsavel_tipo, prazo, status, evidencia_esperada')
+          .select(CAMPOS_COMBINADO)
           .eq('situacao_id', p.situacaoId)
           .neq('status', 'cancelado')
           .order('prazo'),
@@ -187,70 +178,5 @@ function RegistrarAplicacao(p: Props) {
         {erro && <p className="text-sm text-destructive">{erro}</p>}
       </div>
     </Cartao>
-  )
-}
-
-export function ListaCombinados({ lista, aoMudar, mostrarPessoa = false }: { lista: (CombinadoLinha & { pessoa?: string | null })[]; aoMudar: () => void; mostrarPessoa?: boolean }) {
-  if (lista.length === 0) return <p className="text-sm text-muted-foreground">Nenhum combinado.</p>
-  return (
-    <ul className="space-y-2">
-      {lista.map((c) => (c.status === 'pendente_revisao' ? <Pendente key={c.id} c={c} aoMudar={aoMudar} mostrarPessoa={mostrarPessoa} /> : <Confirmado key={c.id} c={c} mostrarPessoa={mostrarPessoa} />))}
-    </ul>
-  )
-}
-
-function Confirmado({ c, mostrarPessoa }: { c: CombinadoLinha & { pessoa?: string | null }; mostrarPessoa: boolean }) {
-  const vencido = estaVencido(c)
-  return (
-    <li className="flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded border p-3 text-sm">
-      <Badge className={vencido ? 'bg-destructive text-white' : 'bg-boomit-verde text-boomit-claro'}>{vencido ? 'Vencido' : ROTULO_STATUS_COMBINADO[c.status]}</Badge>
-      <span className="font-medium">{c.descricao}</span>
-      <span className="text-muted-foreground">
-        {mostrarPessoa && c.pessoa ? `${c.pessoa} · ` : ''}
-        {ROTULO_RESPONSAVEL[c.responsavel_tipo as keyof typeof ROTULO_RESPONSAVEL] ?? c.responsavel_tipo} · prazo {formatarData(c.prazo)}
-      </span>
-    </li>
-  )
-}
-
-function Pendente({ c, aoMudar, mostrarPessoa }: { c: CombinadoLinha & { pessoa?: string | null }; aoMudar: () => void; mostrarPessoa: boolean }) {
-  const [descricao, setDescricao] = useState(c.descricao)
-  const [prazo, setPrazo] = useState(c.prazo ?? '')
-  const [salvando, setSalvando] = useState(false)
-  const [erro, setErro] = useState<string | null>(null)
-
-  async function mudar(status: 'aberto' | 'cancelado') {
-    setSalvando(true)
-    const { error } = await supabase
-      .from('combinado')
-      .update(status === 'aberto' ? { status, descricao: descricao.trim(), prazo: prazo || null } : { status })
-      .eq('id', c.id)
-    setSalvando(false)
-    if (error) setErro(error.message)
-    else aoMudar()
-  }
-
-  return (
-    <li className="grid gap-2 rounded border border-dashed p-3 text-sm sm:grid-cols-[1fr_10rem_auto]">
-      <div>
-        <Badge variant="outline">Pendente de revisão</Badge>
-        {mostrarPessoa && c.pessoa && <span className="ml-2 text-muted-foreground">{c.pessoa}</span>}
-        <input aria-label="Descrição do combinado" value={descricao} onChange={(e) => setDescricao(e.target.value)} className="mt-1 block w-full rounded-md border bg-background px-2 py-1" />
-        {c.evidencia_esperada && <p className="mt-1 text-xs text-muted-foreground">Evidência: {c.evidencia_esperada}</p>}
-      </div>
-      <label className="text-xs text-muted-foreground">
-        Prazo
-        <input type="date" aria-label="Prazo do combinado" value={prazo} onChange={(e) => setPrazo(e.target.value)} className="mt-1 block w-full rounded-md border bg-background px-2 py-1 text-sm text-foreground" />
-      </label>
-      <div className="flex items-end gap-2">
-        <Button size="sm" onClick={() => mudar('aberto')} disabled={salvando || !descricao.trim() || !prazo}>
-          Confirmar
-        </Button>
-        <Button size="sm" variant="outline" onClick={() => mudar('cancelado')} disabled={salvando}>
-          Descartar
-        </Button>
-      </div>
-      {erro && <p className="text-destructive sm:col-span-3">{erro}</p>}
-    </li>
   )
 }

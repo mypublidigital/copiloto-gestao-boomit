@@ -1,12 +1,12 @@
 // M7 · Combinados: lista por prazo, com status e pessoa. Pendentes podem ser confirmados aqui.
-// (Lembretes e ações de cumprido/renegociado entram na Sprint 6.)
+// Sprint 6: ações (cumprido, renegociar, não cumprido, cancelar) com histórico; lembretes no topo.
 import { useState } from 'react'
 import { useSessao } from '@/auth/sessao'
 import { Cartao, Estado, Numero } from '@/components/Estado'
 import { estaVencido, type StatusCombinado } from '@/dominio/combinados'
 import { supabase } from '@/lib/supabase'
 import { exigir, useConsulta } from '@/lib/useConsulta'
-import { ListaCombinados } from './situacao/AposConversa'
+import { CAMPOS_COMBINADO, ListaCombinados } from './combinados/ListaCombinados'
 
 export function Combinados() {
   const { vinculo } = useSessao()
@@ -16,7 +16,7 @@ export function Combinados() {
     const linhas = exigir(
       await supabase
         .from('combinado')
-        .select('id, descricao, responsavel_tipo, prazo, status, evidencia_esperada, colaborador:colaborador_id(nome)')
+        .select(`${CAMPOS_COMBINADO}, colaborador:colaborador_id(nome)`)
         .eq('lider_id', vinculo.colaborador_id)
         .not('status', 'in', '(cancelado)')
         .order('prazo', { ascending: true, nullsFirst: false }),

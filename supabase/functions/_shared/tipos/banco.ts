@@ -280,8 +280,10 @@ export type Database = {
           empresa_id: string
           evidencia_esperada: string | null
           evidencia_registrada: string | null
+          historico: Json
           id: string
           lider_id: string
+          nota_mudanca: string | null
           origem: Database["public"]["Enums"]["origem_combinado"]
           prazo: string | null
           responsavel_nome: string | null
@@ -301,8 +303,10 @@ export type Database = {
           empresa_id: string
           evidencia_esperada?: string | null
           evidencia_registrada?: string | null
+          historico?: Json
           id?: string
           lider_id: string
+          nota_mudanca?: string | null
           origem: Database["public"]["Enums"]["origem_combinado"]
           prazo?: string | null
           responsavel_nome?: string | null
@@ -322,8 +326,10 @@ export type Database = {
           empresa_id?: string
           evidencia_esperada?: string | null
           evidencia_registrada?: string | null
+          historico?: Json
           id?: string
           lider_id?: string
+          nota_mudanca?: string | null
           origem?: Database["public"]["Enums"]["origem_combinado"]
           prazo?: string | null
           responsavel_nome?: string | null
@@ -1402,6 +1408,15 @@ export type Database = {
       }
     }
     Functions: {
+      andamento_combinados_lider: {
+        Args: { p_lider: string }
+        Returns: {
+          colaborador_nome: string
+          prazo: string
+          status: Database["public"]["Enums"]["status_combinado"]
+          vencido: boolean
+        }[]
+      }
       andamento_lideranca: {
         Args: { p_empresa: string }
         Returns: {
@@ -1417,8 +1432,10 @@ export type Database = {
         }[]
       }
       auditoria_metadados: { Args: { j: Json }; Returns: Json }
+      documento_do_caminho: { Args: { p_nome: string }; Returns: string }
       eh_admin: { Args: { p_empresa: string }; Returns: boolean }
       eh_membro: { Args: { p_empresa: string }; Returns: boolean }
+      enviar_lembretes_vencidos: { Args: never; Returns: number }
       exibe_sensiveis: { Args: { p_empresa: string }; Returns: boolean }
       lidera: { Args: { p_alvo: string; p_lider: string }; Returns: boolean }
       meu_colaborador_id: { Args: { p_empresa: string }; Returns: string }

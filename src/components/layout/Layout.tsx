@@ -5,6 +5,7 @@ import { SECOES } from '@/config/navegacao'
 import { PersonasCabecalho } from '@/demo'
 import { cn } from '@/lib/utils'
 import { FaixaDemo } from './FaixaDemo'
+import { Notificacoes } from './Notificacoes'
 
 export function Layout() {
   const { nome, vinculo, sessao, sair } = useSessao()
@@ -62,6 +63,7 @@ export function Layout() {
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <PersonasCabecalho atual={sessao?.user.email ?? null} />
+              <Notificacoes />
               <Button variant="outline" size="sm" onClick={sair}>
                 Sair
               </Button>
