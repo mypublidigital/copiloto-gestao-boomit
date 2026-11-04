@@ -64,18 +64,30 @@ const saida = String(rodar('npx', ['vercel', 'deploy', 'dist', '--yes', '--targe
 const url = saida.match(/https:\/\/\S+\.vercel\.app/g)?.at(-1)
 if (!url) throw new Error('Não encontrei o endereço da publicação na saída da Vercel')
 
-// 4. Sem login, TODOS os endereços da publicação têm de pedir autenticação
 const publicacao = (await api('GET', `/v13/deployments/${new URL(url).hostname}`)).json
-const enderecos = [...new Set([url, ...(publicacao.alias ?? []).map((a) => `https://${a}`)])]
-const abertos = []
-for (const e of enderecos) {
-  const r = await fetch(e, { redirect: 'manual' })
+const PRINCIPAL = `${PROJETO}.vercel.app`
+
+const pedeLogin = async (e) => {
+  const r = await fetch(`${e}?t=${Date.now()}`, { redirect: 'manual' })
   const protegido = r.status === 401 || (r.status >= 300 && r.status < 400 && /vercel\.com\/(sso|login)/.test(r.headers.get('location') ?? ''))
   console.log(`  ${e} → HTTP ${r.status}${protegido ? ' (pede login)' : ' (ABERTO)'}`)
-  if (!protegido) abertos.push(e)
+  return protegido
 }
+
+// 4. Sem login, os endereços da publicação têm de pedir autenticação (antes de assumir o principal)
+const enderecos = [...new Set([url, ...(publicacao.alias ?? []).map((a) => `https://${a}`)])]
+const abertos = []
+for (const e of enderecos) if (!(await pedeLogin(e))) abertos.push(e)
 if (abertos.length) {
   if (publicacao.id) await api('DELETE', `/v13/deployments/${publicacao.id}`)
-  throw new Error(`Publicação apagada: ${abertos.length ? `abriu sem login em ${abertos.join(', ')}` : ''}.`)
+  throw new Error(`Publicação apagada: abriu sem login em ${abertos.join(', ')}.`)
 }
-console.log(`\nPublicado com proteção de acesso.\n${url}`)
+
+// 5. O endereço principal passa a apontar para esta publicação (uma pré-visualização não o
+//    assume sozinha; sem isso ele continuaria servindo a versão anterior).
+const alias = await api('POST', `/v2/deployments/${publicacao.id}/aliases`, { alias: PRINCIPAL })
+if (alias.status >= 300) throw new Error(`Não foi possível apontar ${PRINCIPAL}: ${alias.json.error?.message ?? alias.status}`)
+if (!(await pedeLogin(`https://${PRINCIPAL}`))) {
+  throw new Error(`${PRINCIPAL} abriu sem login depois de apontado. Verifique a proteção do projeto na Vercel agora.`)
+}
+console.log(`\nPublicado com proteção de acesso.\nhttps://${PRINCIPAL}  (publicação ${url})`)
