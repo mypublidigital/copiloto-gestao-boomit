@@ -3,11 +3,12 @@
 // COM PROTEÇÃO DE ACESSO (decisão do Marcelo, 04/11/2026):
 //   1. garante o projeto no time com Vercel Authentication ligada (ssoProtection);
 //   2. build local com as VITE_* do .env.local; a Vercel recebe só dist/ (nenhuma variável fica lá);
-//   3. publica como PRÉ-VISUALIZAÇÃO (a proteção padrão cobre esses endereços; o de produção, não);
+//   3. publica pela API como PRÉ-VISUALIZAÇÃO e depois aponta o endereço principal para ela;
 //   4. abre o link sem login: se não pedir autenticação, APAGA a publicação e falha.
 // Uso: npm run publicar:demo   (VERCEL_TOKEN no .env.local; VERCEL_TIME opcional, slug do time)
 import { execFileSync, execSync } from 'node:child_process'
-import { copyFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { copyFileSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import path from 'node:path'
 
 const RAIZ = path.resolve(import.meta.dirname, '..')
@@ -29,9 +30,15 @@ async function api(metodo, caminho, corpo) {
 }
 
 // Time: o indicado em VERCEL_TIME ou o único ao qual o token tem acesso.
-const times = await fetch('https://api.vercel.com/v2/teams', { headers: { Authorization: `Bearer ${VERCEL_TOKEN}` } }).then((r) => r.json())
+const autorizacao = { Authorization: `Bearer ${VERCEL_TOKEN}` }
+const times = await fetch('https://api.vercel.com/v2/teams', { headers: autorizacao }).then((r) => r.json())
 const lista = times.teams ?? []
-const time = VERCEL_TIME ? lista.find((t) => t.slug === VERCEL_TIME) : lista.length === 1 ? lista[0] : null
+let time = VERCEL_TIME ? lista.find((t) => t.slug === VERCEL_TIME || t.id === VERCEL_TIME) : lista.length === 1 ? lista[0] : null
+if (!time) {
+  // Token com escopo de um time só não lista times nem lê a conta: o próprio projeto diz o time.
+  const p = await fetch(`https://api.vercel.com/v9/projects/${PROJETO}`, { headers: autorizacao }).then((r) => r.json())
+  if (p.accountId) time = { id: p.accountId, slug: VERCEL_TIME || p.accountId }
+}
 if (!time) throw new Error(`Defina VERCEL_TIME no .env.local com o slug do time (${lista.map((t) => t.slug).join(', ') || 'nenhum time encontrado'})`)
 console.log(`Time Vercel: ${time.slug}`)
 
@@ -47,24 +54,42 @@ if (projeto.json.ssoProtection?.deploymentType !== 'all') {
 }
 console.log(`Projeto ${PROJETO}: proteção de acesso ligada`)
 
-const rodar = (cmd, args, capturar = false) => {
-  const opcoes = { cwd: RAIZ, stdio: capturar ? ['ignore', 'pipe', 'inherit'] : 'inherit', encoding: 'utf8' }
+// O token nunca vai na linha de comando (apareceria em mensagens de erro e na lista de processos).
+const rodar = (cmd, args) => {
+  const opcoes = { cwd: RAIZ, stdio: 'inherit' }
   return process.platform === 'win32' ? execSync([cmd, ...args.map((a) => `"${a}"`)].join(' '), opcoes) : execFileSync(cmd, args, opcoes)
 }
 
 // 2. Build local
 rodar('npx', ['vite', 'build'])
-copyFileSync(path.join(RAIZ, 'vercel.json'), path.join(RAIZ, 'dist', 'vercel.json'))
-mkdirSync(path.join(RAIZ, 'dist', '.vercel'), { recursive: true })
-writeFileSync(path.join(RAIZ, 'dist', '.vercel', 'project.json'), JSON.stringify({ projectId: projeto.json.id, orgId: time.id }))
+const DIST = path.join(RAIZ, 'dist')
+copyFileSync(path.join(RAIZ, 'vercel.json'), path.join(DIST, 'vercel.json'))
 
-// 3. Publicação de PRÉ-VISUALIZAÇÃO explícita (--target=preview): sem isso, a primeira publicação de
-//    um projeto vira produção e ganha o endereço principal, que ficou aberto no primeiro teste.
-const saida = String(rodar('npx', ['vercel', 'deploy', 'dist', '--yes', '--target=preview', `--token=${VERCEL_TOKEN}`, `--scope=${time.slug}`], true))
-const url = saida.match(/https:\/\/\S+\.vercel\.app/g)?.at(-1)
-if (!url) throw new Error('Não encontrei o endereço da publicação na saída da Vercel')
-
-const publicacao = (await api('GET', `/v13/deployments/${new URL(url).hostname}`)).json
+// 3. Publicação de PRÉ-VISUALIZAÇÃO pela API (sem o CLI, que exige ler a conta do usuário e não
+//    funciona com token restrito a um time): envia cada arquivo e cria a publicação sem "target".
+const arquivos = readdirSync(DIST, { recursive: true }).map(String).filter((f) => statSync(path.join(DIST, f)).isFile())
+const enviados = []
+for (const relativo of arquivos) {
+  const conteudo = readFileSync(path.join(DIST, relativo))
+  const sha = createHash('sha1').update(conteudo).digest('hex')
+  const r = await fetch(`https://api.vercel.com/v2/files?teamId=${time.id}`, {
+    method: 'POST',
+    headers: { ...autorizacao, 'Content-Type': 'application/octet-stream', 'x-vercel-digest': sha, 'Content-Length': String(conteudo.length) },
+    body: conteudo,
+  })
+  if (r.status >= 300) throw new Error(`Envio de ${relativo}: HTTP ${r.status}`)
+  enviados.push({ file: relativo.split(path.sep).join('/'), sha, size: conteudo.length })
+}
+console.log(`${enviados.length} arquivos enviados`)
+const criada = await api('POST', '/v13/deployments', { name: PROJETO, project: projeto.json.id, files: enviados, projectSettings: { framework: null } })
+if (criada.status >= 300) throw new Error(`Criar publicação: ${criada.json.error?.message ?? criada.status}`)
+let publicacao = criada.json
+for (let i = 0; i < 60 && !['READY', 'ERROR', 'CANCELED'].includes(publicacao.readyState); i++) {
+  await new Promise((r) => setTimeout(r, 3000))
+  publicacao = (await api('GET', `/v13/deployments/${criada.json.id}`)).json
+}
+if (publicacao.readyState !== 'READY') throw new Error(`Publicação terminou em ${publicacao.readyState}`)
+const url = `https://${publicacao.url}`
 const PRINCIPAL = `${PROJETO}.vercel.app`
 
 const pedeLogin = async (e) => {

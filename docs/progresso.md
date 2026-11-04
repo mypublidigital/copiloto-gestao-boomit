@@ -7,8 +7,8 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 
 - **Etapa:** **Sprints 0, 2, 3, 4 e 6 concluídas** (04/11/2026), código no GitHub, migrations e
   Edge Functions no Supabase de desenvolvimento.
-- **Situação:** falta só republicar o site de demonstração com as sprints novas: o `VERCEL_TOKEN` perdeu
-  acesso ao time da Vercel (pergunta 1). O site publicado continua no ar, protegido, na versão da Sprint 0.
+- **Situação:** site de demonstração republicado com as sprints novas (04/11/2026), com login exigido em
+  todos os endereços.
   Próximas: Sprint 0A e 1 (acesso ao repositório e API Boomit, N9 e N10), Sprint 5 (arquivos das
   skills, N14) e Sprint 7 (qualidade, LGPD, migração).
 - **Última atualização:** 04/11/2026
@@ -17,7 +17,7 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 
 | # | Pergunta | Onde responder | Bloqueia | Desde |
 |---|---|---|---|---|
-| 1 | Gerar um token novo da Vercel com acesso ao time `marcelos-projects` e colocar em `VERCEL_TOKEN` (o atual responde 403 no time e no projeto) | `.env.local` | Republicar a demonstração (`npm run publicar:demo`) | 04/11/2026 |
+| 1 | Revogar e gerar de novo o token da Vercel: o valor apareceu numa mensagem de erro do terminal durante a publicação (ver Incidentes) | vercel.com › Tokens e `.env.local` | Nada; é precaução | 04/11/2026 |
 | 2 | Alçadas reais dos gestores (N12) — hoje há duas alçadas fictícias | `_entrada/` | Decisão na alçada com regras da EasyJur | 04/11/2026 |
 | 3 | Provedor de e-mail transacional (N15) — lembretes hoje só no app | `.env.local` | Lembretes por e-mail | 04/11/2026 |
 
@@ -26,6 +26,8 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | Data | O que aconteceu | Impacto | Correção |
 |---|---|---|---|
 | 04/11/2026 | Na primeira publicação, a Vercel tratou o deploy como produção e o endereço principal (`copiloto-gestao-boomit-demo.vercel.app`) ficou **aberto sem login por cerca de 10 minutos**; numa segunda tentativa, por menos de 1 minuto (o script detectou e apagou). A proteção padrão do projeto só cobre pré-visualizações. | Quem acessasse veria o site de demonstração (dados fictícios) e a senha das personas no código, podendo usar a IA com a chave da Leadrix. Nenhum dado real. | Publicações apagadas; proteção do projeto em "all" (todos os endereços); script testa todos os endereços sem login e apaga a publicação se algum abrir; **senha das personas trocada** (a antiga não vale mais). |
+
+| 04/11/2026 | Na republicação, o CLI da Vercel falhou e a mensagem de erro repetiu o comando com o `VERCEL_TOKEN` na saída do terminal local. | O token ficou no log desta sessão do Claude Code; não foi para o GitHub nem para a Vercel. | Script passou a publicar pela API sem passar o token na linha de comando; recomendado revogar o token e gerar outro. |
 
 ## Decisões provisórias (para revisar)
 
@@ -74,6 +76,7 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | Deploy da demonstração (`npm run publicar:demo`): build local com as `VITE_*` do `.env.local` e envio só de `dist/` para a Vercel (time `marcelos-projects`, projeto `copiloto-gestao-boomit-demo`), com rewrite para o index.html. Proteção Vercel Authentication em "all"; o script confere cada endereço sem login e apaga a publicação se algum abrir. |
 | 04/11/2026 | Sprint 3: extensões por tipo com schema próprio (`schemaDoPlano(tipo)`) e prompts `preparacao-<tipo>@2`. Camada 1 (alçadas) passou a ser citável e nunca é cortada. |
 | 04/11/2026 | Sprint 4: leitura de documentos em `_shared/documentos/` (fflate para .docx, unpdf para .pdf); extração no motor (`motor/extracao.ts`, prompt `extracao@1`); processamento em segundo plano com `EdgeRuntime.waitUntil` e service role; bucket `fontes` com políticas ligadas ao documento (0005). Inserções em tabelas cuja leitura consulta a própria tabela (documento_fonte, situacao) não usam RETURNING. |
+| 04/11/2026 | Publicação da demonstração pela API da Vercel (envia `dist/` e cria a publicação), sem o CLI: funciona com token restrito a um time e não expõe o token em comandos. O time vem do próprio projeto quando o token não lista times. |
 | 04/11/2026 | Sprint 6: histórico e lembretes por trigger (0006), envio por pg_cron a cada 15 min; a função de envio recusa chamadas com usuário logado. O teste de RLS pegou dois bugs antes de aplicar (lista vazia de dias e permissão de execução) e ambos foram corrigidos. |
 | 04/11/2026 | UI valida o JSON do contexto com zod (`src/dominio/contexto.ts`); teste garante que a saída do normalizador para os 13 colaboradores do fixture passa nesse schema. |
 
