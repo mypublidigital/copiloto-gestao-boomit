@@ -58,6 +58,11 @@ export function FichaColaborador() {
                     <Link to={`/preparar?pessoa=${dados.pessoa.id}`}>Preparar conversa</Link>
                   </Button>
                 )}
+                {vinculo?.papel === 'lider' && (
+                  <Button asChild size="sm" variant="outline" className="mt-3 ml-2">
+                    <Link to={`/registrar?pessoa=${dados.pessoa.id}`}>Registrar</Link>
+                  </Button>
+                )}
               </header>
               {dados.contexto ? <ResumoBoomit ctx={dados.contexto} /> : <p className="text-sm text-muted-foreground">Contexto Boomit indisponível para esta pessoa.</p>}
               {dados.sensivel && <Sensiveis s={dados.sensivel} />}

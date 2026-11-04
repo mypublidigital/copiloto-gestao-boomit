@@ -47,6 +47,12 @@ describe('linha do tempo', () => {
     expect(itens.map((i) => ROTULO_NATUREZA[i.natureza])).not.toContain(ROTULO_NATUREZA.aplicacao)
   })
 
+  it('data pura vinda da view (meia-noite UTC) não volta um dia em São Paulo', () => {
+    const [item] = montarLinhaDoTempo([{ quando: '2026-11-04T00:00:00+00:00', natureza: 'relato_lider', subtipo: 'reconhecimento', resumo: 'x', origem_id: 'r' }], null)
+    expect(item?.quando).toBe('2026-11-04')
+    expect(formatarData(item?.quando)).toBe('04/11/2026')
+  })
+
   it('ordena do mais recente para o mais antigo', () => {
     const itens = montarLinhaDoTempo([{ quando: '2030-01-01T00:00:00Z', natureza: 'combinado', subtipo: 'aberto', resumo: 'Futuro', origem_id: 'z' }], ctx)
     expect(itens[0]?.titulo).toBe('Futuro')

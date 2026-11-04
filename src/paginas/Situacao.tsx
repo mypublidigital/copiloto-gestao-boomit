@@ -1,7 +1,8 @@
 // Situação preparada: plano editável com referências clicáveis e versões, ou a tela de
 // encaminhamento quando o relato é sensível (docs/03 §8). Tudo aqui é ensaio privado do líder.
-import { useState } from 'react'
+import { type ReactNode, useState } from 'react'
 import { Link, useParams } from 'react-router'
+import { useSessao } from '@/auth/sessao'
 import { Cartao, Estado } from '@/components/Estado'
 import { Button } from '@/components/ui/button'
 import { type CombinadoProposto, type ConteudoPreparacao, conteudoPreparacaoSchema, type Fonte, type Plano, ROTULO_RESPONSAVEL } from '@/dominio/preparacao'
@@ -9,9 +10,10 @@ import { formatarData } from '@/lib/datas'
 import { supabase } from '@/lib/supabase'
 import { useConsulta } from '@/lib/useConsulta'
 import type { Json } from '@/tipos/banco'
+import { AposConversa } from './situacao/AposConversa'
 
 async function carregar(id: string) {
-  const sit = await supabase.from('situacao').select('id, empresa_id, titulo, status, sensivel, relato_inicial, criado_em, colaborador:colaborador_id(id, nome)').eq('id', id).maybeSingle()
+  const sit = await supabase.from('situacao').select('id, empresa_id, colaborador_id, titulo, status, sensivel, relato_inicial, aplicada_em, relato_aplicacao, criado_em, colaborador:colaborador_id(id, nome)').eq('id', id).maybeSingle()
   if (sit.error) throw new Error(sit.error.message)
   if (!sit.data) return null
   if (sit.data.sensivel) {
@@ -33,6 +35,7 @@ export function Situacao() {
   const { id = '' } = useParams()
   const [recarga, setRecarga] = useState(0)
   const consulta = useConsulta(() => carregar(id), [id, recarga])
+  const { vinculo } = useSessao()
   return (
     <div className="flex max-w-5xl flex-col gap-6">
       <Link to="/preparar" className="text-sm text-muted-foreground hover:underline">
@@ -57,6 +60,18 @@ export function Situacao() {
               criadoEm={d.preparacao.criadoEm}
               conteudo={d.preparacao.conteudo}
               aoSalvar={() => setRecarga((n) => n + 1)}
+              depois={
+                <AposConversa
+                  situacaoId={d.situacao.id}
+                  empresaId={d.situacao.empresa_id}
+                  colaboradorId={d.situacao.colaborador_id}
+                  liderId={vinculo?.colaborador_id ?? null}
+                  aplicadaEm={d.situacao.aplicada_em}
+                  relatoAplicacao={d.situacao.relato_aplicacao}
+                  propostos={d.preparacao.conteudo.plano.combinados_propostos}
+                  aoMudar={() => setRecarga((n) => n + 1)}
+                />
+              }
             />
           )
         }
@@ -121,6 +136,7 @@ function PlanoEditavel(p: {
   criadoEm: string
   conteudo: ConteudoPreparacao
   aoSalvar: () => void
+  depois: ReactNode
 }) {
   const plano = p.conteudo.plano
   const [resumo, setResumo] = useState(plano.resumo_situacao)
@@ -315,6 +331,7 @@ function PlanoEditavel(p: {
           </Button>
         </div>
         {erro && <p className="text-sm text-destructive">{erro}</p>}
+        {p.depois}
       </div>
 
       <aside className="flex flex-col gap-4">

@@ -5,17 +5,17 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 
 ## Estado atual
 
-- **Etapa:** Sprint 0 · Checkpoint 3 (Preparar feedback e simular) — **aceite atendido**
-- **Situação:** concluído em 04/11/2026. Itens 3, 4 e 6 do roteiro verificados no navegador com o
-  modelo real; fato sem fonte cai em "a confirmar" (teste). Próximo: Checkpoint 4 (combinados,
-  aplicação, painel do diretor e deploy de demonstração).
+- **Etapa:** Sprint 0 · Checkpoint 4 (Combinados, aplicação, painel e deploy)
+- **Situação:** combinados (pendente → confirmado), registro da aplicação, registro rápido, lista M7
+  e painel M8 prontos. **Roteiro de demonstração 1 a 9 verificado no navegador** (5, 7, 8 e 9 neste
+  checkpoint). **Falta:** publicar a demonstração na Vercel (pergunta 1). (CP3 concluído em 04/11/2026.)
 - **Última atualização:** 04/11/2026
 
 ## Perguntas abertas (dependem do Marcelo)
 
 | # | Pergunta | Onde responder | Bloqueia | Desde |
 |---|---|---|---|---|
-| — | Nenhuma no momento (funções publicadas e segredos gravados em 04/11/2026) | — | — | — |
+| 1 | A demonstração publicada fica acessível a quem tiver o link: as personas entram por uma senha que vai no código do site, e cada preparação usa a chave da Anthropic. Publicar assim, com proteção de acesso da Vercel, ou manter a demonstração só local por enquanto? E preencher `VERCEL_TOKEN` (N7) | Chat e `.env.local` | Item 4 do Checkpoint 4 | 04/11/2026 |
 
 ## Decisões provisórias (para revisar)
 
@@ -53,6 +53,9 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | Migration 0004: `interacao_ia.versao_prompt`. Prompts em `_shared/prompts/` com `VERSAO`, também cobertos pelo teste de isolamento do motor. `npm run ensaio:ia` roda o motor com o modelo real, sem gravar no banco. |
 | 04/11/2026 | Situação é criada com id gerado na função e insert **sem** RETURNING: a política de leitura de `situacao` (`pode_ver_situacao`) consulta a própria tabela e não enxerga a linha nova no mesmo comando, então o RETURNING era recusado. Achado no teste pelo navegador. |
 | 04/11/2026 | Segredos das funções: `npm run db:segredos` (lê só as variáveis de IA do `.env.local`, funciona no PowerShell). A gravação de segredos pelo agente é bloqueada pela checagem de segurança; o Marcelo roda o comando. |
+| 04/11/2026 | CP4 sem migration nem função nova: combinados, aplicação e registro gravam direto do front com o JWT do líder (RLS da 0001). Combinados entram como `pendente_revisao` ao registrar a conversa e só viram `aberto` quando o líder confirma (regra 5). Painel M8 pela função `andamento_lideranca`. |
+| 04/11/2026 | Linha do tempo: a view converte datas puras para meia-noite UTC, o que em São Paulo voltava um dia. A UI trata meia-noite UTC exata como data pura (teste). |
+| 04/11/2026 | Deploy da demonstração preparado (`npm run publicar:demo`): build local com as `VITE_*` do `.env.local` e envio só de `dist/` para a Vercel, com rewrite para o index.html. |
 | 04/11/2026 | UI valida o JSON do contexto com zod (`src/dominio/contexto.ts`); teste garante que a saída do normalizador para os 13 colaboradores do fixture passa nesse schema. |
 
 ## Insumos recebidos

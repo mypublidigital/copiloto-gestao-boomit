@@ -6,6 +6,7 @@ import { Cartao, Estado, Numero } from '@/components/Estado'
 import { formatarData } from '@/lib/datas'
 import { supabase } from '@/lib/supabase'
 import { exigir, useConsulta } from '@/lib/useConsulta'
+import { PainelLideranca } from './PainelLideranca'
 
 const ROTULO_STATUS: Record<string, string> = { sucesso: 'Sucesso', parcial: 'Parcial', erro: 'Erro', em_andamento: 'Em andamento' }
 
@@ -53,6 +54,8 @@ export function PainelAdmin({ vinculo }: { vinculo: Vinculo }) {
                 </ul>
               </Cartao>
             )}
+
+            <PainelLideranca empresaId={vinculo.empresa_id} />
 
             <Cartao titulo={`Colaboradores · ${lista.length}`}>
               <div className="overflow-x-auto">

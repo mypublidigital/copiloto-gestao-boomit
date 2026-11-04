@@ -5,6 +5,7 @@ import { Cartao, Estado, Numero } from '@/components/Estado'
 import { lerContexto, NIVEIS_IA, type ContextoColaborador } from '@/dominio/contexto'
 import { supabase } from '@/lib/supabase'
 import { exigir, useConsulta } from '@/lib/useConsulta'
+import { PainelLideranca } from './PainelLideranca'
 
 interface Pessoa {
   id: string
@@ -65,6 +66,8 @@ export function MinhaEquipe({ vinculo, nome }: { vinculo: Vinculo; nome: string 
                 <p className="mt-1 text-sm text-muted-foreground">Prepare um feedback com o contexto da Boomit e simule a conversa antes.</p>
               </Link>
             )}
+
+            {vinculo.papel === 'lider' && <PainelLideranca empresaId={vinculo.empresa_id} />}
 
             <Cartao titulo={`${titulo} · ${pessoas.length}`}>
               {pessoas.length === 0 ? (

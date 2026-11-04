@@ -22,3 +22,6 @@ supabase/.branches/
 
 # Node / TS build info
 *.tsbuildinfo
+
+# Vercel CLI
+.vercel/

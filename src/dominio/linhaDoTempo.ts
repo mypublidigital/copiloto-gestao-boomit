@@ -38,7 +38,10 @@ function daView(l: LinhaView): ItemLinhaDoTempo | null {
   const natureza = l.natureza as Natureza
   // Natureza desconhecida não é exibida com um rótulo inventado.
   if (!l.quando || !NATUREZAS_DA_VIEW.has(natureza)) return null
-  return { chave: `${natureza}:${l.origem_id}`, quando: l.quando, natureza, titulo: l.resumo ?? '(sem título)', detalhe: l.subtipo }
+  // A view converte datas puras (registro.data_fato, combinado.concluido_em) para meia-noite UTC;
+  // exibir isso em São Paulo voltaria um dia. Meia-noite UTC exata = data pura.
+  const quando = /T00:00:00(?:\.0+)?(?:Z|\+00(?::?00)?)$/.test(l.quando) ? l.quando.slice(0, 10) : l.quando
+  return { chave: `${natureza}:${l.origem_id}`, quando, natureza, titulo: l.resumo ?? '(sem título)', detalhe: l.subtipo }
 }
 
 export function eventosBoomit(ctx: ContextoColaborador | null): ItemLinhaDoTempo[] {

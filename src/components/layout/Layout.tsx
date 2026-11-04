@@ -38,9 +38,26 @@ export function Layout() {
         </aside>
         <div className="min-w-0 flex-1">
           <header className="flex flex-wrap items-center justify-between gap-3 border-b bg-card px-6 py-3 md:px-10">
-            <div className="text-sm">
-              <span className="font-semibold">{nome}</span>
-              {vinculo && <span className="text-muted-foreground"> · {ROTULO_PAPEL[vinculo.papel]}</span>}
+            <div className="flex flex-wrap items-center gap-4 text-sm">
+              <span>
+                <span className="font-semibold">{nome}</span>
+                {vinculo && <span className="text-muted-foreground"> · {ROTULO_PAPEL[vinculo.papel]}</span>}
+              </span>
+              {vinculo?.papel === 'lider' && (
+                <nav aria-label="Atalhos" className="flex gap-1">
+                  {(
+                    [
+                      ['/preparar', 'Preparar'],
+                      ['/registrar', 'Registrar'],
+                      ['/combinados', 'Combinados'],
+                    ] as const
+                  ).map(([to, rotulo]) => (
+                    <NavLink key={to} to={to} className={({ isActive }) => cn('rounded-md px-2.5 py-1 hover:bg-secondary', isActive && 'bg-secondary font-semibold')}>
+                      {rotulo}
+                    </NavLink>
+                  ))}
+                </nav>
+              )}
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <PersonasCabecalho atual={sessao?.user.email ?? null} />
