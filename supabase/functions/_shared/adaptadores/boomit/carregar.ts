@@ -3,7 +3,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { ItemDeContexto } from '../../motor/contexto.ts'
 import type { Database } from '../../tipos/banco.ts'
-import { itensDaEmpresa, itensDaPessoa, itensDasAlcadas, itensDoHistorico } from './itens.ts'
+import { itensDaEmpresa, itensDaPessoa, itensDasAlcadas, itensDeReunioes, itensDoHistorico, type TrechoBasico, termosDeBusca } from './itens.ts'
 import type { ContextoColaborador, ContextoEmpresa } from './normalizador.ts'
 
 type Db = SupabaseClient<Database>
@@ -14,7 +14,7 @@ export interface ContextoDaPessoa {
 }
 
 /** null quando a pessoa não está na visão do usuário. Com liderId, inclui as alçadas do nível do líder. */
-export async function carregarContextoDaPessoa(db: Db, colaboradorId: string, liderId: string | null = null): Promise<ContextoDaPessoa | null> {
+export async function carregarContextoDaPessoa(db: Db, colaboradorId: string, liderId: string | null = null, relato: string | null = null): Promise<ContextoDaPessoa | null> {
   const pessoa = await db.from('colaborador').select('id, nome, cargo, area, empresa_id, contexto_colaborador(dados)').eq('id', colaboradorId).maybeSingle()
   if (pessoa.error) throw new Error(`ler colaborador: ${pessoa.error.message}`)
   if (!pessoa.data) return null
@@ -29,6 +29,7 @@ export async function carregarContextoDaPessoa(db: Db, colaboradorId: string, li
   ])
   for (const r of [empresa, registros, combinados, alcadas, lider]) if (r.error) throw new Error(`ler contexto: ${r.error.message}`)
 
+  const trechos = await trechosDaPessoa(db, colaboradorId, relato)
   const ctxPessoa = (p.contexto_colaborador?.dados ?? null) as ContextoColaborador | null
   const ctxEmpresa = (empresa.data?.dados ?? null) as ContextoEmpresa | null
   return {
@@ -38,6 +39,22 @@ export async function carregarContextoDaPessoa(db: Db, colaboradorId: string, li
       ...itensDaEmpresa(ctxEmpresa),
       ...itensDaPessoa(p, ctxPessoa),
       ...itensDoHistorico(registros.data ?? [], combinados.data ?? []),
+      ...itensDeReunioes(trechos),
     ],
   }
+}
+
+/** Camada 7 (docs/03 §3): busca textual com o relato + recência, só em documentos confirmados para a pessoa. */
+async function trechosDaPessoa(db: Db, colaboradorId: string, relato: string | null): Promise<TrechoBasico[]> {
+  const vinc = await db.from('documento_colaborador').select('documento_id').eq('colaborador_id', colaboradorId).eq('confirmado', true)
+  const docs = (vinc.data ?? []).map((v) => v.documento_id)
+  if (docs.length === 0) return []
+  const campos = 'id, texto, locutor, documento:documento_id(titulo, tipo, data_evento)'
+  const termos = relato ? termosDeBusca(relato) : null
+  if (termos) {
+    const achados = await db.from('trecho').select(campos).in('documento_id', docs).textSearch('busca', termos, { config: 'portuguese', type: 'websearch' }).limit(6)
+    if (!achados.error && achados.data?.length) return achados.data as TrechoBasico[]
+  }
+  const recentes = await db.from('trecho').select(campos).in('documento_id', docs).order('documento_id', { ascending: false }).order('ordem').limit(4)
+  return (recentes.data ?? []) as TrechoBasico[]
 }

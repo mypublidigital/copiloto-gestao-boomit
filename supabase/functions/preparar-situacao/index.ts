@@ -35,7 +35,7 @@ async function tratar(req: Request): Promise<Response> {
   const { data: membro } = await db.from('membro').select('empresa_id, colaborador_id').eq('user_id', usuario.id).eq('papel', 'lider').limit(1).maybeSingle()
   if (!membro?.colaborador_id) throw new ErroHttp(403, 'Só líderes preparam conversas')
 
-  const contexto = await carregarContextoDaPessoa(db, c.colaborador_id, membro.colaborador_id)
+  const contexto = await carregarContextoDaPessoa(db, c.colaborador_id, membro.colaborador_id, c.relato || null)
   if (!contexto) throw new ErroHttp(404, 'Esta pessoa não está na sua visão')
   const excluidas = new Set(c.fontes_excluidas)
   const itens = contexto.itens.filter((i) => !excluidas.has(i.fonte_id))

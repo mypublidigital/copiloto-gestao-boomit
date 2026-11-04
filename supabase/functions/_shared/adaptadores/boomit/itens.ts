@@ -208,3 +208,35 @@ export function itensDasAlcadas(alcadas: AlcadaBasica[], nivelLider: string | nu
         .join(' '),
     }))
 }
+
+export interface TrechoBasico {
+  id: string
+  texto: string
+  locutor: string | null
+  documento: { titulo: string; tipo: string; data_evento: string | null } | null
+}
+
+const ROTULO_DOC: Record<string, string> = {
+  transcricao_mentoria: 'Mentoria',
+  transcricao_reuniao: 'Reunião',
+  anotacao_reuniao: 'Reunião (anotações)',
+  documento: 'Documento',
+  nota: 'Nota',
+}
+
+/** Camada 7: trechos de reuniões, mentorias e documentos confirmados para a pessoa. */
+export function itensDeReunioes(trechos: TrechoBasico[]): ItemDeContexto[] {
+  return trechos.map((t) => ({
+    fonte_id: `copiloto:trecho:${t.id}`,
+    rotulo: `${ROTULO_DOC[t.documento?.tipo ?? ''] ?? 'Fonte'} · ${t.documento?.titulo ?? 'sem título'}`,
+    camada: CAMADAS.reunioes_e_mentorias,
+    data: t.documento?.data_evento ?? null,
+    conteudo: `${t.locutor ? `${t.locutor}: ` : ''}${t.texto}`,
+  }))
+}
+
+/** Termos do relato para a busca textual (OR), sem palavras muito curtas. */
+export function termosDeBusca(relato: string): string | null {
+  const palavras = [...new Set(relato.toLowerCase().match(/[a-zà-ÿ0-9]{4,}/g) ?? [])].slice(0, 12)
+  return palavras.length ? palavras.join(' or ') : null
+}

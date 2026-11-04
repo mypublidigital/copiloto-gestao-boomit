@@ -4,3 +4,6 @@ declare namespace Deno {
   function serve(handler: (req: Request) => Response | Promise<Response>): unknown
   const env: { get(nome: string): string | undefined }
 }
+
+// Supabase Edge Runtime: mantém a função viva até a promessa terminar (tarefa em segundo plano).
+declare const EdgeRuntime: { waitUntil(promessa: Promise<unknown>): void }

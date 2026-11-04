@@ -50,6 +50,7 @@ export function Layout() {
                       ['/preparar', 'Preparar'],
                       ['/registrar', 'Registrar'],
                       ['/combinados', 'Combinados'],
+                      ['/fontes', 'Subir reunião'],
                     ] as const
                   ).map(([to, rotulo]) => (
                     <NavLink key={to} to={to} className={({ isActive }) => cn('rounded-md px-2.5 py-1 hover:bg-secondary', isActive && 'bg-secondary font-semibold')}>
