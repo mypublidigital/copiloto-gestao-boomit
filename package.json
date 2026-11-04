@@ -20,7 +20,8 @@
     "db:tipos": "bash scripts/com-env.sh 'bash scripts/gerar-tipos.sh'",
     "seed:demo": "bash scripts/com-env.sh 'node scripts/seed-demo.ts'",
     "verificar:producao": "bash scripts/com-env.sh 'node scripts/verificar-build-producao.mjs'",
-    "ensaio:ia": "bash scripts/com-env.sh 'node scripts/ensaio-ia.ts'"
+    "ensaio:ia": "bash scripts/com-env.sh 'node scripts/ensaio-ia.ts'",
+    "db:segredos": "node scripts/gravar-segredos-funcoes.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.4.0",

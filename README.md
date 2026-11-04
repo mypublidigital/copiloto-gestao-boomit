@@ -49,3 +49,5 @@ Base para construir o Copiloto no Claude Code, com a EasyJur como cliente-piloto
 | `npm run db:tipos` | Gera `src/tipos/banco.ts` a partir do banco remoto |
 | `npm run seed:demo` | Carrega a empresa fictícia (conector mock), a hierarquia e as 5 personas de demonstração. Pode rodar de novo |
 | `npm run verificar:producao` | Gera o build de produção e confere que nada do modo demonstração foi junto |
+| `npm run db:segredos` | Grava no Supabase os segredos de IA das Edge Functions, lendo do `.env.local` (não exibe valores) |
+| `npm run ensaio:ia` | Roda o motor com o modelo real como a persona Marina, sem gravar nada (custa centavos) |

@@ -5,18 +5,17 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 
 ## Estado atual
 
-- **Etapa:** Sprint 0 · Checkpoint 3 (Preparar feedback e simular)
-- **Situação:** código completo e testado (74 testes com modelo simulado; ensaio com o modelo real
-  pelo Node: plano com fontes e encaminhamento funcionando). **Falta:** publicar as Edge Functions
-  `preparar-situacao` e `simular`, gravar os segredos delas no Supabase (pergunta 1) e validar os
-  itens 3, 4 e 6 do roteiro no navegador. (CP2 concluído em 04/11/2026.)
+- **Etapa:** Sprint 0 · Checkpoint 3 (Preparar feedback e simular) — **aceite atendido**
+- **Situação:** concluído em 04/11/2026. Itens 3, 4 e 6 do roteiro verificados no navegador com o
+  modelo real; fato sem fonte cai em "a confirmar" (teste). Próximo: Checkpoint 4 (combinados,
+  aplicação, painel do diretor e deploy de demonstração).
 - **Última atualização:** 04/11/2026
 
 ## Perguntas abertas (dependem do Marcelo)
 
 | # | Pergunta | Onde responder | Bloqueia | Desde |
 |---|---|---|---|---|
-| 1 | Autorizar publicar `preparar-situacao` e `simular` e gravar no Supabase os segredos `ANTHROPIC_API_KEY`, `MODELO_PRINCIPAL` e `MODELO_RAPIDO` (copiados do `.env.local`, sem exibir)? | Chat | Itens 3, 4 e 6 do roteiro no app | 04/11/2026 |
+| — | Nenhuma no momento (funções publicadas e segredos gravados em 04/11/2026) | — | — | — |
 
 ## Decisões provisórias (para revisar)
 
@@ -52,6 +51,8 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | Sensibilidade em duas camadas: termos no código (rede de segurança, nem chama o modelo) + classificador (Haiku). O ensaio real mostrou um caso que só o classificador pegou ("comentários de cunho sexual"); o padrão foi ampliado e virou teste. |
 | 04/11/2026 | Custo estimado por chamada com a tabela de preços em `motor/modelo.ts` (US$ por 1M tokens: Sonnet 5.5 2/10, Haiku 5.5 0,10/0,50, Opus 5.5 4/20). Ensaio real: preparação ≈ US$ 0,05 em 25 s; classificação ≈ US$ 0,0002. |
 | 04/11/2026 | Migration 0004: `interacao_ia.versao_prompt`. Prompts em `_shared/prompts/` com `VERSAO`, também cobertos pelo teste de isolamento do motor. `npm run ensaio:ia` roda o motor com o modelo real, sem gravar no banco. |
+| 04/11/2026 | Situação é criada com id gerado na função e insert **sem** RETURNING: a política de leitura de `situacao` (`pode_ver_situacao`) consulta a própria tabela e não enxerga a linha nova no mesmo comando, então o RETURNING era recusado. Achado no teste pelo navegador. |
+| 04/11/2026 | Segredos das funções: `npm run db:segredos` (lê só as variáveis de IA do `.env.local`, funciona no PowerShell). A gravação de segredos pelo agente é bloqueada pela checagem de segurança; o Marcelo roda o comando. |
 | 04/11/2026 | UI valida o JSON do contexto com zod (`src/dominio/contexto.ts`); teste garante que a saída do normalizador para os 13 colaboradores do fixture passa nesse schema. |
 
 ## Insumos recebidos
@@ -68,4 +69,5 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | Repositório | Git iniciado e primeiro push | `b1a6da8` |
 | 04/11/2026 | Sprint 0 · CP1 (parte sem Supabase) | Front sobe local com a faixa de demonstração; typecheck, lint, 5 testes do motor e 28/28 de RLS (local) passam | `dc0b8a7` |
 | 04/11/2026 | Sprint 0 · CP1 concluído | Migration 0001 no remoto (27 tabelas, todas com RLS, 54 políticas); RLS 28/28 local e remoto; tipos gerados; front com cliente Supabase. Aceite: app sobe local, RLS e isolamento passam | `42e0b42` |
-| 04/11/2026 | Sprint 0 · CP2 | Conector mock + normalizador (R1, R5, R9; 8 regras da Sprint 1 como pendentes), migrations 0002 e 0003, seed com 13 colaboradores e 5 personas, telas M1 e M2, painel do admin. Testes: 32 unitários, 39 de RLS local e remoto, build de produção limpo. Roteiro 1, 2, 8 e 9 verificados no navegador. Deploy autorizado pelo Marcelo e feito: service role e Admin RH sincronizam (200, sem snapshot novo), líder recebe 403, sem login 401 | `a969432` + ver `git log` |
+| 04/11/2026 | Sprint 0 · CP2 | Conector mock + normalizador (R1, R5, R9; 8 regras da Sprint 1 como pendentes), migrations 0002 e 0003, seed com 13 colaboradores e 5 personas, telas M1 e M2, painel do admin. Testes: 32 unitários, 39 de RLS local e remoto, build de produção limpo. Roteiro 1, 2, 8 e 9 verificados no navegador. Deploy autorizado pelo Marcelo e feito: service role e Admin RH sincronizam (200, sem snapshot novo), líder recebe 403, sem login 401 | `a969432`, `22f1cea` |
+| 04/11/2026 | Sprint 0 · CP3 | Motor, adaptador, prompts, `preparar-situacao` e `simular` publicadas, telas M3 e M4. No navegador: plano da Ana com fatos citando fontes (relato F23, PDI F14, assessment F9–F13), hipóteses incluindo o papel do líder, versão 2 salva; simulação desafiadora com streaming e debrief nos 5 critérios sem nota; relato de assédio → encaminhamento com os canais, sem chamar a IA. `interacao_ia` só com metadados; custo da demonstração ≈ US$ 0,07. Testes: 74 unitários, 44 de RLS local e remoto | `5b33531` + ver `git log` |

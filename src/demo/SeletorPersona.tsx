@@ -34,6 +34,7 @@ export default function SeletorPersona({ compacto = false, atual }: { compacto?:
           disabled={entrando !== null}
           onClick={() => entrarComo(p.email)}
           aria-pressed={atual === p.email}
+          aria-label={`Entrar como ${p.nome} (${p.descricao})`}
           className={cn(
             'rounded-md border text-left transition-colors disabled:opacity-60',
             compacto ? 'px-2 py-1 text-xs' : 'bg-card p-3 hover:border-primary',

@@ -49,9 +49,13 @@ async function tratar(req: Request): Promise<Response> {
   const resultado = await prepararSituacao({ relato: c.relato, itens, cliente, modelos })
   const sensivel = resultado.tipo === 'encaminhamento'
 
+  // Id gerado aqui e insert sem RETURNING: a política de leitura de situacao consulta a própria
+  // tabela e, no mesmo comando, ainda não enxerga a linha nova (o RETURNING seria recusado).
+  const situacaoId = crypto.randomUUID()
   const situacao = await db
     .from('situacao')
     .insert({
+      id: situacaoId,
       empresa_id: membro.empresa_id,
       lider_id: membro.colaborador_id,
       colaborador_id: c.colaborador_id,
@@ -62,10 +66,7 @@ async function tratar(req: Request): Promise<Response> {
       status: sensivel ? 'encaminhada' : 'preparada',
       sensivel,
     })
-    .select('id')
-    .single()
   if (situacao.error) throw new ErroHttp(500, `Não foi possível salvar a situação: ${situacao.error.message}`)
-  const situacaoId = situacao.data.id
 
   let interacaoPreparacao: string | null = null
   for (const ch of resultado.chamadas) {
