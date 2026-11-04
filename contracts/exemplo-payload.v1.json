@@ -1,0 +1,204 @@
+{
+  "schema_version": "1.0",
+  "gerado_em": "2026-10-26T06:00:00-03:00",
+  "proximo_cursor": null,
+  "empresa": {
+    "id": "7f2c1d4e-0000-4000-8000-000000000001",
+    "nome_fantasia": "Empresa Exemplo (fictícia)",
+    "setor": "Software",
+    "data_ultima_analise": "2026-10-20",
+    "maturidade": {
+      "nota": "B",
+      "score": 105,
+      "rotulo": "Processos estruturados em desenvolvimento",
+      "diagnostico": "Texto ilustrativo.",
+      "proxima_etapa": "Texto ilustrativo."
+    },
+    "pontos_chave": [
+      {
+        "metrica": "Turnover",
+        "meta": "De X para Y em 12 meses",
+        "desafios": [
+          "Desafio 1",
+          "Desafio 2",
+          "Desafio 3"
+        ],
+        "risco_pct": 42,
+        "risco_justificativa": "Ilustrativo."
+      }
+    ],
+    "estrategias_prioritarias": [
+      {
+        "ordem": 1,
+        "titulo": "Rituais de feedback",
+        "descricao": "Ilustrativo.",
+        "acoes": [
+          "Ação A",
+          "Ação B",
+          "Ação C"
+        ]
+      }
+    ],
+    "alinhamento_medio": {
+      "media_pct": 74,
+      "cultural": 78,
+      "performance": 66,
+      "engajamento": 75,
+      "estrategico": 77
+    },
+    "ia": {
+      "score_100": 38,
+      "nivel_centauro": 1,
+      "nivel_rotulo": "Operacional Ágil",
+      "eixos": {
+        "base_tecnologica": 5,
+        "uso_pratico": 3,
+        "prontidao_pessoas": 4,
+        "governanca_risco": 2,
+        "estrategia_ia": 3,
+        "escala_sustentacao": 2
+      },
+      "diagnostico": "Ilustrativo.",
+      "proximo_passo": "Ilustrativo.",
+      "calculado_em": "2026-10-20T10:00:00-03:00"
+    },
+    "textos_ia": {
+      "autopercepcao_equipe": {
+        "texto": "Ilustrativo.",
+        "gerado_em": "2026-10-20T10:00:00-03:00"
+      }
+    },
+    "secoes_indisponiveis": [
+      {
+        "secao": "digital_organizacional",
+        "motivo": "Edge Function retornou erro"
+      }
+    ]
+  },
+  "colaboradores": [
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000a2",
+      "email": "ana.exemplo@empresa.com",
+      "nome": "Ana Exemplo",
+      "cargo": "Analista Pl",
+      "area": "Operações",
+      "diretoria": "Operações",
+      "nivel": "operacional",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-04"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Comunicação Objetiva",
+          "auto": 8,
+          "meta": 8,
+          "atual": 6.5
+        },
+        {
+          "competencia": "Construção De Planos",
+          "auto": 7,
+          "meta": 8,
+          "atual": 5.8
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 6.2,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 72,
+        "rotulo": "Bem Alinhado",
+        "cultural": 80,
+        "performance": 61,
+        "engajamento": 74,
+        "estrategico": 73
+      },
+      "personalidade": {
+        "tipo": "ENFJ-T",
+        "apelido": "Protagonista",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 7,
+        "interesse": 7.8,
+        "tempo_meses": 14,
+        "esforco": "Moderado"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 55,
+        "tatico_pct": 35,
+        "estrategico_pct": 10,
+        "dominante": "Operacional"
+      },
+      "ia": {
+        "score": 4.2,
+        "nivel": 2,
+        "fluencia_digital": 5,
+        "uso_pratico": 3,
+        "prontidao_comportamental": 6,
+        "pensamento_analitico": 4,
+        "aderencia_contexto": 3
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Exemplo",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Resolução de Problemas": "Parecer ilustrativo do mentor."
+        },
+        "analise_comportamental": {
+          "Comunicação Objetiva": "Parecer ilustrativo do mentor."
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Construção De Planos": "Diagnóstico + ação + pergunta reflexiva (ilustrativo)."
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Planejamento semanal",
+            "desafio": "Entregas fora do prazo",
+            "kpi": "Entregas no prazo",
+            "de": "70%",
+            "para": "90%",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -4.1,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 68,
+        "quadrante_matriz": "promessas",
+        "r3": {
+          "acao": "desenvolver",
+          "confianca_pct": 82,
+          "justificativa": "Ilustrativo."
+        }
+      },
+      "secoes_indisponiveis": []
+    }
+  ]
+}

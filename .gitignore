@@ -1,0 +1,21 @@
+# Segredos
+.env
+.env.local
+.env.*.local
+
+# Pasta de entrada: material de trabalho fica só na sua máquina
+_entrada/*
+!_entrada/README.md
+
+# Node / build
+node_modules/
+dist/
+.vite/
+coverage/
+
+# Supabase CLI
+supabase/.temp/
+supabase/.branches/
+
+# Sistema
+.DS_Store

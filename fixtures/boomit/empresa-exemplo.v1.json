@@ -1,0 +1,2931 @@
+{
+  "schema_version": "1.0",
+  "gerado_em": "2026-11-03T06:00:00-03:00",
+  "proximo_cursor": null,
+  "empresa": {
+    "id": "7f2c1d4e-0000-4000-8000-000000000001",
+    "nome_fantasia": "Exemplo Tech (fictícia)",
+    "setor": "Software",
+    "data_ultima_analise": "2026-10-20",
+    "maturidade": {
+      "nota": "B",
+      "score": 105,
+      "rotulo": "Processos estruturados em desenvolvimento",
+      "diagnostico": "Rotinas de gestão existem, mas dependem de cada líder; acompanhamento de combinados é irregular. (texto fictício)",
+      "proxima_etapa": "Padronizar rituais de feedback e acompanhamento de PDI entre as equipes. (texto fictício)"
+    },
+    "pontos_chave": [
+      {
+        "metrica": "Turnover",
+        "meta": "De 22% para 15% em 12 meses",
+        "desafios": [
+          "Saídas no primeiro ano",
+          "Pouca clareza de carreira",
+          "Feedback irregular"
+        ],
+        "risco_pct": 48,
+        "risco_justificativa": "Ilustrativo."
+      },
+      {
+        "metrica": "NPS de atendimento",
+        "meta": "De 41 para 55 em 12 meses",
+        "desafios": [
+          "Retrabalho entre atendimento e suporte",
+          "Prazos de resposta",
+          "Treinamento de novos analistas"
+        ],
+        "risco_pct": 37,
+        "risco_justificativa": "Ilustrativo."
+      },
+      {
+        "metrica": "Margem líquida",
+        "meta": "De 9% para 12% em 12 meses",
+        "desafios": [
+          "Custo de retrabalho",
+          "Produtividade das equipes",
+          "Adoção de IA nas rotinas"
+        ],
+        "risco_pct": 29,
+        "risco_justificativa": "Ilustrativo."
+      }
+    ],
+    "estrategias_prioritarias": [
+      {
+        "ordem": 1,
+        "titulo": "Rituais de feedback e 1:1",
+        "descricao": "Cadência quinzenal de 1:1 com combinados registrados. (fictício)",
+        "acoes": [
+          "Definir pauta mínima",
+          "Registrar combinados",
+          "Revisar quinzenalmente"
+        ]
+      },
+      {
+        "ordem": 2,
+        "titulo": "PDI vivo",
+        "descricao": "PDIs revisados a cada mês com evidência de prática. (fictício)",
+        "acoes": [
+          "Escolher 2 competências",
+          "Prática semanal",
+          "Revisão mensal"
+        ]
+      },
+      {
+        "ordem": 3,
+        "titulo": "Interface atendimento × suporte",
+        "descricao": "Reduzir retrabalho entre áreas. (fictício)",
+        "acoes": [
+          "Mapear passagens",
+          "Critério de aceite",
+          "Ritual semanal"
+        ]
+      }
+    ],
+    "alinhamento_medio": {
+      "media_pct": 76,
+      "cultural": 80,
+      "performance": 69,
+      "engajamento": 77,
+      "estrategico": 78
+    },
+    "ia": {
+      "score_100": 44,
+      "nivel_centauro": 2,
+      "nivel_rotulo": "Exemplo de rótulo (fictício)",
+      "eixos": {
+        "base_tecnologica": 6,
+        "uso_pratico": 4,
+        "prontidao_pessoas": 5,
+        "governanca_risco": 3,
+        "estrategia_ia": 4,
+        "escala_sustentacao": 3
+      },
+      "diagnostico": "Ilustrativo.",
+      "proximo_passo": "Ilustrativo.",
+      "calculado_em": "2026-10-20T10:00:00-03:00"
+    },
+    "textos_ia": {
+      "autopercepcao_equipe": {
+        "texto": "A equipe tende a superestimar planejamento e comunicação objetiva em relação à avaliação do mentor. (texto fictício)",
+        "gerado_em": "2026-10-20T10:00:00-03:00"
+      }
+    },
+    "secoes_indisponiveis": [
+      {
+        "secao": "digital_organizacional",
+        "motivo": "Edge Function retornou erro"
+      }
+    ]
+  },
+  "colaboradores": [
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000d0",
+      "email": "ricardo.alves@exemplotech.com",
+      "nome": "Ricardo Alves",
+      "cargo": "Diretor de Operações",
+      "area": "Operações",
+      "diretoria": "Operações",
+      "nivel": "estrategico",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-03"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 7.0,
+          "meta": 9,
+          "atual": 7.4
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 6.0,
+          "meta": 9,
+          "atual": 5.9
+        },
+        {
+          "competencia": "Foco",
+          "auto": 8.9,
+          "meta": 9,
+          "atual": 7.7
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 8.1,
+          "meta": 9,
+          "atual": 8.4
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 6.1,
+          "meta": 9,
+          "atual": 6.5
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 6.5,
+          "meta": 9,
+          "atual": 5.7
+        },
+        {
+          "competencia": "Construção de Planos",
+          "auto": 4.9,
+          "meta": 9,
+          "atual": 4.9
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 8.3,
+          "meta": 9,
+          "atual": 7.4
+        },
+        {
+          "competencia": "Tomada de Decisão",
+          "auto": 6.7,
+          "meta": 9,
+          "atual": 5.7
+        },
+        {
+          "competencia": "Comunicação Objetiva",
+          "auto": 7.5,
+          "meta": 9,
+          "atual": 8.0
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 8.0,
+          "esperado": 9
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 7.6,
+          "esperado": 9
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 6.3,
+          "esperado": 9
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 5.6,
+          "esperado": 9
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 8.5,
+          "esperado": 9
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 6.2,
+          "esperado": 9
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 5.3,
+          "esperado": 9
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 5.4,
+          "esperado": 9
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 8.1,
+          "esperado": 9
+        }
+      ],
+      "alinhamento": {
+        "pct": 74,
+        "rotulo": "Bem Alinhado",
+        "cultural": 70,
+        "performance": 71,
+        "engajamento": 78,
+        "estrategico": 77
+      },
+      "personalidade": {
+        "tipo": "ENTJ-A",
+        "apelido": "Comandante",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 8.4,
+        "interesse": 6.7,
+        "tempo_meses": 12,
+        "esforco": "Fácil"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 10,
+        "tatico_pct": 35,
+        "estrategico_pct": 55,
+        "dominante": "Estratégico"
+      },
+      "ia": {
+        "score": 6.7,
+        "nivel": 4,
+        "fluencia_digital": 7.1,
+        "uso_pratico": 6.4,
+        "prontidao_comportamental": 6.9,
+        "pensamento_analitico": 6.7,
+        "aderencia_contexto": 5.6
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Conhecimento do Setor": "Conhecimento do Setor: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Compreensão Estratégica": "Compreensão Estratégica: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Construção de Planos": "Construção de Planos: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Curiosidade": "Curiosidade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Tomada de Decisão": "Tomada de Decisão: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Construção de Planos": "Diagnóstico: Construção de Planos abaixo da meta (4.9 × 9). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Curiosidade": "Diagnóstico: Curiosidade abaixo da meta (5.7 × 9). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Construção de Planos",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -2.25,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 92,
+        "quadrante_matriz": "estrelas",
+        "r3": {
+          "acao": "promover",
+          "confianca_pct": 72,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000a0",
+      "email": "marina.costa@exemplotech.com",
+      "nome": "Marina Costa",
+      "cargo": "Coordenadora de Atendimento",
+      "area": "Operações",
+      "diretoria": "Operações",
+      "nivel": "tatico",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-06"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 8.2,
+          "meta": 8,
+          "atual": 6.6
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 5.9,
+          "meta": 8,
+          "atual": 5.5
+        },
+        {
+          "competencia": "Foco",
+          "auto": 8.8,
+          "meta": 8,
+          "atual": 7.5
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 7.2,
+          "meta": 8,
+          "atual": 7.5
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 8.1,
+          "meta": 8,
+          "atual": 7.3
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 6.5,
+          "meta": 8,
+          "atual": 5.8
+        },
+        {
+          "competencia": "Construção de Planos",
+          "auto": 7.7,
+          "meta": 8,
+          "atual": 5.9
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 7.6,
+          "meta": 8,
+          "atual": 7.6
+        },
+        {
+          "competencia": "Tomada de Decisão",
+          "auto": 7.5,
+          "meta": 8,
+          "atual": 6.1
+        },
+        {
+          "competencia": "Comunicação Objetiva",
+          "auto": 6.6,
+          "meta": 8,
+          "atual": 5.0
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 8.0,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 6.5,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 5.2,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 8.4,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 7.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 7.7,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 5.8,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 6.8,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 8.3,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 85,
+        "rotulo": "Altamente Alinhado",
+        "cultural": 89,
+        "performance": 86,
+        "engajamento": 88,
+        "estrategico": 85
+      },
+      "personalidade": {
+        "tipo": "ENFJ-T",
+        "apelido": "Protagonista",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 6.7,
+        "interesse": 8.9,
+        "tempo_meses": 12,
+        "esforco": "Difícil"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 25,
+        "tatico_pct": 55,
+        "estrategico_pct": 20,
+        "dominante": "Tático"
+      },
+      "ia": {
+        "score": 4.9,
+        "nivel": 3,
+        "fluencia_digital": 4.8,
+        "uso_pratico": 4.3,
+        "prontidao_comportamental": 6.2,
+        "pensamento_analitico": 6.0,
+        "aderencia_contexto": 4.6
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Resolução de Problemas": "Resolução de Problemas: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Conhecimento do Setor": "Conhecimento do Setor: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Comunicação Objetiva": "Comunicação Objetiva: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Criatividade": "Criatividade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Curiosidade": "Curiosidade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Comunicação Objetiva": "Diagnóstico: Comunicação Objetiva abaixo da meta (5.0 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Criatividade": "Diagnóstico: Criatividade abaixo da meta (5.5 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Comunicação Objetiva",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -6.0,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 80,
+        "quadrante_matriz": "entregadores",
+        "r3": {
+          "acao": "desenvolver",
+          "confianca_pct": 66,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000a1",
+      "email": "ana.faria@exemplotech.com",
+      "nome": "Ana Faria",
+      "cargo": "Analista de Atendimento Pl",
+      "area": "Operações",
+      "diretoria": "Operações",
+      "nivel": "operacional",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-07"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 7.3,
+          "meta": 8,
+          "atual": 6.3
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 6.8,
+          "meta": 8,
+          "atual": 6.7
+        },
+        {
+          "competencia": "Foco",
+          "auto": 7.8,
+          "meta": 8,
+          "atual": 6.0
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 7.3,
+          "meta": 8,
+          "atual": 7.5
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 9.7,
+          "meta": 8,
+          "atual": 8.3
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 8.3,
+          "meta": 8,
+          "atual": 7.9
+        },
+        {
+          "competencia": "Construção De Planos",
+          "auto": 7.5,
+          "meta": 8,
+          "atual": 5.6
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 6.1,
+          "meta": 8,
+          "atual": 4.8
+        },
+        {
+          "competencia": "Tomada De Decisão",
+          "auto": 9.6,
+          "meta": 8,
+          "atual": 7.7
+        },
+        {
+          "competencia": "Comunicacao_objetiva",
+          "auto": 8.0,
+          "meta": 8,
+          "atual": 6.2
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 5.4,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 7.3,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 8.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 6.9,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 5.7,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 6.4,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 5.6,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 8.5,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 8.4,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 72,
+        "rotulo": "Bem Alinhado",
+        "cultural": 80,
+        "performance": 69,
+        "engajamento": 69,
+        "estrategico": 66
+      },
+      "personalidade": {
+        "tipo": "ESFJ-T",
+        "apelido": "Cônsul",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 6.3,
+        "interesse": 7.4,
+        "tempo_meses": 8,
+        "esforco": "Fácil"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 55,
+        "tatico_pct": 35,
+        "estrategico_pct": 10,
+        "dominante": "Operacional"
+      },
+      "ia": {
+        "score": 3.9,
+        "nivel": 2,
+        "fluencia_digital": 4.4,
+        "uso_pratico": 4.4,
+        "prontidao_comportamental": 4.2,
+        "pensamento_analitico": 2.9,
+        "aderencia_contexto": 3.5
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Experiência Profissional": "Experiência Profissional: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Conhecimento do Setor": "Conhecimento do Setor: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Riscos Calculados": "Riscos Calculados: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Construção De Planos": "Construção De Planos: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Foco": "Foco: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Riscos Calculados": "Diagnóstico: Riscos Calculados abaixo da meta (4.8 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Construção De Planos": "Diagnóstico: Construção De Planos abaixo da meta (5.6 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Planejamento semanal",
+            "desafio": "Entregas fora do prazo combinado",
+            "kpi": "Entregas no prazo",
+            "de": "70%",
+            "para": "90%",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -4.1,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 68,
+        "quadrante_matriz": "promessas",
+        "r3": {
+          "acao": "desenvolver",
+          "confianca_pct": 81,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000a2",
+      "email": "joao.lima@exemplotech.com",
+      "nome": "João Lima",
+      "cargo": "Analista de Atendimento Sr",
+      "area": "Operações",
+      "diretoria": "Operações",
+      "nivel": "operacional",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-08"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 6.3,
+          "meta": 8,
+          "atual": 5.5
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 9.1,
+          "meta": 8,
+          "atual": 7.2
+        },
+        {
+          "competencia": "Foco",
+          "auto": 9.9,
+          "meta": 8,
+          "atual": 8.5
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 8.9,
+          "meta": 8,
+          "atual": 7.6
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 7.6,
+          "meta": 8,
+          "atual": 6.4
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 8.0,
+          "meta": 8,
+          "atual": 6.3
+        },
+        {
+          "competencia": "Construção de Planos",
+          "auto": 6.7,
+          "meta": 8,
+          "atual": 6.6
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 4.7,
+          "meta": 8,
+          "atual": 5.1
+        },
+        {
+          "competencia": "Tomada de Decisão",
+          "auto": 8.0,
+          "meta": 8,
+          "atual": 7.0
+        },
+        {
+          "competencia": "Comunicação Objetiva",
+          "auto": 6.1,
+          "meta": 8,
+          "atual": 4.8
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 5.2,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 5.2,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 5.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 6.2,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 6.9,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 6.0,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 6.8,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 7.0,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 7.7,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 68,
+        "rotulo": "Precisa de Atenção",
+        "cultural": 64,
+        "performance": 59,
+        "engajamento": 72,
+        "estrategico": 68
+      },
+      "personalidade": {
+        "tipo": "ISTJ-A",
+        "apelido": "Logístico",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 6.7,
+        "interesse": 6.9,
+        "tempo_meses": 8,
+        "esforco": "Fácil"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 55,
+        "tatico_pct": 35,
+        "estrategico_pct": 10,
+        "dominante": "Operacional"
+      },
+      "ia": {
+        "score": 4.9,
+        "nivel": 3,
+        "fluencia_digital": 6.2,
+        "uso_pratico": 5.7,
+        "prontidao_comportamental": 5.1,
+        "pensamento_analitico": 4.8,
+        "aderencia_contexto": 4.9
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Resolução de Problemas": "Resolução de Problemas: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Experiência Profissional": "Experiência Profissional: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Comunicação Objetiva": "Comunicação Objetiva: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Riscos Calculados": "Riscos Calculados: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Inovação": "Inovação: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Comunicação Objetiva": "Diagnóstico: Comunicação Objetiva abaixo da meta (4.8 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Riscos Calculados": "Diagnóstico: Riscos Calculados abaixo da meta (5.1 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Comunicação Objetiva",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -7.68,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 83,
+        "quadrante_matriz": "entregadores",
+        "r3": {
+          "acao": "desenvolver",
+          "confianca_pct": 68,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000a3",
+      "email": "beatriz.rocha@exemplotech.com",
+      "nome": "Beatriz Rocha",
+      "cargo": "Analista de Atendimento Jr",
+      "area": "Operações",
+      "diretoria": "Operações",
+      "nivel": "operacional",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-09"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 6.7,
+          "meta": 8,
+          "atual": 6.5
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 7.6,
+          "meta": 8,
+          "atual": 5.8
+        },
+        {
+          "competencia": "Foco",
+          "auto": 8.3,
+          "meta": 8,
+          "atual": 6.6
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 6.6,
+          "meta": 8,
+          "atual": 7.0
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 10,
+          "meta": 8,
+          "atual": 8.8
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 10,
+          "meta": 8,
+          "atual": 8.7
+        },
+        {
+          "competencia": "Construção de Planos",
+          "auto": 8.1,
+          "meta": 8,
+          "atual": 8.2
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 6.7,
+          "meta": 8,
+          "atual": 6.7
+        },
+        {
+          "competencia": "Tomada de Decisão",
+          "auto": 6.0,
+          "meta": 8,
+          "atual": 6.4
+        },
+        {
+          "competencia": "Comunicação Objetiva",
+          "auto": 8.3,
+          "meta": 8,
+          "atual": 6.3
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 6.0,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 7.9,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 6.7,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 6.6,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 8.5,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 8.7,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 7.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 7.7,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 5.6,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 78,
+        "rotulo": "Bem Alinhado",
+        "cultural": 86,
+        "performance": 82,
+        "engajamento": 74,
+        "estrategico": 72
+      },
+      "personalidade": {
+        "tipo": "INFP-T",
+        "apelido": "Mediador",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 8.7,
+        "interesse": 5.8,
+        "tempo_meses": 12,
+        "esforco": "Fácil"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 55,
+        "tatico_pct": 35,
+        "estrategico_pct": 10,
+        "dominante": "Operacional"
+      },
+      "ia": {
+        "score": 1.9,
+        "nivel": 1,
+        "fluencia_digital": 2.3,
+        "uso_pratico": 1.2,
+        "prontidao_comportamental": 1.5,
+        "pensamento_analitico": 2.6,
+        "aderencia_contexto": 1.1
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Comunicação": "Comunicação: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Experiência Profissional": "Experiência Profissional: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Criatividade": "Criatividade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Comunicação Objetiva": "Comunicação Objetiva: em desenvolvimento, com bons exemplos recentes e oportunidade de consistência. (texto fictício)",
+          "Tomada de Decisão": "Tomada de Decisão: em desenvolvimento, com bons exemplos recentes e oportunidade de consistência. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Criatividade": "Diagnóstico: Criatividade abaixo da meta (5.8 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Comunicação Objetiva": "Diagnóstico: Comunicação Objetiva abaixo da meta (6.3 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Criatividade",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -3.75,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 59,
+        "quadrante_matriz": "promessas",
+        "r3": {
+          "acao": "desenvolver",
+          "confianca_pct": 83,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000a4",
+      "email": "carlos.nunes@exemplotech.com",
+      "nome": "Carlos Nunes",
+      "cargo": "Especialista em Implantação",
+      "area": "Operações",
+      "diretoria": "Operações",
+      "nivel": "operacional",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-04"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 4.7,
+          "meta": 8,
+          "atual": 5.0
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 8.3,
+          "meta": 8,
+          "atual": 7.4
+        },
+        {
+          "competencia": "Foco",
+          "auto": 6.3,
+          "meta": 8,
+          "atual": 6.1
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 7.8,
+          "meta": 8,
+          "atual": 7.5
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 5.7,
+          "meta": 8,
+          "atual": 5.9
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 8.0,
+          "meta": 8,
+          "atual": 7.4
+        },
+        {
+          "competencia": "Construção De Planos",
+          "auto": 10,
+          "meta": 8,
+          "atual": 8.5
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 5.9,
+          "meta": 8,
+          "atual": 4.8
+        },
+        {
+          "competencia": "Tomada De Decisão",
+          "auto": 6.8,
+          "meta": 8,
+          "atual": 7.1
+        },
+        {
+          "competencia": "Comunicacao_objetiva",
+          "auto": 7.8,
+          "meta": 8,
+          "atual": 7.0
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 5.5,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 6.3,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 5.3,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 5.9,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 6.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 6.6,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 7.0,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 6.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 8.6,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 70,
+        "rotulo": "Bem Alinhado",
+        "cultural": 66,
+        "performance": 61,
+        "engajamento": 75,
+        "estrategico": 72
+      },
+      "personalidade": {
+        "tipo": "INTJ-A",
+        "apelido": "Arquiteto",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 6.0,
+        "interesse": 6.5,
+        "tempo_meses": 12,
+        "esforco": "Moderado"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 55,
+        "tatico_pct": 35,
+        "estrategico_pct": 10,
+        "dominante": "Operacional"
+      },
+      "ia": {
+        "score": 8.6,
+        "nivel": 5,
+        "fluencia_digital": 9.8,
+        "uso_pratico": 8.0,
+        "prontidao_comportamental": 9.5,
+        "pensamento_analitico": 9.8,
+        "aderencia_contexto": 8.7
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Resolução de Problemas": "Resolução de Problemas: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Experiência Profissional": "Experiência Profissional: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Riscos Calculados": "Riscos Calculados: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Inovação": "Inovação: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Agilidade": "Agilidade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Riscos Calculados": "Diagnóstico: Riscos Calculados abaixo da meta (4.8 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Inovação": "Diagnóstico: Inovação abaixo da meta (5.0 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Riscos Calculados",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -2.74,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 88,
+        "quadrante_matriz": "estrelas",
+        "r3": {
+          "acao": "promover",
+          "confianca_pct": 66,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000a5",
+      "email": "daniela.prado@exemplotech.com",
+      "nome": "Daniela Prado",
+      "cargo": "Analista de Suporte Pl",
+      "area": "Tecnologia",
+      "diretoria": "Operações",
+      "nivel": "operacional",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-04"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 8.9,
+          "meta": 8,
+          "atual": 7.3
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 5.3,
+          "meta": 8,
+          "atual": 5.0
+        },
+        {
+          "competencia": "Foco",
+          "auto": 7.2,
+          "meta": 8,
+          "atual": 5.3
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 6.0,
+          "meta": 8,
+          "atual": 5.4
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 8.5,
+          "meta": 8,
+          "atual": 7.6
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 7.1,
+          "meta": 8,
+          "atual": 5.2
+        },
+        {
+          "competencia": "Construção de Planos",
+          "auto": 7.5,
+          "meta": 8,
+          "atual": 7.6
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 5.3,
+          "meta": 8,
+          "atual": 4.9
+        },
+        {
+          "competencia": "Tomada de Decisão",
+          "auto": 7.6,
+          "meta": 8,
+          "atual": 7.0
+        },
+        {
+          "competencia": "Comunicação Objetiva",
+          "auto": 5.4,
+          "meta": 8,
+          "atual": 5.0
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 8.5,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 8.6,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 5.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 6.3,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 7.5,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 7.5,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 6.3,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 7.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 8.2,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 90,
+        "rotulo": "Altamente Alinhado",
+        "cultural": 91,
+        "performance": 78,
+        "engajamento": 86,
+        "estrategico": 95
+      },
+      "personalidade": {
+        "tipo": "ESTP-A",
+        "apelido": "Empreendedor",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 8.6,
+        "interesse": 8.2,
+        "tempo_meses": 18,
+        "esforco": "Moderado"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 55,
+        "tatico_pct": 35,
+        "estrategico_pct": 10,
+        "dominante": "Operacional"
+      },
+      "ia": {
+        "score": 3.3,
+        "nivel": 2,
+        "fluencia_digital": 4.4,
+        "uso_pratico": 2.6,
+        "prontidao_comportamental": 4.8,
+        "pensamento_analitico": 4.3,
+        "aderencia_contexto": 2.6
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Resolução de Problemas": "Resolução de Problemas: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Conhecimento Técnico": "Conhecimento Técnico: em desenvolvimento, com bons exemplos recentes e oportunidade de consistência. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Riscos Calculados": "Riscos Calculados: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Criatividade": "Criatividade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Comunicação Objetiva": "Comunicação Objetiva: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Riscos Calculados": "Diagnóstico: Riscos Calculados abaixo da meta (4.9 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Criatividade": "Diagnóstico: Criatividade abaixo da meta (5.0 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Riscos Calculados",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -9.44,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 50,
+        "quadrante_matriz": "atencao",
+        "r3": {
+          "acao": "desenvolver",
+          "confianca_pct": 90,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000a6",
+      "email": "eduardo.sales@exemplotech.com",
+      "nome": "Eduardo Sales",
+      "cargo": "Analista de Suporte Sr",
+      "area": "Tecnologia",
+      "diretoria": "Operações",
+      "nivel": "operacional",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-08"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 8.9,
+          "meta": 8,
+          "atual": 8.5
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 9.8,
+          "meta": 8,
+          "atual": 8.1
+        },
+        {
+          "competencia": "Foco",
+          "auto": 6.9,
+          "meta": 8,
+          "atual": 5.7
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 6.6,
+          "meta": 8,
+          "atual": 6.4
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 6.5,
+          "meta": 8,
+          "atual": 5.1
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 7.0,
+          "meta": 8,
+          "atual": 6.2
+        },
+        {
+          "competencia": "Construção de Planos",
+          "auto": 9.1,
+          "meta": 8,
+          "atual": 7.5
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 5.7,
+          "meta": 8,
+          "atual": 6.1
+        },
+        {
+          "competencia": "Tomada de Decisão",
+          "auto": 8.5,
+          "meta": 8,
+          "atual": 8.3
+        },
+        {
+          "competencia": "Comunicação Objetiva",
+          "auto": 9.1,
+          "meta": 8,
+          "atual": 7.1
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 5.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 7.2,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 6.3,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 7.9,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 6.6,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 8.6,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 5.4,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 8.3,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 5.7,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 64,
+        "rotulo": "Precisa de Atenção",
+        "cultural": 69,
+        "performance": 62,
+        "engajamento": 67,
+        "estrategico": 63
+      },
+      "personalidade": {
+        "tipo": "ISFJ-T",
+        "apelido": "Defensor",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 7.7,
+        "interesse": 5.9,
+        "tempo_meses": 14,
+        "esforco": "Moderado"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 55,
+        "tatico_pct": 35,
+        "estrategico_pct": 10,
+        "dominante": "Operacional"
+      },
+      "ia": {
+        "score": 3.8,
+        "nivel": 2,
+        "fluencia_digital": 3.5,
+        "uso_pratico": 3.8,
+        "prontidao_comportamental": 4.2,
+        "pensamento_analitico": 3.0,
+        "aderencia_contexto": 3.5
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Experiência Profissional": "Experiência Profissional: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Conhecimento do Setor": "Conhecimento do Setor: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Agilidade": "Agilidade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Foco": "Foco: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Riscos Calculados": "Riscos Calculados: em desenvolvimento, com bons exemplos recentes e oportunidade de consistência. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Agilidade": "Diagnóstico: Agilidade abaixo da meta (5.1 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Foco": "Diagnóstico: Foco abaixo da meta (5.7 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Agilidade",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -1.81,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 76,
+        "quadrante_matriz": "entregadores",
+        "r3": {
+          "acao": "desenvolver",
+          "confianca_pct": 76,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000a7",
+      "email": "fernanda.melo@exemplotech.com",
+      "nome": "Fernanda Melo",
+      "cargo": "Analista de Qualidade Pl",
+      "area": "Operações",
+      "diretoria": "Operações",
+      "nivel": "operacional",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-08"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 9.3,
+          "meta": 8,
+          "atual": 7.5
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 7.6,
+          "meta": 8,
+          "atual": 7.3
+        },
+        {
+          "competencia": "Foco",
+          "auto": 6.5,
+          "meta": 8,
+          "atual": 7.0
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 6.5,
+          "meta": 8,
+          "atual": 5.9
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 8.2,
+          "meta": 8,
+          "atual": 7.1
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 7.3,
+          "meta": 8,
+          "atual": 6.7
+        },
+        {
+          "competencia": "Construção De Planos",
+          "auto": 6.4,
+          "meta": 8,
+          "atual": 5.7
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 9.9,
+          "meta": 8,
+          "atual": 8.4
+        },
+        {
+          "competencia": "Tomada De Decisão",
+          "auto": 5.2,
+          "meta": 8,
+          "atual": 5.5
+        },
+        {
+          "competencia": "Comunicacao_objetiva",
+          "auto": 8.0,
+          "meta": 8,
+          "atual": 6.9
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 6.2,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 8.0,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 7.8,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 7.5,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 5.8,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 5.7,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 5.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 5.9,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 6.8,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 77,
+        "rotulo": "Bem Alinhado",
+        "cultural": 78,
+        "performance": 72,
+        "engajamento": 73,
+        "estrategico": 81
+      },
+      "personalidade": {
+        "tipo": "ENFP-T",
+        "apelido": "Ativista",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 7.8,
+        "interesse": 8.5,
+        "tempo_meses": 8,
+        "esforco": "Difícil"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 55,
+        "tatico_pct": 35,
+        "estrategico_pct": 10,
+        "dominante": "Operacional"
+      },
+      "ia": {
+        "score": 6.9,
+        "nivel": 4,
+        "fluencia_digital": 8.2,
+        "uso_pratico": 7.2,
+        "prontidao_comportamental": 7.6,
+        "pensamento_analitico": 7.3,
+        "aderencia_contexto": 7.2
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Conhecimento do Setor": "Conhecimento do Setor: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Trabalho em Equipe": "Trabalho em Equipe: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Tomada De Decisão": "Tomada De Decisão: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Construção De Planos": "Construção De Planos: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Flexibilidade": "Flexibilidade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Tomada De Decisão": "Diagnóstico: Tomada De Decisão abaixo da meta (5.5 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Construção De Planos": "Diagnóstico: Construção De Planos abaixo da meta (5.7 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Tomada De Decisão",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -5.47,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 71,
+        "quadrante_matriz": "promessas",
+        "r3": {
+          "acao": "desenvolver",
+          "confianca_pct": 67,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000a8",
+      "email": "gabriel.torres@exemplotech.com",
+      "nome": "Gabriel Torres",
+      "cargo": "Analista de Atendimento Pl",
+      "area": "Operações",
+      "diretoria": "Operações",
+      "nivel": "operacional",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Pendente",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-09"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 8.1,
+          "meta": 8,
+          "atual": 6.6
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 9.5,
+          "meta": 8,
+          "atual": 7.5
+        },
+        {
+          "competencia": "Foco",
+          "auto": 9.1,
+          "meta": 8,
+          "atual": 7.2
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 9.4,
+          "meta": 8,
+          "atual": 8.4
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 8.5,
+          "meta": 8,
+          "atual": 7.7
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 9.0,
+          "meta": 8,
+          "atual": 8.1
+        },
+        {
+          "competencia": "Construção de Planos",
+          "auto": 9.8,
+          "meta": 8,
+          "atual": 8.4
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 6.8,
+          "meta": 8,
+          "atual": 6.7
+        },
+        {
+          "competencia": "Tomada de Decisão",
+          "auto": 6.9,
+          "meta": 8,
+          "atual": 5.8
+        },
+        {
+          "competencia": "Comunicação Objetiva",
+          "auto": 8.7,
+          "meta": 8,
+          "atual": 7.9
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 7.3,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 6.0,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 5.3,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 6.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 6.0,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 6.2,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 7.0,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 5.5,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 5.9,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 75,
+        "rotulo": "Bem Alinhado",
+        "cultural": 70,
+        "performance": 69,
+        "engajamento": 75,
+        "estrategico": 75
+      },
+      "personalidade": null,
+      "potencial": {
+        "adaptabilidade": 8.5,
+        "interesse": 7.5,
+        "tempo_meses": 8,
+        "esforco": "Difícil"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 55,
+        "tatico_pct": 35,
+        "estrategico_pct": 10,
+        "dominante": "Operacional"
+      },
+      "ia": {
+        "score": 1.8,
+        "nivel": 1,
+        "fluencia_digital": 2.8,
+        "uso_pratico": 1.3,
+        "prontidao_comportamental": 2.1,
+        "pensamento_analitico": 2.6,
+        "aderencia_contexto": 2.3
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Resolução de Problemas": "Resolução de Problemas: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Compreensão Estratégica": "Compreensão Estratégica: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Tomada de Decisão": "Tomada de Decisão: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Inovação": "Inovação: em desenvolvimento, com bons exemplos recentes e oportunidade de consistência. (texto fictício)",
+          "Riscos Calculados": "Riscos Calculados: em desenvolvimento, com bons exemplos recentes e oportunidade de consistência. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Tomada de Decisão": "Diagnóstico: Tomada de Decisão abaixo da meta (5.8 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Inovação": "Diagnóstico: Inovação abaixo da meta (6.6 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Tomada de Decisão",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -7.9,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 58,
+        "quadrante_matriz": "atencao",
+        "r3": {
+          "acao": "realocar",
+          "confianca_pct": 81,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": [
+        {
+          "secao": "personalidade",
+          "motivo": "teste 16 Personalidades não preenchido"
+        }
+      ]
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000b0",
+      "email": "paulo.mendes@exemplotech.com",
+      "nome": "Paulo Mendes",
+      "cargo": "Coordenador Comercial",
+      "area": "Vendas",
+      "diretoria": "Mercado e Cliente",
+      "nivel": "tatico",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-02"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 8.7,
+          "meta": 8,
+          "atual": 7.8
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 7.3,
+          "meta": 8,
+          "atual": 7.2
+        },
+        {
+          "competencia": "Foco",
+          "auto": 6.3,
+          "meta": 8,
+          "atual": 5.7
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 5.2,
+          "meta": 8,
+          "atual": 4.9
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 8.0,
+          "meta": 8,
+          "atual": 7.5
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 6.2,
+          "meta": 8,
+          "atual": 5.5
+        },
+        {
+          "competencia": "Construção de Planos",
+          "auto": 6.4,
+          "meta": 8,
+          "atual": 5.3
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 5.4,
+          "meta": 8,
+          "atual": 4.9
+        },
+        {
+          "competencia": "Tomada de Decisão",
+          "auto": 6.7,
+          "meta": 8,
+          "atual": 7.1
+        },
+        {
+          "competencia": "Comunicação Objetiva",
+          "auto": 7.2,
+          "meta": 8,
+          "atual": 7.4
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 6.7,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 5.2,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 6.4,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 5.8,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 6.2,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 7.8,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 6.4,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 7.8,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 8.1,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 73,
+        "rotulo": "Bem Alinhado",
+        "cultural": 71,
+        "performance": 63,
+        "engajamento": 79,
+        "estrategico": 77
+      },
+      "personalidade": {
+        "tipo": "ESTJ-A",
+        "apelido": "Executivo",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 5.6,
+        "interesse": 5.6,
+        "tempo_meses": 12,
+        "esforco": "Moderado"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 25,
+        "tatico_pct": 55,
+        "estrategico_pct": 20,
+        "dominante": "Tático"
+      },
+      "ia": {
+        "score": 5.8,
+        "nivel": 3,
+        "fluencia_digital": 5.9,
+        "uso_pratico": 4.6,
+        "prontidao_comportamental": 5.8,
+        "pensamento_analitico": 4.6,
+        "aderencia_contexto": 5.7
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Adaptabilidade": "Adaptabilidade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Conhecimento Técnico": "Conhecimento Técnico: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Flexibilidade": "Flexibilidade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Riscos Calculados": "Riscos Calculados: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Construção de Planos": "Construção de Planos: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Flexibilidade": "Diagnóstico: Flexibilidade abaixo da meta (4.9 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Riscos Calculados": "Diagnóstico: Riscos Calculados abaixo da meta (4.9 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Flexibilidade",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -3.27,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 83,
+        "quadrante_matriz": "entregadores",
+        "r3": {
+          "acao": "desenvolver",
+          "confianca_pct": 78,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000b1",
+      "email": "renata.dias@exemplotech.com",
+      "nome": "Renata Dias",
+      "cargo": "Executiva de Contas",
+      "area": "Vendas",
+      "diretoria": "Mercado e Cliente",
+      "nivel": "operacional",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-07"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 9.0,
+          "meta": 8,
+          "atual": 7.6
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 6.5,
+          "meta": 8,
+          "atual": 5.5
+        },
+        {
+          "competencia": "Foco",
+          "auto": 7.6,
+          "meta": 8,
+          "atual": 7.8
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 10,
+          "meta": 8,
+          "atual": 8.1
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 4.8,
+          "meta": 8,
+          "atual": 5.2
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 7.2,
+          "meta": 8,
+          "atual": 6.0
+        },
+        {
+          "competencia": "Construção De Planos",
+          "auto": 9.1,
+          "meta": 8,
+          "atual": 8.6
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 7.4,
+          "meta": 8,
+          "atual": 7.7
+        },
+        {
+          "competencia": "Tomada De Decisão",
+          "auto": 8.7,
+          "meta": 8,
+          "atual": 7.6
+        },
+        {
+          "competencia": "Comunicacao_objetiva",
+          "auto": 6.6,
+          "meta": 8,
+          "atual": 5.2
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 8.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 7.2,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 5.4,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 8.6,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 7.9,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 6.3,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 6.6,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 6.4,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 6.9,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 82,
+        "rotulo": "Bem Alinhado",
+        "cultural": 90,
+        "performance": 84,
+        "engajamento": 87,
+        "estrategico": 78
+      },
+      "personalidade": {
+        "tipo": "ENTP-A",
+        "apelido": "Inovador",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 6.9,
+        "interesse": 8.0,
+        "tempo_meses": 14,
+        "esforco": "Difícil"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 55,
+        "tatico_pct": 35,
+        "estrategico_pct": 10,
+        "dominante": "Operacional"
+      },
+      "ia": {
+        "score": 5.4,
+        "nivel": 3,
+        "fluencia_digital": 6.4,
+        "uso_pratico": 5.3,
+        "prontidao_comportamental": 5.5,
+        "pensamento_analitico": 4.9,
+        "aderencia_contexto": 5.7
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Resolução de Problemas": "Resolução de Problemas: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Trabalho em Equipe": "Trabalho em Equipe: em desenvolvimento, com bons exemplos recentes e oportunidade de consistência. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Agilidade": "Agilidade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Comunicacao_objetiva": "Comunicacao_objetiva: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Criatividade": "Criatividade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Agilidade": "Diagnóstico: Agilidade abaixo da meta (5.2 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Comunicacao_objetiva": "Diagnóstico: Comunicacao_objetiva abaixo da meta (5.2 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Agilidade",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -1.62,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 86,
+        "quadrante_matriz": "estrelas",
+        "r3": {
+          "acao": "desenvolver",
+          "confianca_pct": 72,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    },
+    {
+      "id": "7f2c1d4e-0000-4000-8000-0000000000b2",
+      "email": "sergio.vaz@exemplotech.com",
+      "nome": "Sérgio Vaz",
+      "cargo": "Executivo de Contas",
+      "area": "Vendas",
+      "diretoria": "Mercado e Cliente",
+      "nivel": "operacional",
+      "ativo": true,
+      "atualizado_em": "2026-10-24T18:00:00-03:00",
+      "jornada": {
+        "assessment": "Concluído",
+        "focus": "Concluído",
+        "personalidade": "Concluído",
+        "assessment_enviado_em": "2026-09-01",
+        "assessment_respondido_em": "2026-09-09"
+      },
+      "devolutiva": {
+        "data": "2026-10-10",
+        "concluida": true
+      },
+      "digital_crescimento": [
+        {
+          "competencia": "Inovação",
+          "auto": 8.4,
+          "meta": 8,
+          "atual": 8.3
+        },
+        {
+          "competencia": "Criatividade",
+          "auto": 7.7,
+          "meta": 8,
+          "atual": 6.7
+        },
+        {
+          "competencia": "Foco",
+          "auto": 5.9,
+          "meta": 8,
+          "atual": 6.3
+        },
+        {
+          "competencia": "Flexibilidade",
+          "auto": 8.2,
+          "meta": 8,
+          "atual": 8.2
+        },
+        {
+          "competencia": "Agilidade",
+          "auto": 7.1,
+          "meta": 8,
+          "atual": 5.6
+        },
+        {
+          "competencia": "Curiosidade",
+          "auto": 7.9,
+          "meta": 8,
+          "atual": 6.2
+        },
+        {
+          "competencia": "Construção de Planos",
+          "auto": 7.8,
+          "meta": 8,
+          "atual": 7.6
+        },
+        {
+          "competencia": "Riscos Calculados",
+          "auto": 6.7,
+          "meta": 8,
+          "atual": 4.8
+        },
+        {
+          "competencia": "Tomada de Decisão",
+          "auto": 6.4,
+          "meta": 8,
+          "atual": 5.1
+        },
+        {
+          "competencia": "Comunicação Objetiva",
+          "auto": 8.2,
+          "meta": 8,
+          "atual": 6.8
+        }
+      ],
+      "taticas": [
+        {
+          "competencia": "Experiência Profissional",
+          "atual": 7.6,
+          "esperado": 8
+        },
+        {
+          "competencia": "Adaptabilidade",
+          "atual": 7.4,
+          "esperado": 8
+        },
+        {
+          "competencia": "Resolução de Problemas",
+          "atual": 6.8,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento Técnico",
+          "atual": 7.9,
+          "esperado": 8
+        },
+        {
+          "competencia": "Estratégia de Negócios",
+          "atual": 5.3,
+          "esperado": 8
+        },
+        {
+          "competencia": "Trabalho em Equipe",
+          "atual": 5.8,
+          "esperado": 8
+        },
+        {
+          "competencia": "Conhecimento do Setor",
+          "atual": 7.6,
+          "esperado": 8
+        },
+        {
+          "competencia": "Compreensão Estratégica",
+          "atual": 6.1,
+          "esperado": 8
+        },
+        {
+          "competencia": "Comunicação",
+          "atual": 7.2,
+          "esperado": 8
+        }
+      ],
+      "alinhamento": {
+        "pct": 70,
+        "rotulo": "Bem Alinhado",
+        "cultural": 69,
+        "performance": 66,
+        "engajamento": 67,
+        "estrategico": 65
+      },
+      "personalidade": {
+        "tipo": "ISFP-T",
+        "apelido": "Aventureiro",
+        "data": "2026-09-05"
+      },
+      "potencial": {
+        "adaptabilidade": 7.9,
+        "interesse": 6.6,
+        "tempo_meses": 24,
+        "esforco": "Moderado"
+      },
+      "perfil_hierarquico": {
+        "operacional_pct": 55,
+        "tatico_pct": 35,
+        "estrategico_pct": 10,
+        "dominante": "Operacional"
+      },
+      "ia": {
+        "score": 3.2,
+        "nivel": 2,
+        "fluencia_digital": 4.3,
+        "uso_pratico": 3.0,
+        "prontidao_comportamental": 4.3,
+        "pensamento_analitico": 4.1,
+        "aderencia_contexto": 3.4
+      },
+      "focus": {
+        "mentor": {
+          "nome": "Mentor Boomit (fictício)",
+          "linkedin": null
+        },
+        "analise_tecnica": {
+          "Estratégia de Negócios": "Estratégia de Negócios: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Trabalho em Equipe": "Trabalho em Equipe: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "analise_comportamental": {
+          "Riscos Calculados": "Riscos Calculados: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Tomada de Decisão": "Tomada de Decisão: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)",
+          "Agilidade": "Agilidade: ponto de atenção. Nas situações discutidas na sessão Focus, a aplicação ainda depende de orientação; vale combinar práticas semanais com acompanhamento. (texto fictício)"
+        },
+        "sessoes": [
+          {
+            "data": "2026-09-20",
+            "status": "Concluído",
+            "motivo": null
+          }
+        ]
+      },
+      "pdi_boomit": {
+        "gerado_em": "2026-10-01",
+        "textos": {
+          "Riscos Calculados": "Diagnóstico: Riscos Calculados abaixo da meta (4.8 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)",
+          "Tomada de Decisão": "Diagnóstico: Tomada de Decisão abaixo da meta (5.1 × 8). Ação: uma prática por semana com retorno do líder. Pergunta reflexiva: o que muda na sua rotina quando isto estiver no nível esperado? (texto fictício)"
+        },
+        "pontos_chave": [
+          {
+            "titulo": "Evolução em Riscos Calculados",
+            "desafio": "Aplicar com autonomia nas rotinas da área",
+            "kpi": "Práticas aplicadas com retorno do líder",
+            "de": "0/mês",
+            "para": "4/mês",
+            "prazo": "Q1/2027"
+          }
+        ]
+      },
+      "indicadores_sensiveis": {
+        "ppl": -4.46,
+        "ppl_atualizado_em": "2026-10-01",
+        "performance_tecnica_pct": 71,
+        "quadrante_matriz": "promessas",
+        "r3": {
+          "acao": "desenvolver",
+          "confianca_pct": 67,
+          "justificativa": "Justificativa ilustrativa (texto fictício)."
+        }
+      },
+      "secoes_indisponiveis": []
+    }
+  ]
+}

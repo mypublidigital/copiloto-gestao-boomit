@@ -1,0 +1,941 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://copiloto.boomit/contracts/boomit-export.v1.schema.json",
+  "title": "Boomit → Copiloto de Gestão · contrato de exportação v1",
+  "description": "Payload retornado pela Edge Function copiloto-export da Plataforma Boomit. Somente leitura. Campos ausentes ou com erro de geração vão em secoes_indisponiveis — a exportação nunca deve falhar inteira por uma seção. Dados excluídos por minimização (LGPD): salário, gênero, celular, contexto financeiro da empresa.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "gerado_em",
+    "empresa",
+    "colaboradores"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "gerado_em": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "proximo_cursor": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Paginação quando houver muitos colaboradores."
+    },
+    "empresa": {
+      "$ref": "#/$defs/empresa"
+    },
+    "colaboradores": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/colaborador"
+      }
+    }
+  },
+  "$defs": {
+    "secoes_indisponiveis": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "secao",
+          "motivo"
+        ],
+        "properties": {
+          "secao": {
+            "type": "string"
+          },
+          "motivo": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "empresa": {
+      "type": "object",
+      "required": [
+        "id",
+        "nome_fantasia"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "nome_fantasia": {
+          "type": "string"
+        },
+        "setor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data_ultima_analise": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "maturidade": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Fonte oficial: Resumo Estratégico.",
+          "properties": {
+            "nota": {
+              "enum": [
+                "D",
+                "C",
+                "B",
+                "A",
+                "AA",
+                "AAA"
+              ]
+            },
+            "score": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "rotulo": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "diagnostico": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "proxima_etapa": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "pontos_chave": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "metrica"
+            ],
+            "properties": {
+              "metrica": {
+                "type": "string"
+              },
+              "meta": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "desafios": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "risco_pct": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "risco_justificativa": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "estrategias_prioritarias": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "ordem",
+              "titulo"
+            ],
+            "properties": {
+              "ordem": {
+                "type": "integer"
+              },
+              "titulo": {
+                "type": "string"
+              },
+              "descricao": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "acoes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "alinhamento_medio": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "media_pct": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "cultural": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "performance": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "engajamento": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "estrategico": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "ia": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "score_100": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "nivel_centauro": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "nivel_rotulo": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "eixos": {
+              "type": "object",
+              "additionalProperties": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 10
+              }
+            },
+            "diagnostico": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "proximo_passo": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "calculado_em": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            }
+          }
+        },
+        "textos_ia": {
+          "type": "object",
+          "properties": {
+            "autopercepcao_equipe": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "description": "Texto gerado por IA na Boomit. Regenerável: sempre com data. Números citados no texto NÃO são fonte; use os campos estruturados.",
+              "properties": {
+                "texto": {
+                  "type": "string"
+                },
+                "gerado_em": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date-time"
+                }
+              },
+              "required": [
+                "texto"
+              ]
+            },
+            "insights_ia_360": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "description": "Texto gerado por IA na Boomit. Regenerável: sempre com data. Números citados no texto NÃO são fonte; use os campos estruturados.",
+              "properties": {
+                "texto": {
+                  "type": "string"
+                },
+                "gerado_em": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date-time"
+                }
+              },
+              "required": [
+                "texto"
+              ]
+            }
+          }
+        },
+        "secoes_indisponiveis": {
+          "$ref": "#/$defs/secoes_indisponiveis"
+        }
+      }
+    },
+    "competencia_comportamental": {
+      "type": "object",
+      "required": [
+        "competencia"
+      ],
+      "properties": {
+        "competencia": {
+          "type": "string",
+          "description": "Nome como está na Boomit (o Copiloto normaliza)."
+        },
+        "auto": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 10
+        },
+        "meta": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 10
+        },
+        "atual": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 10
+        }
+      }
+    },
+    "competencia_tatica": {
+      "type": "object",
+      "required": [
+        "competencia"
+      ],
+      "properties": {
+        "competencia": {
+          "type": "string"
+        },
+        "atual": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 10
+        },
+        "esperado": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 10
+        }
+      }
+    },
+    "colaborador": {
+      "type": "object",
+      "required": [
+        "id",
+        "email",
+        "nome",
+        "atualizado_em"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "cargo": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "area": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "diretoria": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nivel": {
+          "enum": [
+            "operacional",
+            "tatico",
+            "estrategico",
+            null
+          ]
+        },
+        "ativo": {
+          "type": "boolean",
+          "default": true
+        },
+        "atualizado_em": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "jornada": {
+          "type": "object",
+          "properties": {
+            "assessment": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "focus": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "personalidade": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "assessment_enviado_em": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "assessment_respondido_em": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            }
+          }
+        },
+        "devolutiva": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "data": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "concluida": {
+              "type": "boolean"
+            }
+          }
+        },
+        "digital_crescimento": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/competencia_comportamental"
+          }
+        },
+        "taticas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/competencia_tatica"
+          }
+        },
+        "alinhamento": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "pct": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "rotulo": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "cultural": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "performance": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "engajamento": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "estrategico": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "personalidade": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "tipo": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "pattern": "^[EI][NS][TF][JP]-[AT]$"
+            },
+            "apelido": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "data": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            }
+          }
+        },
+        "potencial": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "adaptabilidade": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            },
+            "interesse": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            },
+            "tempo_meses": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "esforco": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "perfil_hierarquico": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "operacional_pct": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "tatico_pct": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "estrategico_pct": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "dominante": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "ia": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "score": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            },
+            "nivel": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1,
+              "maximum": 5
+            },
+            "fluencia_digital": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            },
+            "uso_pratico": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            },
+            "prontidao_comportamental": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            },
+            "pensamento_analitico": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            },
+            "aderencia_contexto": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 10
+            }
+          }
+        },
+        "focus": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "mentor": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "nome": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "linkedin": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "analise_tecnica": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "analise_comportamental": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "sessoes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "data",
+                  "status"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "status": {
+                    "enum": [
+                      "Agendado",
+                      "Concluído",
+                      "No-Show",
+                      "Reagendado",
+                      "Cancelado"
+                    ]
+                  },
+                  "motivo": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pdi_boomit": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Projeto Performance (Individual High Performance Plan).",
+          "properties": {
+            "gerado_em": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "textos": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "pontos_chave": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "titulo": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "desafio": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "kpi": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "de": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "para": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "prazo": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "indicadores_sensiveis": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Gravados à parte no Copiloto (contexto_colaborador_sensivel) e exibidos só se a empresa autorizar.",
+          "properties": {
+            "ppl": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": -11,
+              "maximum": 0
+            },
+            "ppl_atualizado_em": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "performance_tecnica_pct": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "quadrante_matriz": {
+              "enum": [
+                "estrelas",
+                "entregadores",
+                "promessas",
+                "atencao",
+                null
+              ]
+            },
+            "r3": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "acao": {
+                  "enum": [
+                    "desenvolver",
+                    "realocar",
+                    "promover"
+                  ]
+                },
+                "confianca_pct": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "justificativa": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "secoes_indisponiveis": {
+          "$ref": "#/$defs/secoes_indisponiveis"
+        }
+      }
+    }
+  }
+}

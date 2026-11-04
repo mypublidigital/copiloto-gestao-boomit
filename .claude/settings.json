@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(bash scripts/verificar-ambiente.sh:*)",
+      "Bash(bash scripts/com-env.sh:*)",
+      "Bash(npm install:*)",
+      "Bash(npm ci:*)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm create:*)",
+      "Bash(npx supabase:*)",
+      "Bash(npx shadcn@latest:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx vitest:*)",
+      "Bash(npx prettier:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push origin main)",
+      "Bash(git mv:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(cp:*)",
+      "Bash(ls:*)",
+      "Bash(node --version)"
+    ],
+    "deny": [
+      "Read(./.env.local)",
+      "Read(./.env)",
+      "Bash(cat .env:*)",
+      "Bash(cat .env.local:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(npx supabase db reset --linked:*)",
+      "Bash(rm -rf:*)"
+    ]
+  }
+}
