@@ -22,7 +22,8 @@
     "verificar:producao": "bash scripts/com-env.sh 'node scripts/verificar-build-producao.mjs'",
     "ensaio:ia": "bash scripts/com-env.sh 'node scripts/ensaio-ia.ts'",
     "db:segredos": "node scripts/gravar-segredos-funcoes.mjs",
-    "publicar:demo": "bash scripts/com-env.sh 'node scripts/publicar-demo.mjs'"
+    "publicar:demo": "bash scripts/com-env.sh 'node scripts/publicar-demo.mjs'",
+    "ensaio:tipos": "bash scripts/com-env.sh 'node scripts/ensaio-tipos.ts'"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.4.0",

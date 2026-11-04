@@ -8,6 +8,7 @@ import { clienteDoUsuario, CORS, ErroHttp, exigirEnv, registrarInteracao, respon
 import { ClienteAnthropic } from '../_shared/motor/anthropic.ts'
 import { RecusaDoModeloError, SaidaInvalidaError } from '../_shared/motor/modelo.ts'
 import { prepararSituacao } from '../_shared/motor/preparar.ts'
+import { TIPOS_PREPARACAO } from '../_shared/motor/saida.ts'
 import type { Json } from '../_shared/tipos/banco.ts'
 
 const env = (n: string) => Deno.env.get(n)
@@ -15,7 +16,7 @@ const env = (n: string) => Deno.env.get(n)
 const corpoSchema = z.object({
   acao: z.enum(['contexto', 'gerar']),
   colaborador_id: z.uuid(),
-  tipo: z.literal('feedback'),
+  tipo: z.enum(TIPOS_PREPARACAO),
   relato: z.string().trim().max(4000).default(''),
   fontes_excluidas: z.array(z.string()).max(200).default([]),
 })
@@ -34,7 +35,7 @@ async function tratar(req: Request): Promise<Response> {
   const { data: membro } = await db.from('membro').select('empresa_id, colaborador_id').eq('user_id', usuario.id).eq('papel', 'lider').limit(1).maybeSingle()
   if (!membro?.colaborador_id) throw new ErroHttp(403, 'Só líderes preparam conversas')
 
-  const contexto = await carregarContextoDaPessoa(db, c.colaborador_id)
+  const contexto = await carregarContextoDaPessoa(db, c.colaborador_id, membro.colaborador_id)
   if (!contexto) throw new ErroHttp(404, 'Esta pessoa não está na sua visão')
   const excluidas = new Set(c.fontes_excluidas)
   const itens = contexto.itens.filter((i) => !excluidas.has(i.fonte_id))
@@ -46,7 +47,7 @@ async function tratar(req: Request): Promise<Response> {
 
   const cliente = new ClienteAnthropic(exigirEnv('ANTHROPIC_API_KEY', env))
   const modelos = { principal: exigirEnv('MODELO_PRINCIPAL', env), rapido: exigirEnv('MODELO_RAPIDO', env) }
-  const resultado = await prepararSituacao({ relato: c.relato, itens, cliente, modelos })
+  const resultado = await prepararSituacao({ tipo: c.tipo, relato: c.relato, itens, cliente, modelos })
   const sensivel = resultado.tipo === 'encaminhamento'
 
   // Id gerado aqui e insert sem RETURNING: a política de leitura de situacao consulta a própria

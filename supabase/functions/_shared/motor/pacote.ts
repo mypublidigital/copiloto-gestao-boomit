@@ -1,5 +1,6 @@
 // Montagem do pacote de contexto em camadas (docs/03 §3).
-// - camadas 0 a 3 (estáveis) vão no bloco de sistema com cache;
+// - camadas 0, 2 e 3 (estáveis) vão no bloco de sistema com cache;
+// - camada 1 (políticas e alçadas) é citável, para a decisão na alçada apontar a política, e nunca é cortada;
 // - camadas 4 a 8 vão com um apelido curto (F1, F2…) por item, para o modelo citar;
 // - o apelido é mapeado de volta para o fonte_id real na verificação.
 import { CAMADAS, type ItemDeContexto, type NumeroCamada } from './contexto.ts'
@@ -32,6 +33,7 @@ export interface OpcoesPacote {
 }
 
 const NOME_CAMADA: Record<number, string> = {
+  1: 'Políticas e alçadas',
   4: 'Organização',
   5: 'Pessoa',
   6: 'Histórico',
@@ -42,12 +44,13 @@ const NOME_CAMADA: Record<number, string> = {
 export function montarPacote(itens: ItemDeContexto[], opcoes: OpcoesPacote = {}): Pacote {
   const max = opcoes.maxCaracteres ?? 24_000
   const minimoPessoa = opcoes.minimoPessoa ?? 3
-  const estaveis = itens.filter((i) => i.camada <= CAMADAS.skill_da_etapa).sort((a, b) => a.camada - b.camada)
-  let citaveis = itens.filter((i) => i.camada >= CAMADAS.organizacao)
+  const ehPolitica = (i: ItemDeContexto) => i.camada === CAMADAS.politicas_e_alcadas
+  const estaveis = itens.filter((i) => i.camada <= CAMADAS.skill_da_etapa && !ehPolitica(i)).sort((a, b) => a.camada - b.camada)
+  let citaveis = itens.filter((i) => i.camada >= CAMADAS.organizacao || ehPolitica(i))
 
   // Corte: primeiro reuniões, depois histórico, depois a pessoa (até o mínimo), nunca o relato.
   const cortados: string[] = []
-  const tamanho = () => citaveis.filter((i) => i.camada < CAMADAS.relato).reduce((s, i) => s + i.conteudo.length + i.rotulo.length, 0)
+  const tamanho = () => citaveis.filter((i) => i.camada < CAMADAS.relato && !ehPolitica(i)).reduce((s, i) => s + i.conteudo.length + i.rotulo.length, 0)
   for (const camada of [CAMADAS.reunioes_e_mentorias, CAMADAS.historico, CAMADAS.pessoa, CAMADAS.organizacao] as NumeroCamada[]) {
     while (tamanho() > max) {
       const daCamada = citaveis.filter((i) => i.camada === camada)

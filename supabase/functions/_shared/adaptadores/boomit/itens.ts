@@ -182,3 +182,29 @@ export function itensDoHistorico(registros: RegistroBasico[], combinados: Combin
     )
   return [...itensCombinados, ...itensRegistros]
 }
+
+export interface AlcadaBasica {
+  id: string
+  nivel: string | null
+  cargo_referencia: string | null
+  pode_decidir: string
+  limites: string | null
+  consultar: string | null
+}
+
+const NOME_NIVEL: Record<string, string> = { operacional: 'operacional', tatico: 'tático', estrategico: 'estratégico' }
+
+/** Camada 1: alçadas do nível do líder (e as gerais, sem nível). Citáveis e nunca cortadas. */
+export function itensDasAlcadas(alcadas: AlcadaBasica[], nivelLider: string | null): ItemDeContexto[] {
+  return alcadas
+    .filter((a) => a.nivel === null || a.nivel === nivelLider)
+    .map((a) => ({
+      fonte_id: `copiloto:alcada:${a.id}`,
+      rotulo: `Alçada${a.nivel ? ` · nível ${NOME_NIVEL[a.nivel] ?? a.nivel}` : ''}${a.cargo_referencia ? ` · ${a.cargo_referencia}` : ''}`,
+      camada: CAMADAS.politicas_e_alcadas,
+      data: null,
+      conteudo: [`Pode decidir sozinho: ${a.pode_decidir}`, a.limites ? `Limites: ${a.limites}` : null, a.consultar ? `Acima do limite, consultar: ${a.consultar}` : null]
+        .filter(Boolean)
+        .join(' '),
+    }))
+}

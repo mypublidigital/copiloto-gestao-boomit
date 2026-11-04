@@ -30,9 +30,9 @@ export interface ItemDeContexto {
   data: string | null
 }
 
-/** Camadas que nunca são cortadas quando o contexto estoura (docs/03 §3). */
+/** Camadas que nunca são cortadas quando o contexto estoura (docs/03 §3). A camada 1 é citável. */
 export const CAMADAS_FIXAS: readonly NumeroCamada[] = [0, 1, 2, 3, 8]
 
 export function ehCitavel(item: ItemDeContexto): boolean {
-  return item.camada >= CAMADAS.organizacao
+  return item.camada >= CAMADAS.organizacao || item.camada === CAMADAS.politicas_e_alcadas
 }

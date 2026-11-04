@@ -45,7 +45,61 @@ export const planoSchema = z.strictObject({
   encaminhamento: z.strictObject({ necessario: z.boolean(), motivo: texto, canal: z.enum(['rh', 'juridico', 'etica', 'nenhum']) }),
   referencias: z.array(z.strictObject({ fonte_id: texto, rotulo: texto })),
 })
-export type Plano = z.infer<typeof planoSchema>
+
+// ---------- extensões por tipo (docs/03 §4) ----------
+
+export const TIPOS_PREPARACAO = ['feedback', 'pdi', 'conversa_dificil', 'decisao_alcada', 'preparacao_reuniao'] as const
+export type TipoPreparacao = (typeof TIPOS_PREPARACAO)[number]
+
+export const extensaoPdiSchema = z.strictObject({
+  tipo: z.literal('pdi'),
+  acoes_desenvolvimento: z.array(
+    z.strictObject({ competencia: texto, acao: texto, apoio: texto, prazo_dias: z.number(), evidencia: texto, fonte_ids: z.array(texto) }),
+  ),
+})
+
+export const extensaoConversaDificilSchema = z.strictObject({
+  tipo: z.literal('conversa_dificil'),
+  interesses_de_cada_parte: z.array(z.strictObject({ parte: texto, interesses: z.array(texto) })),
+  pontos_de_acordo_possiveis: z.array(texto),
+})
+
+export const extensaoDecisaoAlcadaSchema = z.strictObject({
+  tipo: z.literal('decisao_alcada'),
+  dentro_da_alcada: z.enum(['sim', 'nao', 'incerto']),
+  justificativa_alcada: texto,
+  alcada_fonte_ids: z.array(texto),
+  alternativas: z.array(z.strictObject({ opcao: texto, pros: z.array(texto), contras: z.array(texto) })),
+  quem_consultar: texto,
+  como_comunicar: texto,
+})
+
+export const extensaoReuniaoSchema = z.strictObject({
+  tipo: z.literal('preparacao_reuniao'),
+  pauta: z.array(z.strictObject({ tema: texto, objetivo: texto, minutos: z.number() })),
+  perguntas_de_desenvolvimento: z.array(texto),
+})
+
+const EXTENSOES = {
+  pdi: extensaoPdiSchema,
+  conversa_dificil: extensaoConversaDificilSchema,
+  decisao_alcada: extensaoDecisaoAlcadaSchema,
+  preparacao_reuniao: extensaoReuniaoSchema,
+} as const
+
+export type Extensao =
+  | z.infer<typeof extensaoPdiSchema>
+  | z.infer<typeof extensaoConversaDificilSchema>
+  | z.infer<typeof extensaoDecisaoAlcadaSchema>
+  | z.infer<typeof extensaoReuniaoSchema>
+
+export type Plano = z.infer<typeof planoSchema> & { extensao?: Extensao }
+
+/** Schema da saída para o tipo pedido: feedback usa só o base; os demais ganham `extensao`. */
+export function schemaDoPlano(tipo: TipoPreparacao): z.ZodType<Plano> {
+  if (tipo === 'feedback') return planoSchema
+  return planoSchema.extend({ extensao: EXTENSOES[tipo] }) as unknown as z.ZodType<Plano>
+}
 
 // ---------- debrief da simulação (5 critérios, sem nota) ----------
 

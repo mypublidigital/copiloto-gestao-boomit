@@ -5,12 +5,13 @@ import { Link, useParams } from 'react-router'
 import { useSessao } from '@/auth/sessao'
 import { Cartao, Estado } from '@/components/Estado'
 import { Button } from '@/components/ui/button'
-import { type CombinadoProposto, type ConteudoPreparacao, conteudoPreparacaoSchema, type Fonte, type Plano, ROTULO_RESPONSAVEL } from '@/dominio/preparacao'
+import { type CombinadoProposto, type ConteudoPreparacao, conteudoPreparacaoSchema, type Fonte, type Plano, ROTULO_RESPONSAVEL, ROTULO_TIPO_PREPARACAO, type TipoPreparacao } from '@/dominio/preparacao'
 import { formatarData } from '@/lib/datas'
 import { supabase } from '@/lib/supabase'
 import { useConsulta } from '@/lib/useConsulta'
 import type { Json } from '@/tipos/banco'
 import { AposConversa } from './situacao/AposConversa'
+import { ExtensaoPlano } from './situacao/ExtensaoPlano'
 
 async function carregar(id: string) {
   const sit = await supabase.from('situacao').select('id, empresa_id, colaborador_id, titulo, status, sensivel, relato_inicial, aplicada_em, relato_aplicacao, criado_em, colaborador:colaborador_id(id, nome)').eq('id', id).maybeSingle()
@@ -19,14 +20,17 @@ async function carregar(id: string) {
   if (sit.data.sensivel) {
     const { data: empresa } = await supabase.from('empresa').select('config').eq('id', sit.data.empresa_id).maybeSingle()
     const canais = ((empresa?.config ?? {}) as { canais_encaminhamento?: Record<string, string> }).canais_encaminhamento ?? {}
-    return { situacao: sit.data, canais, preparacao: null }
+    return { situacao: sit.data, canais, preparacao: null, modoPdi: 'boomit' }
   }
+  const { data: empresa } = await supabase.from('empresa').select('config').eq('id', sit.data.empresa_id).maybeSingle()
+  const modoPdi = ((empresa?.config ?? {}) as { modo_pdi?: string }).modo_pdi ?? 'boomit'
   const prep = await supabase.from('preparacao').select('versao, conteudo, gerado_por, criado_em').eq('situacao_id', id).order('versao', { ascending: false }).limit(1).maybeSingle()
   if (prep.error) throw new Error(prep.error.message)
   const conteudo = prep.data ? conteudoPreparacaoSchema.safeParse(prep.data.conteudo) : null
   return {
     situacao: sit.data,
     canais: {},
+    modoPdi,
     preparacao: prep.data && conteudo?.success ? { versao: prep.data.versao, geradoPor: prep.data.gerado_por, criadoEm: prep.data.criado_em, conteudo: conteudo.data } : null,
   }
 }
@@ -69,6 +73,8 @@ export function Situacao() {
                   aplicadaEm={d.situacao.aplicada_em}
                   relatoAplicacao={d.situacao.relato_aplicacao}
                   propostos={d.preparacao.conteudo.plano.combinados_propostos}
+                  acoesPdi={d.preparacao.conteudo.plano.extensao?.tipo === 'pdi' ? d.preparacao.conteudo.plano.extensao.acoes_desenvolvimento : []}
+                  modoPdi={d.modoPdi}
                   aoMudar={() => setRecarga((n) => n + 1)}
                 />
               }
@@ -199,7 +205,7 @@ function PlanoEditavel(p: {
       <div className="flex flex-col gap-4">
         <header>
           <p className="text-sm text-muted-foreground">
-            Feedback · {p.pessoa} · versão {p.versao} ({p.geradoPor === 'ia' ? 'gerada pela IA' : 'editada por você'} em {formatarData(p.criadoEm)})
+            {ROTULO_TIPO_PREPARACAO[p.conteudo.tipo as TipoPreparacao] ?? p.conteudo.tipo} · {p.pessoa} · versão {p.versao} ({p.geradoPor === 'ia' ? 'gerada pela IA' : 'editada por você'} em {formatarData(p.criadoEm)})
           </p>
           <h1 className="text-2xl font-semibold">Plano da conversa</h1>
           <p className="mt-1 text-xs text-muted-foreground">Ensaio privado: só você vê. Revise os fatos antes de usar.</p>
@@ -210,6 +216,8 @@ function PlanoEditavel(p: {
             A verificação automática ajustou o plano: {p.conteudo.alertas.length} ajuste(s) (fatos sem fonte foram para "a confirmar"; frases fora das regras foram removidas).
           </p>
         )}
+
+        {plano.extensao && <ExtensaoPlano extensao={plano.extensao} chips={(ids) => <Chips ids={ids} />} />}
 
         <Cartao titulo="Resumo da situação">
           <textarea className={campo} rows={3} value={resumo} onChange={(e) => setResumo(e.target.value)} />

@@ -42,6 +42,33 @@ config.canais_encaminhamento = {
 }
 exigir(await db.from('empresa').update({ config: config as Json }).eq('id', empresaId), 'gravar canais de encaminhamento')
 
+// Alçadas fictícias (Sprint 3, decisão na alçada). As reais vêm do RH da EasyJur (N12).
+const alcadasExistentes = exigir(await db.from('alcada').select('id').eq('empresa_id', empresaId), 'ler alçadas')
+if (alcadasExistentes.length === 0) {
+  exigir(
+    await db.from('alcada').insert([
+      {
+        empresa_id: empresaId,
+        nivel: 'tatico',
+        cargo_referencia: 'Coordenação (exemplo fictício)',
+        pode_decidir: 'ajustar escala, folgas e trocas de turno de até 2 dias; redistribuir demandas na equipe; aprovar treinamentos internos sem custo; definir prioridades da semana.',
+        limites: 'não inclui contratação, desligamento, mudança de cargo ou salário, nem despesas acima de R$ 1.000.',
+        consultar: 'diretor da área e RH.',
+      },
+      {
+        empresa_id: empresaId,
+        nivel: 'estrategico',
+        cargo_referencia: 'Diretoria (exemplo fictício)',
+        pode_decidir: 'aprovar contratações previstas no orçamento, promoções dentro da faixa salarial e despesas de até R$ 20.000.',
+        limites: 'desligamentos e mudanças fora da política salarial passam pelo RH.',
+        consultar: 'RH e diretoria executiva.',
+      },
+    ]),
+    'gravar alçadas',
+  )
+  console.log('Alçadas fictícias gravadas (2)')
+}
+
 const colaboradores = exigir(await db.from('colaborador').select('id, email').eq('empresa_id', empresaId), 'ler colaboradores')
 const idPorEmail = new Map(colaboradores.map((c) => [c.email.toLowerCase(), c.id]))
 const idDe = (email: string) => {

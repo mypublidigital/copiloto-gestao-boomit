@@ -22,6 +22,44 @@ export const combinadoPropostoSchema = z.object({
 })
 export type CombinadoProposto = z.infer<typeof combinadoPropostoSchema>
 
+// Campos de cada tipo de preparação (Sprint 3, docs/03 §4).
+export const extensaoSchema = z.discriminatedUnion('tipo', [
+  z.object({
+    tipo: z.literal('pdi'),
+    acoes_desenvolvimento: z.array(z.object({ competencia: txt, acao: txt, apoio: txt, prazo_dias: z.number(), evidencia: txt, fonte_ids: z.array(txt) })),
+  }),
+  z.object({
+    tipo: z.literal('conversa_dificil'),
+    interesses_de_cada_parte: z.array(z.object({ parte: txt, interesses: z.array(txt) })),
+    pontos_de_acordo_possiveis: z.array(txt),
+  }),
+  z.object({
+    tipo: z.literal('decisao_alcada'),
+    dentro_da_alcada: z.enum(['sim', 'nao', 'incerto']),
+    justificativa_alcada: txt,
+    alcada_fonte_ids: z.array(txt),
+    alternativas: z.array(z.object({ opcao: txt, pros: z.array(txt), contras: z.array(txt) })),
+    quem_consultar: txt,
+    como_comunicar: txt,
+  }),
+  z.object({
+    tipo: z.literal('preparacao_reuniao'),
+    pauta: z.array(z.object({ tema: txt, objetivo: txt, minutos: z.number() })),
+    perguntas_de_desenvolvimento: z.array(txt),
+  }),
+])
+export type Extensao = z.infer<typeof extensaoSchema>
+
+export type TipoPreparacao = 'feedback' | 'pdi' | 'conversa_dificil' | 'decisao_alcada' | 'preparacao_reuniao'
+
+export const ROTULO_TIPO_PREPARACAO: Record<TipoPreparacao, string> = {
+  feedback: 'Feedback',
+  pdi: 'PDI',
+  conversa_dificil: 'Conversa difícil',
+  decisao_alcada: 'Decisão na alçada',
+  preparacao_reuniao: '1:1',
+}
+
 export const planoSchema = z.object({
   resumo_situacao: txt,
   fatos_confirmados: z.array(z.object({ texto: txt, fonte_ids: z.array(txt) })),
@@ -33,6 +71,7 @@ export const planoSchema = z.object({
   combinados_propostos: z.array(combinadoPropostoSchema),
   encaminhamento: z.object({ necessario: z.boolean(), motivo: txt, canal: txt }),
   referencias: z.array(z.object({ fonte_id: txt, apelido: txt, rotulo: txt, camada: z.number(), data: z.string().nullable() })),
+  extensao: extensaoSchema.optional(),
 })
 export type Plano = z.infer<typeof planoSchema>
 

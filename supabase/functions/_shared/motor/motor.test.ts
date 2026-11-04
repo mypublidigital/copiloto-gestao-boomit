@@ -181,7 +181,7 @@ describe('prepararSituacao (modelo simulado)', () => {
     ])
     expect(r.plano.fatos_confirmados.map((f) => f.fonte_ids)).toEqual([['pessoa:gap:prazos']])
     expect(r.plano.fatos_a_confirmar.map((f) => f.texto)).toContain('Sem fonte')
-    expect(r.chamadas.map((c) => c.versao_prompt)).toEqual(['classificacao@1', 'preparacao-feedback@1'])
+    expect(r.chamadas.map((c) => c.versao_prompt)).toEqual(['classificacao@1', 'preparacao-feedback@2'])
     // O que foi para o modelo: guardrails no bloco estável com cache, relato citável no contexto.
     const enviado = cliente.chamadas[1]!
     expect(enviado.sistema[0]?.cache).toBe(true)

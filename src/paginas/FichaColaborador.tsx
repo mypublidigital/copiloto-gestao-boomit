@@ -16,12 +16,13 @@ async function carregar(id: string, userId: string | null) {
   const pessoa = await supabase.from('colaborador').select('id, nome, cargo, area, nivel, contexto_colaborador(dados, atualizado_em, alertas_qualidade)').eq('id', id).maybeSingle()
   if (pessoa.error) throw new Error(pessoa.error.message)
   if (!pessoa.data) return null
-  const [sensivel, linha, meus] = await Promise.all([
+  const [sensivel, linha, meus, acoes] = await Promise.all([
     supabase.from('contexto_colaborador_sensivel').select('dados').eq('colaborador_id', id).maybeSingle(),
     supabase.from('linha_do_tempo').select('quando, natureza, subtipo, resumo, origem_id').eq('colaborador_id', id),
     userId
       ? supabase.from('registro').select('id, tipo, texto, visibilidade').eq('colaborador_id', id).eq('autor_user_id', userId)
       : Promise.resolve({ data: [], error: null }),
+    supabase.from('acao_desenvolvimento').select('id, competencia, descricao, prazo, status, origem').eq('colaborador_id', id).order('prazo'),
   ])
   const contexto = lerContexto(pessoa.data.contexto_colaborador?.dados)
   return {
@@ -31,6 +32,7 @@ async function carregar(id: string, userId: string | null) {
     sensivel: sensivel.data ? lerSensivel(sensivel.data.dados) : null,
     linhaDoTempo: montarLinhaDoTempo(exigir(linha), contexto),
     meusRegistros: (meus.data ?? []) as MeuRegistro[],
+    acoes: acoes.data ?? [],
     alertas: pessoa.data.contexto_colaborador?.alertas_qualidade ?? [],
   }
 }
@@ -79,6 +81,21 @@ export function FichaColaborador() {
               </header>
               {dados.contexto ? <ResumoBoomit ctx={dados.contexto} /> : <p className="text-sm text-muted-foreground">Contexto Boomit indisponível para esta pessoa.</p>}
               {dados.sensivel && <Sensiveis s={dados.sensivel} />}
+              {dados.acoes.length > 0 && (
+                <Cartao titulo="Ações de desenvolvimento">
+                  <ul className="space-y-2 text-sm">
+                    {dados.acoes.map((a) => (
+                      <li key={a.id} className="flex flex-wrap gap-x-3">
+                        <span className="font-medium">{a.competencia ?? 'Desenvolvimento'}</span>
+                        <span>{a.descricao}</span>
+                        <span className="text-muted-foreground">
+                          prazo {formatarData(a.prazo)} · {a.status.replace('_', ' ')} · {a.origem === 'boomit_pdi' ? 'ligada ao PDI Boomit' : a.origem === 'sistema_interno' ? 'sistema interno' : 'Copiloto'}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </Cartao>
+              )}
               <LinhaDoTempo itens={dados.linhaDoTempo} meusRegistros={dados.meusRegistros} aoMudar={() => setRecarga((n) => n + 1)} />
             </>
           )

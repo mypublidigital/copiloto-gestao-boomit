@@ -4,21 +4,23 @@ import { useNavigate, useSearchParams } from 'react-router'
 import { useSessao } from '@/auth/sessao'
 import { Cartao, Estado } from '@/components/Estado'
 import { Button } from '@/components/ui/button'
-import type { Fonte } from '@/dominio/preparacao'
+import { type Fonte, ROTULO_TIPO_PREPARACAO, type TipoPreparacao } from '@/dominio/preparacao'
 import { supabase } from '@/lib/supabase'
 import { exigir, useConsulta } from '@/lib/useConsulta'
 import { cn } from '@/lib/utils'
 import { chamarFuncao } from '@/servicos/funcoes'
 
-const TIPOS = [
-  { valor: 'feedback', rotulo: 'Feedback', ativo: true },
-  { valor: 'pdi', rotulo: 'PDI', ativo: false },
-  { valor: 'conversa_dificil', rotulo: 'Conversa difícil', ativo: false },
-  { valor: 'decisao_alcada', rotulo: 'Decisão na alçada', ativo: false },
-  { valor: 'preparacao_reuniao', rotulo: '1:1', ativo: false },
-] as const
+const TIPOS = Object.keys(ROTULO_TIPO_PREPARACAO) as TipoPreparacao[]
 
-const NOME_CAMADA: Record<number, string> = { 4: 'Empresa', 5: 'Pessoa', 6: 'Histórico', 7: 'Reuniões e mentorias' }
+const EXEMPLO: Record<TipoPreparacao, string> = {
+  feedback: 'Ex.: duas entregas fora do prazo combinado na última quinzena',
+  pdi: 'Ex.: vamos revisar o PDI; quero focar em planejamento e comunicação com clientes',
+  conversa_dificil: 'Ex.: atrito entre ela e o analista de suporte sobre quem responde ao cliente nos chamados urgentes',
+  decisao_alcada: 'Ex.: ele pediu para trocar o turno de sexta por segunda na próxima semana',
+  preparacao_reuniao: 'Ex.: 1:1 quinzenal; da última vez combinamos o plano semanal',
+}
+
+const NOME_CAMADA: Record<number, string> = { 1: 'Políticas e alçadas', 4: 'Empresa', 5: 'Pessoa', 6: 'Histórico', 7: 'Reuniões e mentorias' }
 
 type FonteContexto = Omit<Fonte, 'apelido'>
 
@@ -26,6 +28,7 @@ export function Preparar() {
   const { vinculo } = useSessao()
   const navegar = useNavigate()
   const [params] = useSearchParams()
+  const [tipo, setTipo] = useState<TipoPreparacao>((params.get('tipo') as TipoPreparacao | null) ?? 'feedback')
   const [pessoaId, setPessoaId] = useState(params.get('pessoa') ?? '')
   const [relato, setRelato] = useState('')
   const [fontes, setFontes] = useState<FonteContexto[] | null>(null)
@@ -46,7 +49,7 @@ export function Preparar() {
     setErro(null)
     setEstado('carregando-contexto')
     try {
-      const r = await chamarFuncao<{ fontes: FonteContexto[] }>('preparar-situacao', { acao: 'contexto', colaborador_id: pessoaId, tipo: 'feedback' })
+      const r = await chamarFuncao<{ fontes: FonteContexto[] }>('preparar-situacao', { acao: 'contexto', colaborador_id: pessoaId, tipo })
       setFontes(r.fontes)
       setExcluidas(new Set())
     } catch (e) {
@@ -63,7 +66,7 @@ export function Preparar() {
       const r = await chamarFuncao<{ situacao_id: string }>('preparar-situacao', {
         acao: 'gerar',
         colaborador_id: pessoaId,
-        tipo: 'feedback',
+        tipo,
         relato,
         fontes_excluidas: [...excluidas],
       })
@@ -95,14 +98,16 @@ export function Preparar() {
         <div className="flex flex-wrap gap-2">
           {TIPOS.map((t) => (
             <button
-              key={t.valor}
+              key={t}
               type="button"
-              disabled={!t.ativo}
-              aria-pressed={t.ativo}
-              className={cn('rounded-md border px-3 py-1.5 text-sm', t.ativo ? 'border-primary bg-primary text-primary-foreground' : 'cursor-not-allowed opacity-50')}
+              aria-pressed={tipo === t}
+              onClick={() => {
+                setTipo(t)
+                setFontes(null)
+              }}
+              className={cn('rounded-md border px-3 py-1.5 text-sm', tipo === t ? 'border-primary bg-primary text-primary-foreground' : 'hover:bg-secondary')}
             >
-              {t.rotulo}
-              {!t.ativo && <span className="ml-1 text-xs">(em breve)</span>}
+              {ROTULO_TIPO_PREPARACAO[t]}
             </button>
           ))}
         </div>
@@ -141,7 +146,7 @@ export function Preparar() {
                 value={relato}
                 onChange={(e) => setRelato(e.target.value)}
                 className="rounded-md border bg-background px-3 py-2"
-                placeholder="Ex.: duas entregas fora do prazo combinado na última quinzena"
+                placeholder={EXEMPLO[tipo]}
               />
               <div>
                 <Button onClick={verContexto} disabled={!podeAvancar || estado !== 'livre'}>
@@ -156,7 +161,7 @@ export function Preparar() {
       {fontes && (
         <Cartao titulo="3 · Contexto que entra no plano">
           <p className="mb-3 text-sm text-muted-foreground">Desmarque o que não quer que a IA considere. O relato sempre entra.</p>
-          {[4, 5, 6, 7].map((camada) => {
+          {[1, 4, 5, 6, 7].map((camada) => {
             const daCamada = fontes.filter((f) => f.camada === camada)
             if (daCamada.length === 0) return null
             return (

@@ -6,7 +6,7 @@ import { Cartao, Estado } from '@/components/Estado'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { estaVencido, hojeSaoPaulo, ROTULO_STATUS_COMBINADO, somarDias, type StatusCombinado } from '@/dominio/combinados'
-import { type CombinadoProposto, ROTULO_RESPONSAVEL } from '@/dominio/preparacao'
+import { type CombinadoProposto, type Extensao, ROTULO_RESPONSAVEL } from '@/dominio/preparacao'
 import { formatarData } from '@/lib/datas'
 import { supabase } from '@/lib/supabase'
 import { exigir, useConsulta } from '@/lib/useConsulta'
@@ -19,8 +19,14 @@ interface Props {
   aplicadaEm: string | null
   relatoAplicacao: string | null
   propostos: CombinadoProposto[]
+  /** Ações de PDI propostas (tipo pdi); gravadas conforme empresa.config.modo_pdi. */
+  acoesPdi?: Extract<Extensao, { tipo: 'pdi' }>['acoes_desenvolvimento']
+  modoPdi?: string
   aoMudar: () => void
 }
+
+// docs/01 §3: boomit → referência ao PDI Boomit; integrado → sistema interno; nativo → Copiloto.
+const ORIGEM_POR_MODO: Record<string, 'boomit_pdi' | 'sistema_interno' | 'copiloto'> = { boomit: 'boomit_pdi', integrado: 'sistema_interno', nativo: 'copiloto' }
 
 interface CombinadoLinha {
   id: string
@@ -71,6 +77,7 @@ function RegistrarAplicacao(p: Props) {
   const [data, setData] = useState(hoje)
   const [relato, setRelato] = useState('')
   const [escolhidos, setEscolhidos] = useState(p.propostos.map(() => true))
+  const [acoesEscolhidas, setAcoesEscolhidas] = useState((p.acoesPdi ?? []).map(() => true))
   const [salvando, setSalvando] = useState(false)
   const [erro, setErro] = useState<string | null>(null)
 
@@ -104,6 +111,21 @@ function RegistrarAplicacao(p: Props) {
       const ins = await supabase.from('combinado').insert(novos)
       if (ins.error) setErro(`Conversa registrada, mas os combinados não foram salvos: ${ins.error.message}`)
     }
+    const acoes = (p.acoesPdi ?? []).filter((_, i) => acoesEscolhidas[i])
+    if (acoes.length && p.colaboradorId) {
+      const ins = await supabase.from('acao_desenvolvimento').insert(
+        acoes.map((a) => ({
+          empresa_id: p.empresaId,
+          colaborador_id: p.colaboradorId!,
+          situacao_id: p.situacaoId,
+          competencia: a.competencia,
+          descricao: `${a.acao} (apoio: ${a.apoio}; evidência: ${a.evidencia})`,
+          prazo: somarDias(data, a.prazo_dias),
+          origem: ORIGEM_POR_MODO[p.modoPdi ?? 'boomit'] ?? 'boomit_pdi',
+        })),
+      )
+      if (ins.error) setErro(`Conversa registrada, mas as ações de PDI não foram salvas: ${ins.error.message}`)
+    }
     setSalvando(false)
     p.aoMudar()
   }
@@ -133,6 +155,23 @@ function RegistrarAplicacao(p: Props) {
                       <span className="text-muted-foreground">
                         · {ROTULO_RESPONSAVEL[c.responsavel]} · prazo {formatarData(somarDias(data, c.prazo_sugerido_dias))}
                       </span>
+                    </span>
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </fieldset>
+        )}
+        {(p.acoesPdi ?? []).length > 0 && (
+          <fieldset>
+            <legend className="text-sm font-medium">Ações de desenvolvimento combinadas</legend>
+            <ul className="mt-1 space-y-1">
+              {(p.acoesPdi ?? []).map((a, i) => (
+                <li key={i}>
+                  <label className="flex items-start gap-2 text-sm">
+                    <input type="checkbox" className="mt-1" checked={acoesEscolhidas[i]} onChange={() => setAcoesEscolhidas((l) => l.map((x, j) => (j === i ? !x : x)))} />
+                    <span>
+                      {a.competencia}: {a.acao} <span className="text-muted-foreground">· prazo {formatarData(somarDias(data, a.prazo_dias))}</span>
                     </span>
                   </label>
                 </li>

@@ -7,7 +7,7 @@ import { CAMADAS, type ItemDeContexto } from './contexto.ts'
 import { detectarSensivelPorTermos, GUARDRAILS } from './guardrails.ts'
 import type { ClienteModelo, Uso } from './modelo.ts'
 import { montarPacote, type Pacote } from './pacote.ts'
-import { type Classificacao, classificacaoSchema, planoSchema } from './saida.ts'
+import { type Classificacao, classificacaoSchema, schemaDoPlano, type TipoPreparacao } from './saida.ts'
 import { type PlanoVerificado, verificarPlano } from './verificacao.ts'
 
 export interface Modelos {
@@ -28,6 +28,8 @@ export interface EntradaPreparacao {
   itens: ItemDeContexto[]
   cliente: ClienteModelo
   modelos: Modelos
+  /** Tipo de situação; padrão feedback. */
+  tipo?: TipoPreparacao
 }
 
 export type ResultadoPreparacao =
@@ -50,6 +52,7 @@ export type ResultadoPreparacao =
 export const ID_RELATO = 'relato'
 
 export async function prepararSituacao(e: EntradaPreparacao): Promise<ResultadoPreparacao> {
+  const tipo = e.tipo ?? 'feedback'
   const chamadas: ChamadaRegistrada[] = []
   const porTermos = detectarSensivelPorTermos(e.relato)
 
@@ -87,11 +90,11 @@ export async function prepararSituacao(e: EntradaPreparacao): Promise<ResultadoP
     modelo: e.modelos.principal,
     // Guardrails antes e depois do bloco estável (lente/skills), contexto variável por último.
     sistema: [
-      { texto: [GUARDRAILS, pacote.estavel, promptPreparacao.INSTRUCOES, GUARDRAILS].filter(Boolean).join('\n\n'), cache: true },
+      { texto: [GUARDRAILS, pacote.estavel, promptPreparacao.instrucoesDoTipo(tipo), GUARDRAILS].filter(Boolean).join('\n\n'), cache: true },
       { texto: `# Contexto\n${pacote.contexto}` },
     ],
-    mensagens: [{ papel: 'user', texto: 'Prepare o plano da conversa de feedback a partir do relato [identificado no contexto] e do contexto acima.' }],
-    schema: planoSchema,
+    mensagens: [{ papel: 'user', texto: promptPreparacao.PEDIDO_DO_TIPO[tipo] }],
+    schema: schemaDoPlano(tipo),
     maxTokens: 16_000,
     esforco: 'medium',
     comFallback: true,
@@ -100,7 +103,7 @@ export async function prepararSituacao(e: EntradaPreparacao): Promise<ResultadoP
   const verificado = verificarPlano(gerado.dados, pacote.fontes)
   chamadas.push({
     finalidade: 'preparacao',
-    versao_prompt: promptPreparacao.VERSAO,
+    versao_prompt: promptPreparacao.versaoDoTipo(tipo),
     uso: gerado.uso,
     fontes_ids: [...pacote.fontes.values()].map((f) => f.fonte_id),
   })
