@@ -9,15 +9,15 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
   navegador; demonstração publicada na Vercel com proteção de acesso.
 - **Situação:** próxima sprint com dependências atendidas: **Sprint 2** (completar Minha equipe, ficha
   e registro). Sprint 0A e 1 esperam o acesso ao repositório Boomit (N9, N10); Sprint 3 pode começar
-  com alçadas fictícias até chegar N12. Falta o Marcelo abrir o link publicado logado na Vercel
-  e conferir (pergunta 1).
+  com alçadas fictícias até chegar N12. O Marcelo abriu o link publicado logado na Vercel e entrou
+  como persona (04/11/2026).
 - **Última atualização:** 04/11/2026
 
 ## Perguntas abertas (dependem do Marcelo)
 
 | # | Pergunta | Onde responder | Bloqueia | Desde |
 |---|---|---|---|---|
-| 1 | Abrir https://copiloto-gestao-boomit-demo.vercel.app logado na Vercel (conta do time `marcelos-projects`) e conferir se entra como as personas | Navegador | Uso da demonstração por outras pessoas | 04/11/2026 |
+| — | Nenhuma no momento (demonstração publicada conferida pelo Marcelo em 04/11/2026) | — | — | — |
 
 ## Incidentes
 
