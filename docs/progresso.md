@@ -5,17 +5,25 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 
 ## Estado atual
 
-- **Etapa:** Sprint 0 · Checkpoint 4 (Combinados, aplicação, painel e deploy)
-- **Situação:** combinados (pendente → confirmado), registro da aplicação, registro rápido, lista M7
-  e painel M8 prontos. **Roteiro de demonstração 1 a 9 verificado no navegador** (5, 7, 8 e 9 neste
-  checkpoint). **Falta:** publicar a demonstração na Vercel (pergunta 1). (CP3 concluído em 04/11/2026.)
+- **Etapa:** **Sprint 0 concluída** (04/11/2026) — roteiro de demonstração 1 a 9 verificado no
+  navegador; demonstração publicada na Vercel com proteção de acesso.
+- **Situação:** próxima sprint com dependências atendidas: **Sprint 2** (completar Minha equipe, ficha
+  e registro). Sprint 0A e 1 esperam o acesso ao repositório Boomit (N9, N10); Sprint 3 pode começar
+  com alçadas fictícias até chegar N12. Falta o Marcelo abrir o link publicado logado na Vercel
+  e conferir (pergunta 1).
 - **Última atualização:** 04/11/2026
 
 ## Perguntas abertas (dependem do Marcelo)
 
 | # | Pergunta | Onde responder | Bloqueia | Desde |
 |---|---|---|---|---|
-| 1 | A demonstração publicada fica acessível a quem tiver o link: as personas entram por uma senha que vai no código do site, e cada preparação usa a chave da Anthropic. Publicar assim, com proteção de acesso da Vercel, ou manter a demonstração só local por enquanto? E preencher `VERCEL_TOKEN` (N7) | Chat e `.env.local` | Item 4 do Checkpoint 4 | 04/11/2026 |
+| 1 | Abrir https://copiloto-gestao-boomit-demo.vercel.app logado na Vercel (conta do time `marcelos-projects`) e conferir se entra como as personas | Navegador | Uso da demonstração por outras pessoas | 04/11/2026 |
+
+## Incidentes
+
+| Data | O que aconteceu | Impacto | Correção |
+|---|---|---|---|
+| 04/11/2026 | Na primeira publicação, a Vercel tratou o deploy como produção e o endereço principal (`copiloto-gestao-boomit-demo.vercel.app`) ficou **aberto sem login por cerca de 10 minutos**; numa segunda tentativa, por menos de 1 minuto (o script detectou e apagou). A proteção padrão do projeto só cobre pré-visualizações. | Quem acessasse veria o site de demonstração (dados fictícios) e a senha das personas no código, podendo usar a IA com a chave da Leadrix. Nenhum dado real. | Publicações apagadas; proteção do projeto em "all" (todos os endereços); script testa todos os endereços sem login e apaga a publicação se algum abrir; **senha das personas trocada** (a antiga não vale mais). |
 
 ## Decisões provisórias (para revisar)
 
@@ -55,7 +63,7 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | Segredos das funções: `npm run db:segredos` (lê só as variáveis de IA do `.env.local`, funciona no PowerShell). A gravação de segredos pelo agente é bloqueada pela checagem de segurança; o Marcelo roda o comando. |
 | 04/11/2026 | CP4 sem migration nem função nova: combinados, aplicação e registro gravam direto do front com o JWT do líder (RLS da 0001). Combinados entram como `pendente_revisao` ao registrar a conversa e só viram `aberto` quando o líder confirma (regra 5). Painel M8 pela função `andamento_lideranca`. |
 | 04/11/2026 | Linha do tempo: a view converte datas puras para meia-noite UTC, o que em São Paulo voltava um dia. A UI trata meia-noite UTC exata como data pura (teste). |
-| 04/11/2026 | Deploy da demonstração preparado (`npm run publicar:demo`): build local com as `VITE_*` do `.env.local` e envio só de `dist/` para a Vercel, com rewrite para o index.html. |
+| 04/11/2026 | Deploy da demonstração (`npm run publicar:demo`): build local com as `VITE_*` do `.env.local` e envio só de `dist/` para a Vercel (time `marcelos-projects`, projeto `copiloto-gestao-boomit-demo`), com rewrite para o index.html. Proteção Vercel Authentication em "all"; o script confere cada endereço sem login e apaga a publicação se algum abrir. |
 | 04/11/2026 | UI valida o JSON do contexto com zod (`src/dominio/contexto.ts`); teste garante que a saída do normalizador para os 13 colaboradores do fixture passa nesse schema. |
 
 ## Insumos recebidos
@@ -73,4 +81,5 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | Sprint 0 · CP1 (parte sem Supabase) | Front sobe local com a faixa de demonstração; typecheck, lint, 5 testes do motor e 28/28 de RLS (local) passam | `dc0b8a7` |
 | 04/11/2026 | Sprint 0 · CP1 concluído | Migration 0001 no remoto (27 tabelas, todas com RLS, 54 políticas); RLS 28/28 local e remoto; tipos gerados; front com cliente Supabase. Aceite: app sobe local, RLS e isolamento passam | `42e0b42` |
 | 04/11/2026 | Sprint 0 · CP2 | Conector mock + normalizador (R1, R5, R9; 8 regras da Sprint 1 como pendentes), migrations 0002 e 0003, seed com 13 colaboradores e 5 personas, telas M1 e M2, painel do admin. Testes: 32 unitários, 39 de RLS local e remoto, build de produção limpo. Roteiro 1, 2, 8 e 9 verificados no navegador. Deploy autorizado pelo Marcelo e feito: service role e Admin RH sincronizam (200, sem snapshot novo), líder recebe 403, sem login 401 | `a969432`, `22f1cea` |
+| 04/11/2026 | Sprint 0 · CP4 | Combinados (pendente → confirmado), aplicação, registro rápido, M7, M8; roteiro 1 a 9 no navegador; demonstração publicada com proteção em todos os endereços (ver Incidentes); senha das personas trocada | `e6c6711` + ver `git log` |
 | 04/11/2026 | Sprint 0 · CP3 | Motor, adaptador, prompts, `preparar-situacao` e `simular` publicadas, telas M3 e M4. No navegador: plano da Ana com fatos citando fontes (relato F23, PDI F14, assessment F9–F13), hipóteses incluindo o papel do líder, versão 2 salva; simulação desafiadora com streaming e debrief nos 5 critérios sem nota; relato de assédio → encaminhamento com os canais, sem chamar a IA. `interacao_ia` só com metadados; custo da demonstração ≈ US$ 0,07. Testes: 74 unitários, 44 de RLS local e remoto | `5b33531` + ver `git log` |

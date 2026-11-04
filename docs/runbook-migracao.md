@@ -23,7 +23,7 @@ feito à mão num painel entra aqui, com data. Se não está aqui nem no reposit
 | GitHub | `mypublidigital/copiloto-gestao-boomit` | a definir |
 | Supabase (desenvolvimento) | `copiloto-gestao-boomit-dev` (ref `tdghjpunfqlhpugrsbtr`), organização mypublicompany, `sa-east-1` | a definir |
 | Anthropic | chave exclusiva do projeto, com limite de gasto — **pendente** | a definir |
-| Hospedagem do front | Vercel da Leadrix — **pendente** | a definir |
+| Hospedagem do front | Vercel, time `marcelos-projects`, projeto `copiloto-gestao-boomit-demo` (com proteção de acesso) | a definir |
 | E-mail transacional | a definir (Sprint 6) | a definir |
 
 ## 3. Passos manuais registrados
@@ -38,6 +38,9 @@ feito à mão num painel entra aqui, com data. Se não está aqui nem no reposit
 | 04/11/2026 | Supabase | Deploy de `conector-boomit` (`npx supabase functions deploy conector-boomit --use-api --yes`, autorizado pelo Marcelo). Sem `BOOMIT_FONTE` definida, a função usa `mock` | Publicação de função é ação no projeto hospedado | Mesmo comando no projeto novo; `npx supabase secrets set BOOMIT_FONTE=api` quando a API da Boomit existir |
 
 | 04/11/2026 | Supabase | Migration 0004; deploy de `preparar-situacao` e `simular`; segredos `ANTHROPIC_API_KEY`, `MODELO_PRINCIPAL`, `MODELO_RAPIDO`, `MODELO_AVALIACAO` gravados com `npm run db:segredos` (rodado pelo Marcelo) | Segredos não vão para o repositório | `npm run db:aplicar`, `npx supabase functions deploy preparar-situacao simular --use-api` e `npm run db:segredos` no projeto novo |
+
+| 04/11/2026 | Vercel | Projeto `copiloto-gestao-boomit-demo` no time `marcelos-projects`, criado por `npm run publicar:demo`, com Deployment Protection (Vercel Authentication) em **"all"** | Configuração de projeto da Vercel | Rodar `npm run publicar:demo` com o token da conta de destino (o script cria o projeto e liga a proteção) |
+| 04/11/2026 | Supabase | Senha das personas de demonstração trocada (`VITE_DEMO_SENHA` nova + `npm run seed:demo`) após exposição do site | Segredo fora do repositório | Gerar uma senha nova no destino |
 
 **Rede sem porta do Postgres:** `db push`, `db pull` e `test db` do CLI precisam da porta 5432/6543.
 Onde ela estiver bloqueada, use `npm run db:aplicar`, `npm run test:rls:remoto` e `npm run db:tipos`,
