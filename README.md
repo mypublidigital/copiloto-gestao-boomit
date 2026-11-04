@@ -15,7 +15,7 @@ Base para construir o Copiloto no Claude Code, com a EasyJur como cliente-piloto
 | `contracts/boomit-export.v1.schema.json` | Contrato Boomit → Copiloto (para alinhar com o desenvolvimento Boomit) |
 | `contracts/exemplo-payload.v1.json` | Exemplo fictício validado contra o contrato |
 | `supabase/migrations/0001_fundacao.sql` | Modelo de dados, RLS e auditoria |
-| `supabase/tests/rls_cenario_piloto.sql` | 28 testes de permissão e regras de dados por perfil (líder, diretor, outro líder, RH, mentor) |
+| `supabase/tests/database/rls_cenario_piloto.test.sql` | 28 testes de permissão e regras de dados por perfil (líder, diretor, outro líder, RH, mentor) |
 | `fixtures/boomit/empresa-exemplo.v1.json` | Empresa fictícia com 13 colaboradores no contrato v1 (validado), para o modo mock |
 | `fixtures/boomit/hierarquia-exemplo.csv` | Hierarquia fictícia: diretor → 2 líderes → equipes |
 
@@ -36,4 +36,12 @@ Base para construir o Copiloto no Claude Code, com a EasyJur como cliente-piloto
 | `scripts/verificar-ambiente.sh` | Confere ferramentas e variáveis sem mostrar valores |
 | `scripts/com-env.sh` | Roda comandos com as chaves do `.env.local` sem expô-las |
 
-Teste local da migration (Postgres 16, sem Supabase CLI): `supabase/tests/rodar_local.sh`.
+## Comandos do dia a dia
+
+| Comando | O que faz |
+|---|---|
+| `npm install` | Instala as dependências |
+| `npm run dev` | Sobe o front em http://localhost:5173 |
+| `npm run verificar` | Tipos, lint, testes do motor e RLS local (tudo o que roda sem Supabase) |
+| `npm run test:rls` | Migration + 28 testes de RLS (pgTAP) num Postgres embutido (PGlite), sem Docker |
+| `npm run test:rls:remoto` | Os mesmos testes no projeto Supabase de desenvolvimento, sem deixar dados |

@@ -19,3 +19,6 @@ supabase/.branches/
 
 # Sistema
 .DS_Store
+
+# Node / TS build info
+*.tsbuildinfo

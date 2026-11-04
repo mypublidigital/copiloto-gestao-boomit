@@ -62,7 +62,7 @@
 | **Admin Boomit** | Equipe Boomit | Igual ao admin, para suporte | Configura tenants e conector |
 | Colaborador liderado | — | Sem acesso na Fase 1 | — |
 
-Regra testada em `supabase/tests/rls_cenario_piloto.sql`.
+Regra testada em `supabase/tests/database/rls_cenario_piloto.test.sql`.
 
 ## 5. Módulos da Fase 1
 
