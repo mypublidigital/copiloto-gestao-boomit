@@ -42,6 +42,8 @@ feito à mão num painel entra aqui, com data. Se não está aqui nem no reposit
 | 04/11/2026 | Vercel | Projeto `copiloto-gestao-boomit-demo` no time `marcelos-projects`, criado por `npm run publicar:demo`, com Deployment Protection (Vercel Authentication) em **"all"** | Configuração de projeto da Vercel | Rodar `npm run publicar:demo` com o token da conta de destino (o script cria o projeto e liga a proteção) |
 | 04/11/2026 | Supabase | Senha das personas de demonstração trocada (`VITE_DEMO_SENHA` nova + `npm run seed:demo`) após exposição do site | Segredo fora do repositório | Gerar uma senha nova no destino |
 
+| 04/11/2026 | Supabase | Migrations 0005 (bucket `fontes`) e 0006 (lembretes, pg_cron `copiloto-lembretes` a cada 15 min); deploy de `processar-documento`; alçadas fictícias no seed | Agendamento e bucket são criados pela migration | `npm run db:aplicar` no projeto novo cria o bucket e o agendamento (pg_cron precisa estar disponível) |
+
 **Rede sem porta do Postgres:** `db push`, `db pull` e `test db` do CLI precisam da porta 5432/6543.
 Onde ela estiver bloqueada, use `npm run db:aplicar`, `npm run test:rls:remoto` e `npm run db:tipos`,
 que vão pela Management API (HTTPS) com o `SUPABASE_ACCESS_TOKEN`. As migrations ficam registradas

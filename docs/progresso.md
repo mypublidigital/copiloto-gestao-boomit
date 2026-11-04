@@ -5,19 +5,21 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 
 ## Estado atual
 
-- **Etapa:** **Sprint 0 concluída** (04/11/2026) — roteiro de demonstração 1 a 9 verificado no
-  navegador; demonstração publicada na Vercel com proteção de acesso.
-- **Situação:** próxima sprint com dependências atendidas: **Sprint 2** (completar Minha equipe, ficha
-  e registro). Sprint 0A e 1 esperam o acesso ao repositório Boomit (N9, N10); Sprint 3 pode começar
-  com alçadas fictícias até chegar N12. O Marcelo abriu o link publicado logado na Vercel e entrou
-  como persona (04/11/2026).
+- **Etapa:** **Sprints 0, 2, 3, 4 e 6 concluídas** (04/11/2026), código no GitHub, migrations e
+  Edge Functions no Supabase de desenvolvimento.
+- **Situação:** falta só republicar o site de demonstração com as sprints novas: o `VERCEL_TOKEN` perdeu
+  acesso ao time da Vercel (pergunta 1). O site publicado continua no ar, protegido, na versão da Sprint 0.
+  Próximas: Sprint 0A e 1 (acesso ao repositório e API Boomit, N9 e N10), Sprint 5 (arquivos das
+  skills, N14) e Sprint 7 (qualidade, LGPD, migração).
 - **Última atualização:** 04/11/2026
 
 ## Perguntas abertas (dependem do Marcelo)
 
 | # | Pergunta | Onde responder | Bloqueia | Desde |
 |---|---|---|---|---|
-| — | Nenhuma no momento (demonstração publicada conferida pelo Marcelo em 04/11/2026) | — | — | — |
+| 1 | Gerar um token novo da Vercel com acesso ao time `marcelos-projects` e colocar em `VERCEL_TOKEN` (o atual responde 403 no time e no projeto) | `.env.local` | Republicar a demonstração (`npm run publicar:demo`) | 04/11/2026 |
+| 2 | Alçadas reais dos gestores (N12) — hoje há duas alçadas fictícias | `_entrada/` | Decisão na alçada com regras da EasyJur | 04/11/2026 |
+| 3 | Provedor de e-mail transacional (N15) — lembretes hoje só no app | `.env.local` | Lembretes por e-mail | 04/11/2026 |
 
 ## Incidentes
 
@@ -33,6 +35,12 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | **Minha equipe** mostra os liderados **diretos**. Para o diretor (Ricardo), isso são os dois líderes; a visão da linha inteira fica para o painel M8 (Checkpoint 4). | Mantém a home do líder curta e igual para todos os níveis. | Trocar a consulta por `pode_ver_colaborador` (linha inteira) em `MinhaEquipe.tsx`. |
 | 04/11/2026 | **Maiores gaps** juntam Digital de Crescimento (meta × atual) e Táticas (esperado × atual), até 5, maiores primeiro. | O roteiro pede "3–5 maiores gaps meta × atual" sem dizer de qual bloco. | Filtrar `origem` em `gaps_prioritarios` no normalizador. |
 | 04/11/2026 | Home do **Mentor Boomit** = líder mentorado e equipe dele (o que a RLS já libera). | Perfil "Mentor" no docs/01 §4. | — |
+| 04/11/2026 | **Alçadas fictícias** (Sprint 3): tático decide escala, folgas e trocas de até 2 dias, sem custos acima de R$ 1.000; estratégico, contratações no orçamento e despesas até R$ 20.000. Marcadas "(exemplo fictício)". | N12 ainda não chegou; a decisão na alçada precisa de política para citar. | Apagar as linhas de `alcada` da empresa de demonstração e cadastrar as reais. |
+| 04/11/2026 | **"Dentro da alçada" exige citar uma política de alçada**; sem citação válida, a verificação marca "incerto". | Evita afirmar limite sem fonte (regra 2). | Remover o caso `decisao_alcada` em `verificarExtensao`. |
+| 04/11/2026 | **PDI** grava ações de desenvolvimento ao registrar a conversa, com origem conforme `modo_pdi` (padrão `boomit` → `boomit_pdi`). | N21 (Luana) pendente; `boomit` é o padrão do docs/01 §3. | Trocar `empresa.config.modo_pdi`. |
+| 04/11/2026 | **Planejado × combinado** por semelhança de palavras (radical de 5 letras): ≥ 0,55 "como planejado", ≥ 0,25 "alterado", abaixo "não tratado"; extras "novo na reunião". A tela avisa que é aproximação. | Barato, sem chamada de IA, e o líder confere. | Trocar por comparação com o modelo rápido em `src/dominio/comparacao.ts`. |
+| 04/11/2026 | **Lembretes** D-2 e D0 às 9h de São Paulo para quem criou o combinado, só no app; e-mail fica na fila até existir provedor (N15). | Necessidades: "lembretes só no app" enquanto N15 não chega. | `empresa.config.lembretes_dias`; canal `email` quando houver provedor. |
+| 04/11/2026 | **Drill-down do painel** mostra pessoa, prazo e status dos combinados do líder; nunca a descrição. | Aceite da Sprint 6: "só contagens e prazos". | Função `andamento_combinados_lider`. |
 
 ## Decisões técnicas
 
@@ -64,6 +72,9 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | CP4 sem migration nem função nova: combinados, aplicação e registro gravam direto do front com o JWT do líder (RLS da 0001). Combinados entram como `pendente_revisao` ao registrar a conversa e só viram `aberto` quando o líder confirma (regra 5). Painel M8 pela função `andamento_lideranca`. |
 | 04/11/2026 | Linha do tempo: a view converte datas puras para meia-noite UTC, o que em São Paulo voltava um dia. A UI trata meia-noite UTC exata como data pura (teste). |
 | 04/11/2026 | Deploy da demonstração (`npm run publicar:demo`): build local com as `VITE_*` do `.env.local` e envio só de `dist/` para a Vercel (time `marcelos-projects`, projeto `copiloto-gestao-boomit-demo`), com rewrite para o index.html. Proteção Vercel Authentication em "all"; o script confere cada endereço sem login e apaga a publicação se algum abrir. |
+| 04/11/2026 | Sprint 3: extensões por tipo com schema próprio (`schemaDoPlano(tipo)`) e prompts `preparacao-<tipo>@2`. Camada 1 (alçadas) passou a ser citável e nunca é cortada. |
+| 04/11/2026 | Sprint 4: leitura de documentos em `_shared/documentos/` (fflate para .docx, unpdf para .pdf); extração no motor (`motor/extracao.ts`, prompt `extracao@1`); processamento em segundo plano com `EdgeRuntime.waitUntil` e service role; bucket `fontes` com políticas ligadas ao documento (0005). Inserções em tabelas cuja leitura consulta a própria tabela (documento_fonte, situacao) não usam RETURNING. |
+| 04/11/2026 | Sprint 6: histórico e lembretes por trigger (0006), envio por pg_cron a cada 15 min; a função de envio recusa chamadas com usuário logado. O teste de RLS pegou dois bugs antes de aplicar (lista vazia de dias e permissão de execução) e ambos foram corrigidos. |
 | 04/11/2026 | UI valida o JSON do contexto com zod (`src/dominio/contexto.ts`); teste garante que a saída do normalizador para os 13 colaboradores do fixture passa nesse schema. |
 
 ## Insumos recebidos
@@ -81,5 +92,9 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | Sprint 0 · CP1 (parte sem Supabase) | Front sobe local com a faixa de demonstração; typecheck, lint, 5 testes do motor e 28/28 de RLS (local) passam | `dc0b8a7` |
 | 04/11/2026 | Sprint 0 · CP1 concluído | Migration 0001 no remoto (27 tabelas, todas com RLS, 54 políticas); RLS 28/28 local e remoto; tipos gerados; front com cliente Supabase. Aceite: app sobe local, RLS e isolamento passam | `42e0b42` |
 | 04/11/2026 | Sprint 0 · CP2 | Conector mock + normalizador (R1, R5, R9; 8 regras da Sprint 1 como pendentes), migrations 0002 e 0003, seed com 13 colaboradores e 5 personas, telas M1 e M2, painel do admin. Testes: 32 unitários, 39 de RLS local e remoto, build de produção limpo. Roteiro 1, 2, 8 e 9 verificados no navegador. Deploy autorizado pelo Marcelo e feito: service role e Admin RH sincronizam (200, sem snapshot novo), líder recebe 403, sem login 401 | `a969432`, `22f1cea` |
+| 04/11/2026 | Sprint 2 | Filtros e ordenação por próxima ação em Minha equipe; linha do tempo filtrável; edição de registro auditada | `bbb2e19` |
+| 04/11/2026 | Sprint 3 | PDI, conversa difícil, decisão na alçada e 1:1; ensaio real dos 4 tipos (todos com extensão válida; alçada citada) | `495d737` |
+| 04/11/2026 | Sprint 4 | Upload com aviso, leitura de 5 formatos, extração com trecho, revisão, planejado × combinado, camada 7; ensaio real com anotações fictícias do Gemini (5 combinados com prazo) | `e7141d1` |
+| 04/11/2026 | Sprint 6 | Ações e histórico dos combinados, lembretes D-2/D0 com pg_cron, central de notificações, drill-down do painel. Testes: 106 unitários, 74 de RLS local e remoto; telas conferidas no navegador | `302b376` |
 | 04/11/2026 | Sprint 0 · CP4 | Combinados (pendente → confirmado), aplicação, registro rápido, M7, M8; roteiro 1 a 9 no navegador; demonstração publicada com proteção em todos os endereços (ver Incidentes); senha das personas trocada | `e6c6711` + ver `git log` |
 | 04/11/2026 | Sprint 0 · CP3 | Motor, adaptador, prompts, `preparar-situacao` e `simular` publicadas, telas M3 e M4. No navegador: plano da Ana com fatos citando fontes (relato F23, PDI F14, assessment F9–F13), hipóteses incluindo o papel do líder, versão 2 salva; simulação desafiadora com streaming e debrief nos 5 critérios sem nota; relato de assédio → encaminhamento com os canais, sem chamar a IA. `interacao_ia` só com metadados; custo da demonstração ≈ US$ 0,07. Testes: 74 unitários, 44 de RLS local e remoto | `5b33531` + ver `git log` |

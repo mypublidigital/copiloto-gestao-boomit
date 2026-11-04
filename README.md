@@ -51,3 +51,5 @@ Base para construir o Copiloto no Claude Code, com a EasyJur como cliente-piloto
 | `npm run verificar:producao` | Gera o build de produção e confere que nada do modo demonstração foi junto |
 | `npm run db:segredos` | Grava no Supabase os segredos de IA das Edge Functions, lendo do `.env.local` (não exibe valores) |
 | `npm run ensaio:ia` | Roda o motor com o modelo real como a persona Marina, sem gravar nada (custa centavos) |
+| `npm run ensaio:tipos` | Gera um plano de cada tipo (PDI, conversa difícil, alçada, 1:1) com o modelo real, sem gravar |
+| `npm run ensaio:documento` | Sobe as anotações fictícias do Gemini, processa e mostra os combinados extraídos (grava como dado de demonstração) |
