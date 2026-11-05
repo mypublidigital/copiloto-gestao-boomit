@@ -11,13 +11,12 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
   todos os endereços.
   Próximas: Sprint 0A e 1 (acesso ao repositório e API Boomit, N9 e N10), Sprint 5 (arquivos das
   skills, N14) e Sprint 7 (qualidade, LGPD, migração).
-- **Última atualização:** 04/11/2026
+- **Última atualização:** 05/11/2026
 
 ## Perguntas abertas (dependem do Marcelo)
 
 | # | Pergunta | Onde responder | Bloqueia | Desde |
 |---|---|---|---|---|
-| 1 | Revogar e gerar de novo o token da Vercel: o valor apareceu numa mensagem de erro do terminal durante a publicação (ver Incidentes) | vercel.com › Tokens e `.env.local` | Nada; é precaução | 04/11/2026 |
 | 2 | Alçadas reais dos gestores (N12) — hoje há duas alçadas fictícias | `_entrada/` | Decisão na alçada com regras da EasyJur | 04/11/2026 |
 | 3 | Provedor de e-mail transacional (N15) — lembretes hoje só no app | `.env.local` | Lembretes por e-mail | 04/11/2026 |
 
@@ -27,7 +26,7 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 |---|---|---|---|
 | 04/11/2026 | Na primeira publicação, a Vercel tratou o deploy como produção e o endereço principal (`copiloto-gestao-boomit-demo.vercel.app`) ficou **aberto sem login por cerca de 10 minutos**; numa segunda tentativa, por menos de 1 minuto (o script detectou e apagou). A proteção padrão do projeto só cobre pré-visualizações. | Quem acessasse veria o site de demonstração (dados fictícios) e a senha das personas no código, podendo usar a IA com a chave da Leadrix. Nenhum dado real. | Publicações apagadas; proteção do projeto em "all" (todos os endereços); script testa todos os endereços sem login e apaga a publicação se algum abrir; **senha das personas trocada** (a antiga não vale mais). |
 
-| 04/11/2026 | Na republicação, o CLI da Vercel falhou e a mensagem de erro repetiu o comando com o `VERCEL_TOKEN` na saída do terminal local. | O token ficou no log desta sessão do Claude Code; não foi para o GitHub nem para a Vercel. | Script passou a publicar pela API sem passar o token na linha de comando; recomendado revogar o token e gerar outro. |
+| 04/11/2026 | Na republicação, o CLI da Vercel falhou e a mensagem de erro repetiu o comando com o `VERCEL_TOKEN` na saída do terminal local. | O token ficou no log desta sessão do Claude Code; não foi para o GitHub nem para a Vercel. | Script passou a publicar pela API sem passar o token na linha de comando; token revogado e substituído pelo Marcelo em 05/11/2026 (novo token conferido: acesso ao projeto e proteção "all"). |
 
 ## Decisões provisórias (para revisar)
 
