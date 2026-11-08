@@ -33,8 +33,8 @@ select pg_temp.como('00000000-0000-0000-0000-0000000000a1');
 insert into combinado (id, empresa_id, lider_id, colaborador_id, descricao, responsavel_tipo, prazo, status, origem) values
   ('40000000-0000-0000-0000-000000000001','10000000-0000-0000-0000-000000000001','20000000-0000-0000-0000-0000000000a0',
    '20000000-0000-0000-0000-0000000000a2','Plano semanal (texto do combinado)','colaborador', current_date + 5, 'aberto', 'manual');
-select ok((select count(*) from lembrete where combinado_id = '40000000-0000-0000-0000-000000000001' and enviado_em is null) = 2,
-  'Combinado aberto com prazo gera lembretes D-2 e D0 para o líder');
+select ok((select count(*) from lembrete where combinado_id = '40000000-0000-0000-0000-000000000001' and enviado_em is null) = 6,
+  'Combinado aberto com prazo gera D-2, D0 e vencido, no app e por e-mail');
 
 select pg_temp.como('00000000-0000-0000-0000-0000000000b1');
 select ok((select count(*) from lembrete) = 0, 'Outro líder não vê lembretes do líder');
@@ -49,7 +49,7 @@ select ok(
 select ok((select nota_mudanca is null from combinado where id = '40000000-0000-0000-0000-000000000001'), 'A nota vai para o histórico e não fica solta');
 select ok(
   (select count(*) from lembrete where combinado_id = '40000000-0000-0000-0000-000000000001' and enviado_em is null
-     and (enviar_em at time zone 'America/Sao_Paulo')::date in (current_date + 8, current_date + 10)) = 2,
+     and (enviar_em at time zone 'America/Sao_Paulo')::date in (current_date + 8, current_date + 10)) = 4,
   'Lembretes recriados para o novo prazo');
 
 update combinado set status = 'cumprido', concluido_em = current_date, evidencia_registrada = 'Planos enviados'

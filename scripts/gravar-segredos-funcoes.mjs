@@ -8,6 +8,8 @@ import path from 'node:path'
 
 const RAIZ = path.resolve(import.meta.dirname, '..')
 const NOMES = ['ANTHROPIC_API_KEY', 'MODELO_PRINCIPAL', 'MODELO_RAPIDO', 'MODELO_AVALIACAO']
+// E-mail (régua e insights): vão se estiverem preenchidos. Sem eles, os e-mails ficam na caixa de saída do app.
+const OPCIONAIS = ['EMAIL_API_KEY', 'EMAIL_REMETENTE', 'EMAIL_DESTINO_TESTE']
 
 const env = Object.fromEntries(
   readFileSync(path.join(RAIZ, '.env.local'), 'utf8')
@@ -31,7 +33,9 @@ if (!env.SUPABASE_PROJECT_REF || !env.SUPABASE_ACCESS_TOKEN) {
 const pasta = mkdtempSync(path.join(tmpdir(), 'segredos-'))
 const arquivo = path.join(pasta, 'funcoes.env')
 try {
-  writeFileSync(arquivo, NOMES.map((n) => `${n}=${env[n]}`).join('\n') + '\n', { mode: 0o600 })
+  const gravar = [...NOMES, ...OPCIONAIS.filter((n) => env[n])]
+  writeFileSync(arquivo, gravar.map((n) => `${n}=${env[n]}`).join('\n') + '\n', { mode: 0o600 })
+  console.log(`Gravando (sem exibir valores): ${gravar.join(', ')}`)
   const opcoes = {
     cwd: RAIZ,
     stdio: ['ignore', 'ignore', 'inherit'],

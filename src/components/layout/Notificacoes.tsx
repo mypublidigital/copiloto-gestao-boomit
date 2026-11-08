@@ -1,4 +1,5 @@
-// Central de notificações (Sprint 6): lembretes de combinados já enviados pelo agendador
+// Central de notificações (Sprint 6): lembretes já enviados pelo agendador (combinados e, desde
+// 08/11/2026, compromissos da agenda e decisões)
 // (pg_cron, a cada 15 minutos) e ainda não lidos. A RLS mostra só os lembretes do usuário.
 import { Bell } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -11,7 +12,18 @@ import { cn } from '@/lib/utils'
 interface Lembrete {
   id: string
   enviado_em: string | null
+  etapa: string
   combinado: { descricao: string; prazo: string | null; status: StatusCombinado; colaborador: { nome: string } | null } | null
+  compromisso: { id: string; titulo: string; inicio: string } | null
+  decisao: { id: string; titulo: string } | null
+}
+
+const TITULO_ETAPA: Record<string, string> = {
+  vespera: 'Amanhã',
+  em_breve: 'Em 1 hora',
+  pos_evento: 'Registre como foi',
+  decisao_prazo: 'Prazo de decisão amanhã',
+  decisao_revisao: 'Revisar decisão',
 }
 
 export function Notificacoes() {
@@ -23,7 +35,8 @@ export function Notificacoes() {
     let ativo = true
     supabase
       .from('lembrete')
-      .select('id, enviado_em, combinado:combinado_id(descricao, prazo, status, colaborador:colaborador_id(nome))')
+      .select('id, enviado_em, etapa, combinado:combinado_id(descricao, prazo, status, colaborador:colaborador_id(nome)), compromisso:compromisso_id(id, titulo, inicio), decisao:decisao_id(id, titulo)')
+      .eq('canal', 'inapp')
       .not('enviado_em', 'is', null)
       .is('lido_em', null)
       .order('enviado_em', { ascending: false })
@@ -70,6 +83,20 @@ export function Notificacoes() {
           ) : (
             <ul className="max-h-80 space-y-2 overflow-y-auto">
               {lembretes.map((l) => {
+                if (l.compromisso || l.decisao) {
+                  const alvo = l.compromisso ? { titulo: l.compromisso.titulo, link: `/agenda?compromisso=${l.compromisso.id}`, quando: new Date(l.compromisso.inicio).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) } : { titulo: l.decisao!.titulo, link: `/decisoes/${l.decisao!.id}`, quando: '' }
+                  return (
+                    <li key={l.id} className="rounded border p-2 text-sm">
+                      <p className="text-xs font-semibold text-boomit-verde">{TITULO_ETAPA[l.etapa] ?? 'Lembrete'}</p>
+                      <p>{alvo.titulo}</p>
+                      {alvo.quando && <p className="text-xs text-muted-foreground">{alvo.quando}</p>}
+                      <div className="mt-1 flex gap-3 text-xs">
+                        <Link to={alvo.link} className="underline" onClick={() => setAberto(false)}>Abrir</Link>
+                        <button type="button" className="underline" onClick={() => marcarLidos([l.id])}>Marcar como lido</button>
+                      </div>
+                    </li>
+                  )
+                }
                 const c = l.combinado
                 const vencido = c ? estaVencido(c) : false
                 return (

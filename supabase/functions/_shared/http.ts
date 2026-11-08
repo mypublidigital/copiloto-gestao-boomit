@@ -64,3 +64,22 @@ export async function registrarInteracao(
   if (error) console.error('registrar interacao_ia:', error.message)
   return data?.id ?? null
 }
+
+/** Cliente de serviço (service_role): só para jobs, conector e processamento de documentos. */
+export function clienteDeServico(env: (n: string) => string | undefined): SupabaseClient<Database> {
+  return createClient<Database>(exigirEnv('SUPABASE_URL', env), exigirEnv('SUPABASE_SERVICE_ROLE_KEY', env), { auth: { persistSession: false } })
+}
+
+/** Confere que a chamada veio do agendador (pg_cron): segredo gravado em config_sistema. */
+export async function ehAgendador(req: Request, servico: SupabaseClient<Database>): Promise<boolean> {
+  const enviado = req.headers.get('x-agendador')
+  if (!enviado) return false
+  const { data } = await servico.from('config_sistema').select('valor').eq('chave', 'segredo_agendador').maybeSingle()
+  return Boolean(data?.valor) && data!.valor === enviado
+}
+
+/** Endereço do app para os links dos e-mails (config_sistema.url_app). */
+export async function urlDoApp(servico: SupabaseClient<Database>): Promise<string> {
+  const { data } = await servico.from('config_sistema').select('valor').eq('chave', 'url_app').maybeSingle()
+  return (data?.valor ?? '').replace(/\/$/, '')
+}

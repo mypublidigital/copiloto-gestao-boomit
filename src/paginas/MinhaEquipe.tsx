@@ -11,6 +11,7 @@ import { formatarData } from '@/lib/datas'
 import { supabase } from '@/lib/supabase'
 import { exigir, useConsulta } from '@/lib/useConsulta'
 import { cn } from '@/lib/utils'
+import { InsightsDaSemana } from './comunicacao/InsightsDaSemana'
 import { PainelLideranca } from './PainelLideranca'
 
 const NIVEL: Record<string, string> = { operacional: 'Operacional', tatico: 'Tático', estrategico: 'Estratégico' }
@@ -90,6 +91,8 @@ export function MinhaEquipe({ vinculo, nome }: { vinculo: Vinculo; nome: string 
                   <p className="mt-1 text-sm text-muted-foreground">Feedback, PDI, conversa difícil, decisão na alçada ou 1:1, com o contexto da Boomit.</p>
                 </Link>
               )}
+
+              {vinculo.papel === 'lider' && <InsightsDaSemana resumido />}
 
               {vinculo.papel === 'lider' && <PainelLideranca empresaId={vinculo.empresa_id} />}
 

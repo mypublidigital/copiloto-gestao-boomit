@@ -52,4 +52,6 @@ Base para construir o Copiloto no Claude Code, com a EasyJur como cliente-piloto
 | `npm run db:segredos` | Grava no Supabase os segredos de IA das Edge Functions, lendo do `.env.local` (não exibe valores) |
 | `npm run ensaio:ia` | Roda o motor com o modelo real como a persona Marina, sem gravar nada (custa centavos) |
 | `npm run ensaio:tipos` | Gera um plano de cada tipo (PDI, conversa difícil, alçada, 1:1) com o modelo real, sem gravar |
+| `npm run ensaio:decisao` | Analisa uma decisão fictícia e gera insights de uma semana fictícia com o modelo real, sem gravar (≈ US$ 0,07) |
+| `npm run db:agendador` | Grava no banco os endereços que o agendador e os e-mails usam (depois de cada projeto novo) |
 | `npm run ensaio:documento` | Sobe as anotações fictícias do Gemini, processa e mostra os combinados extraídos (grava como dado de demonstração) |

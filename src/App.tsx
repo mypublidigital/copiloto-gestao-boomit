@@ -6,7 +6,11 @@ import { SECOES } from '@/config/navegacao'
 import { Entrar } from '@/paginas/Entrar'
 import { FichaColaborador } from '@/paginas/FichaColaborador'
 import { Inicio } from '@/paginas/Inicio'
+import { Agenda } from '@/paginas/Agenda'
 import { Combinados } from '@/paginas/Combinados'
+import { Comunicacao } from '@/paginas/Comunicacao'
+import { Decisao } from '@/paginas/Decisao'
+import { Decisoes } from '@/paginas/Decisoes'
 import { Documento } from '@/paginas/Documento'
 import { Fontes } from '@/paginas/Fontes'
 import { Preparar } from '@/paginas/Preparar'
@@ -31,7 +35,11 @@ function Rotas() {
         <Route path="registrar" element={<Registrar />} />
         <Route path="fontes" element={<Fontes />} />
         <Route path="fontes/:id" element={<Documento />} />
-        {SECOES.filter((s) => s.caminho !== '/' && s.caminho !== '/fontes').map((secao) => (
+        <Route path="agenda" element={<Agenda />} />
+        <Route path="decisoes" element={<Decisoes />} />
+        <Route path="decisoes/:id" element={<Decisao />} />
+        <Route path="comunicacao" element={<Comunicacao />} />
+        {SECOES.filter((s) => !s.propria).map((secao) => (
           <Route key={secao.caminho} path={secao.caminho.slice(1)} element={<Secao secao={secao} />} />
         ))}
         <Route path="*" element={<Inicio />} />

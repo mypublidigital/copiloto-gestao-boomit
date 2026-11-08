@@ -24,7 +24,7 @@ feito à mão num painel entra aqui, com data. Se não está aqui nem no reposit
 | Supabase (desenvolvimento) | `copiloto-gestao-boomit-dev` (ref `tdghjpunfqlhpugrsbtr`), organização mypublicompany, `sa-east-1` | a definir |
 | Anthropic | chave exclusiva do projeto, com limite de gasto — **pendente** | a definir |
 | Hospedagem do front | Vercel, time `marcelos-projects`, projeto `copiloto-gestao-boomit-demo` (com proteção de acesso) | a definir |
-| E-mail transacional | a definir (Sprint 6) | a definir |
+| E-mail transacional | Resend previsto (N15 aberta); sem chave, e-mails ficam na caixa de saída do app | a definir |
 
 ## 3. Passos manuais registrados
 
@@ -43,6 +43,7 @@ feito à mão num painel entra aqui, com data. Se não está aqui nem no reposit
 | 04/11/2026 | Supabase | Senha das personas de demonstração trocada (`VITE_DEMO_SENHA` nova + `npm run seed:demo`) após exposição do site | Segredo fora do repositório | Gerar uma senha nova no destino |
 
 | 04/11/2026 | Supabase | Migrations 0005 (bucket `fontes`) e 0006 (lembretes, pg_cron `copiloto-lembretes` a cada 15 min); deploy de `processar-documento`; alçadas fictícias no seed | Agendamento e bucket são criados pela migration | `npm run db:aplicar` no projeto novo cria o bucket e o agendamento (pg_cron precisa estar disponível) |
+| 08/11/2026 | Supabase | Migration 0007 (agenda, decisões, régua, insights; pg_cron `copiloto-envios` e `copiloto-insights` via pg_net), deploy de `apoiar-decisao`, `processar-envios` e `insights-semanais` (as duas últimas sem verificação de JWT: conferem o segredo do agendador), `npm run db:agendador` grava `url_funcoes` e `url_app` em `config_sistema` — **pendente: token novo** | URLs do projeto não ficam no código | `npm run db:aplicar`, deploy das funções, `npm run db:agendador` e `npm run db:segredos` (com EMAIL_*) no projeto novo |
 
 **Rede sem porta do Postgres:** `db push`, `db pull` e `test db` do CLI precisam da porta 5432/6543.
 Onde ela estiver bloqueada, use `npm run db:aplicar`, `npm run test:rls:remoto` e `npm run db:tipos`,

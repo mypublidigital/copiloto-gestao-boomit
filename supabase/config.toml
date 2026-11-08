@@ -420,3 +420,11 @@ enabled = true
 # formatted with uppercase keywords, indent 2, max width 180, trailing commas,
 # and column/key alignment. Set to "null" to emit raw, unformatted SQL.
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":180,\"commaStyle\":\"trailing\"}"
+
+# Funções chamadas pelo agendador (pg_cron) sem JWT: conferem o segredo de config_sistema.
+# insights-semanais também aceita o JWT do líder e o valida no código.
+[functions.processar-envios]
+verify_jwt = false
+
+[functions.insights-semanais]
+verify_jwt = false

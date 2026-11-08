@@ -58,3 +58,18 @@ async function trechosDaPessoa(db: Db, colaboradorId: string, relato: string | n
   const recentes = await db.from('trecho').select(campos).in('documento_id', docs).order('documento_id', { ascending: false }).order('ordem').limit(4)
   return (recentes.data ?? []) as TrechoBasico[]
 }
+
+/** Contexto de uma decisão do líder: alçadas do nível dele, organização e, se houver, a pessoa afetada. */
+export async function carregarContextoDaDecisao(db: Db, empresaId: string, liderId: string, colaboradorId: string | null): Promise<ItemDeContexto[]> {
+  if (colaboradorId) {
+    const ctx = await carregarContextoDaPessoa(db, colaboradorId, liderId, null)
+    if (ctx) return ctx.itens
+  }
+  const [empresa, alcadas, lider] = await Promise.all([
+    db.from('contexto_empresa').select('dados').eq('empresa_id', empresaId).maybeSingle(),
+    db.from('alcada').select('id, nivel, cargo_referencia, pode_decidir, limites, consultar').eq('empresa_id', empresaId).eq('ativo', true),
+    db.from('colaborador').select('nivel').eq('id', liderId).maybeSingle(),
+  ])
+  for (const r of [empresa, alcadas, lider]) if (r.error) throw new Error(`ler contexto: ${r.error.message}`)
+  return [...itensDasAlcadas(alcadas.data ?? [], lider.data?.nivel ?? null), ...itensDaEmpresa((empresa.data?.dados ?? null) as ContextoEmpresa | null)]
+}

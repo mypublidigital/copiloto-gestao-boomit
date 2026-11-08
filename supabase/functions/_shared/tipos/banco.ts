@@ -383,6 +383,95 @@ export type Database = {
           },
         ]
       }
+      compromisso: {
+        Row: {
+          atualizado_em: string
+          colaborador_id: string | null
+          criado_em: string
+          criado_por: string
+          duracao_min: number
+          empresa_id: string
+          id: string
+          inicio: string
+          lider_id: string
+          local: string | null
+          observacao: string | null
+          realizado_em: string | null
+          relato: string | null
+          situacao_id: string | null
+          status: Database["public"]["Enums"]["status_compromisso"]
+          tipo: Database["public"]["Enums"]["tipo_compromisso"]
+          titulo: string
+        }
+        Insert: {
+          atualizado_em?: string
+          colaborador_id?: string | null
+          criado_em?: string
+          criado_por?: string
+          duracao_min?: number
+          empresa_id: string
+          id?: string
+          inicio: string
+          lider_id: string
+          local?: string | null
+          observacao?: string | null
+          realizado_em?: string | null
+          relato?: string | null
+          situacao_id?: string | null
+          status?: Database["public"]["Enums"]["status_compromisso"]
+          tipo: Database["public"]["Enums"]["tipo_compromisso"]
+          titulo: string
+        }
+        Update: {
+          atualizado_em?: string
+          colaborador_id?: string | null
+          criado_em?: string
+          criado_por?: string
+          duracao_min?: number
+          empresa_id?: string
+          id?: string
+          inicio?: string
+          lider_id?: string
+          local?: string | null
+          observacao?: string | null
+          realizado_em?: string | null
+          relato?: string | null
+          situacao_id?: string | null
+          status?: Database["public"]["Enums"]["status_compromisso"]
+          tipo?: Database["public"]["Enums"]["tipo_compromisso"]
+          titulo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "compromisso_colaborador_id_fkey"
+            columns: ["colaborador_id"]
+            isOneToOne: false
+            referencedRelation: "colaborador"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "compromisso_lider_id_fkey"
+            columns: ["lider_id"]
+            isOneToOne: false
+            referencedRelation: "colaborador"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "compromisso_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresa"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "compromisso_situacao_id_fkey"
+            columns: ["situacao_id"]
+            isOneToOne: false
+            referencedRelation: "situacao"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       competencia_sinonimo: {
         Row: {
           categoria: string | null
@@ -398,6 +487,21 @@ export type Database = {
           categoria?: string | null
           chave_normalizada?: string
           competencia_canonica?: string
+        }
+        Relationships: []
+      }
+      config_sistema: {
+        Row: {
+          chave: string
+          valor: string
+        }
+        Insert: {
+          chave: string
+          valor: string
+        }
+        Update: {
+          chave?: string
+          valor?: string
         }
         Relationships: []
       }
@@ -579,6 +683,100 @@ export type Database = {
           },
         ]
       }
+      decisao: {
+        Row: {
+          analise: Json | null
+          atualizado_em: string
+          colaborador_id: string | null
+          contexto: string | null
+          criado_em: string
+          criado_por: string
+          decidida_em: string | null
+          empresa_id: string
+          id: string
+          justificativa: string | null
+          lider_id: string
+          opcao_escolhida: string | null
+          opcoes_iniciais: string[]
+          pergunta: string
+          prazo_decisao: string | null
+          resultado_revisao: string | null
+          revisar_em: string | null
+          sensivel: boolean
+          status: Database["public"]["Enums"]["status_decisao"]
+          titulo: string
+          versao_analise: number
+        }
+        Insert: {
+          analise?: Json | null
+          atualizado_em?: string
+          colaborador_id?: string | null
+          contexto?: string | null
+          criado_em?: string
+          criado_por?: string
+          decidida_em?: string | null
+          empresa_id: string
+          id?: string
+          justificativa?: string | null
+          lider_id: string
+          opcao_escolhida?: string | null
+          opcoes_iniciais?: string[]
+          pergunta: string
+          prazo_decisao?: string | null
+          resultado_revisao?: string | null
+          revisar_em?: string | null
+          sensivel?: boolean
+          status?: Database["public"]["Enums"]["status_decisao"]
+          titulo: string
+          versao_analise?: number
+        }
+        Update: {
+          analise?: Json | null
+          atualizado_em?: string
+          colaborador_id?: string | null
+          contexto?: string | null
+          criado_em?: string
+          criado_por?: string
+          decidida_em?: string | null
+          empresa_id?: string
+          id?: string
+          justificativa?: string | null
+          lider_id?: string
+          opcao_escolhida?: string | null
+          opcoes_iniciais?: string[]
+          pergunta?: string
+          prazo_decisao?: string | null
+          resultado_revisao?: string | null
+          revisar_em?: string | null
+          sensivel?: boolean
+          status?: Database["public"]["Enums"]["status_decisao"]
+          titulo?: string
+          versao_analise?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "decisao_colaborador_id_fkey"
+            columns: ["colaborador_id"]
+            isOneToOne: false
+            referencedRelation: "colaborador"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "decisao_lider_id_fkey"
+            columns: ["lider_id"]
+            isOneToOne: false
+            referencedRelation: "colaborador"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "decisao_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresa"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       documento_colaborador: {
         Row: {
           colaborador_id: string
@@ -675,6 +873,78 @@ export type Database = {
           },
         ]
       }
+      email_envio: {
+        Row: {
+          assunto: string
+          criado_em: string
+          destinatario_user_id: string
+          empresa_id: string
+          enviado_em: string | null
+          erro: string | null
+          etapa: string | null
+          html: string
+          id: string
+          lembrete_id: string | null
+          para: string
+          provedor_id: string | null
+          status: string
+          tentativas: number
+          texto: string
+          tipo: string
+        }
+        Insert: {
+          assunto: string
+          criado_em?: string
+          destinatario_user_id: string
+          empresa_id: string
+          enviado_em?: string | null
+          erro?: string | null
+          etapa?: string | null
+          html: string
+          id?: string
+          lembrete_id?: string | null
+          para: string
+          provedor_id?: string | null
+          status?: string
+          tentativas?: number
+          texto: string
+          tipo: string
+        }
+        Update: {
+          assunto?: string
+          criado_em?: string
+          destinatario_user_id?: string
+          empresa_id?: string
+          enviado_em?: string | null
+          erro?: string | null
+          etapa?: string | null
+          html?: string
+          id?: string
+          lembrete_id?: string | null
+          para?: string
+          provedor_id?: string | null
+          status?: string
+          tentativas?: number
+          texto?: string
+          tipo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_envio_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresa"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "email_envio_lembrete_id_fkey"
+            columns: ["lembrete_id"]
+            isOneToOne: false
+            referencedRelation: "lembrete"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       empresa: {
         Row: {
           boomit_empresa_id: string | null
@@ -757,6 +1027,54 @@ export type Database = {
           },
         ]
       }
+      insight_semanal: {
+        Row: {
+          conteudo: Json
+          destinatario_user_id: string
+          empresa_id: string
+          gerado_em: string
+          id: string
+          lider_id: string
+          modelo: string | null
+          semana_inicio: string
+        }
+        Insert: {
+          conteudo: Json
+          destinatario_user_id: string
+          empresa_id: string
+          gerado_em?: string
+          id?: string
+          lider_id: string
+          modelo?: string | null
+          semana_inicio: string
+        }
+        Update: {
+          conteudo?: Json
+          destinatario_user_id?: string
+          empresa_id?: string
+          gerado_em?: string
+          id?: string
+          lider_id?: string
+          modelo?: string | null
+          semana_inicio?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insight_semanal_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresa"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "insight_semanal_lider_id_fkey"
+            columns: ["lider_id"]
+            isOneToOne: false
+            referencedRelation: "colaborador"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       interacao_ia: {
         Row: {
           avaliacao_lider: number | null
@@ -829,7 +1147,10 @@ export type Database = {
       lembrete: {
         Row: {
           canal: string
-          combinado_id: string
+          combinado_id: string | null
+          compromisso_id: string | null
+          decisao_id: string | null
+          etapa: string
           destinatario_user_id: string
           empresa_id: string
           enviado_em: string | null
@@ -839,7 +1160,10 @@ export type Database = {
         }
         Insert: {
           canal?: string
-          combinado_id: string
+          combinado_id?: string | null
+          compromisso_id?: string | null
+          decisao_id?: string | null
+          etapa?: string
           destinatario_user_id: string
           empresa_id: string
           enviado_em?: string | null
@@ -849,7 +1173,10 @@ export type Database = {
         }
         Update: {
           canal?: string
-          combinado_id?: string
+          combinado_id?: string | null
+          compromisso_id?: string | null
+          decisao_id?: string | null
+          etapa?: string
           destinatario_user_id?: string
           empresa_id?: string
           enviado_em?: string | null
@@ -863,6 +1190,20 @@ export type Database = {
             columns: ["combinado_id"]
             isOneToOne: false
             referencedRelation: "combinado"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lembrete_compromisso_id_fkey"
+            columns: ["compromisso_id"]
+            isOneToOne: false
+            referencedRelation: "compromisso"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lembrete_decisao_id_fkey"
+            columns: ["decisao_id"]
+            isOneToOne: false
+            referencedRelation: "decisao"
             referencedColumns: ["id"]
           },
           {
@@ -1455,6 +1796,9 @@ export type Database = {
       }
     }
     Enums: {
+      status_compromisso: "agendado" | "realizado" | "cancelado"
+      status_decisao: "em_analise" | "decidida" | "revisada" | "cancelada"
+      tipo_compromisso: "um_a_um" | "feedback" | "pdi" | "conversa" | "reuniao_equipe" | "mentoria" | "outro"
       fonte_snapshot: "api" | "importacao_excel" | "importacao_pdf" | "mock"
       frente_gestao:
         | "desempenho"
@@ -1631,6 +1975,9 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      status_compromisso: ["agendado", "realizado", "cancelado"],
+      status_decisao: ["em_analise", "decidida", "revisada", "cancelada"],
+      tipo_compromisso: ["um_a_um", "feedback", "pdi", "conversa", "reuniao_equipe", "mentoria", "outro"],
       fonte_snapshot: ["api", "importacao_excel", "importacao_pdf", "mock"],
       frente_gestao: [
         "desempenho",

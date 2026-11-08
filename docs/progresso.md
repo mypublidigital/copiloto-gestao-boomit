@@ -7,18 +7,20 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 
 - **Etapa:** **Sprints 0, 2, 3, 4 e 6 concluídas** (04/11/2026), código no GitHub, migrations e
   Edge Functions no Supabase de desenvolvimento.
+- **Inclusões de 08/11/2026 (código pronto, falta publicar):** apoio à decisão, agenda da liderança (dia/semana/mês com busca), régua de comunicação por e-mail e insights semanais dos agentes. Testes locais passam (132 unitários, 89 de RLS). **Publicação parada:** o `SUPABASE_ACCESS_TOKEN` do `.env.local` foi recusado (HTTP 401); sem ele não dá para aplicar a migration 0007 nem publicar as funções. O site não foi republicado de propósito: a tela nova de lembretes depende da migration.
 - **Situação:** site de demonstração republicado com as sprints novas (04/11/2026), com login exigido em
   todos os endereços.
   Próximas: Sprint 0A e 1 (acesso ao repositório e API Boomit, N9 e N10), Sprint 5 (arquivos das
   skills, N14) e Sprint 7 (qualidade, LGPD, migração).
-- **Última atualização:** 05/11/2026
+- **Última atualização:** 08/11/2026
 
 ## Perguntas abertas (dependem do Marcelo)
 
 | # | Pergunta | Onde responder | Bloqueia | Desde |
 |---|---|---|---|---|
 | 2 | Alçadas reais dos gestores (N12) — hoje há duas alçadas fictícias | `_entrada/` | Decisão na alçada com regras da EasyJur | 04/11/2026 |
-| 3 | Provedor de e-mail transacional (N15) — lembretes hoje só no app | `.env.local` | Lembretes por e-mail | 04/11/2026 |
+| 3 | Provedor de e-mail transacional (N15). Código pronto para Resend: `EMAIL_API_KEY`, `EMAIL_REMETENTE` (e, para testar com as personas, `EMAIL_DESTINO_TESTE`) e `npm run db:segredos`. Até lá os e-mails ficam na caixa de saída do app | `.env.local` | Envio real dos e-mails | 04/11/2026 |
+| 4 | Novo `SUPABASE_ACCESS_TOKEN` (o atual é recusado) | `.env.local` | Migration 0007, deploy das 3 funções novas, republicar o site | 08/11/2026 |
 
 ## Incidentes
 
@@ -40,8 +42,14 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | **"Dentro da alçada" exige citar uma política de alçada**; sem citação válida, a verificação marca "incerto". | Evita afirmar limite sem fonte (regra 2). | Remover o caso `decisao_alcada` em `verificarExtensao`. |
 | 04/11/2026 | **PDI** grava ações de desenvolvimento ao registrar a conversa, com origem conforme `modo_pdi` (padrão `boomit` → `boomit_pdi`). | N21 (Luana) pendente; `boomit` é o padrão do docs/01 §3. | Trocar `empresa.config.modo_pdi`. |
 | 04/11/2026 | **Planejado × combinado** por semelhança de palavras (radical de 5 letras): ≥ 0,55 "como planejado", ≥ 0,25 "alterado", abaixo "não tratado"; extras "novo na reunião". A tela avisa que é aproximação. | Barato, sem chamada de IA, e o líder confere. | Trocar por comparação com o modelo rápido em `src/dominio/comparacao.ts`. |
-| 04/11/2026 | **Lembretes** D-2 e D0 às 9h de São Paulo para quem criou o combinado, só no app; e-mail fica na fila até existir provedor (N15). | Necessidades: "lembretes só no app" enquanto N15 não chega. | `empresa.config.lembretes_dias`; canal `email` quando houver provedor. |
+| 04/11/2026 | **Lembretes** D-2 e D0 às 9h de São Paulo para quem criou o combinado (desde 08/11 também por e-mail e com aviso de vencido; ver abaixo). | Necessidades: "lembretes só no app" enquanto N15 não chega. | `empresa.config.lembretes_dias`. |
 | 04/11/2026 | **Drill-down do painel** mostra pessoa, prazo e status dos combinados do líder; nunca a descrição. | Aceite da Sprint 6: "só contagens e prazos". | Função `andamento_combinados_lider`. |
+
+| 08/11/2026 | **Apoio à decisão** vale para qualquer decisão de gestão. O modelo propõe critérios (peso 1–5), 2–4 alternativas com notas por critério, riscos, reversibilidade, alçada, quem consultar e próximos passos; a **pontuação ponderada é calculada no código**, o líder ajusta os pesos na tela e ela é rotulada "apoio, não recomendação". Alternativa com termo proibido (desligar, promover…) é removida. | Regra 1: o Copiloto não decide; pesos do líder deixam a escolha com ele. | `motor/decisao.ts` e `dominio/decisoes.ts`. |
+| 08/11/2026 | **Agenda** junta compromissos (tabela nova), prazos de combinados, conversas aplicadas, reuniões enviadas e prazos/registros de decisões. Privada do líder (diretor e RH não veem). Busca cobre 12 meses para trás e para frente. | "Agenda da liderança" sem detalhe de quem mais vê; segue a regra dos ensaios (privado). | Política `compromisso_ler` na 0007. |
+| 08/11/2026 | **Régua de comunicação:** compromisso → confirmação (e-mail), véspera (app + e-mail), 1 h antes (app), 2 h depois "registre como foi" (app + e-mail); combinado → D-2, D0 e vencido D+1 às 9h (app + e-mail); decisão → véspera do prazo e dia da revisão. Remarcar, concluir ou cancelar refaz os pendentes. | Pedido de 08/11: lembretes conforme os agendamentos. | `empresa.config.lembretes_dias` e funções `*_gerar_lembretes` (nova migration). |
+| 08/11/2026 | **E-mails não levam conteúdo privado**: só título, data, pessoa e o link. **Personas de demonstração nunca recebem** (usuário com `demo` no cadastro); com `EMAIL_DESTINO_TESTE`, a cópia vai para esse endereço com "[teste]" no assunto. | Domínio fictício pode existir de verdade; e-mail sai da plataforma. | `_shared/email/provedor.ts`. |
+| 08/11/2026 | **Insights semanais** às segundas, 7h de São Paulo: 5 agentes por regras (combinados, agenda sem registro, cadência de 1:1 de 30 dias, decisões, revisões de reunião) levantam sinais; o modelo principal redige o resumo e de 2 a 5 recomendações citando os sinais; recomendação sem sinal sai, sinal de prioridade alta esquecido entra. Sem modelo, as regras montam o resumo. | "Recomendação ativa dos agentes a partir da leitura dos acontecimentos". Agentes por regra evitam inferência sobre pessoas (regra 9). | `_shared/agentes/semana.ts` e `motor/insights.ts`. |
 
 ## Decisões técnicas
 
@@ -100,3 +108,4 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | Sprint 6 | Ações e histórico dos combinados, lembretes D-2/D0 com pg_cron, central de notificações, drill-down do painel. Testes: 106 unitários, 74 de RLS local e remoto; telas conferidas no navegador | `302b376` |
 | 04/11/2026 | Sprint 0 · CP4 | Combinados (pendente → confirmado), aplicação, registro rápido, M7, M8; roteiro 1 a 9 no navegador; demonstração publicada com proteção em todos os endereços (ver Incidentes); senha das personas trocada | `e6c6711` + ver `git log` |
 | 04/11/2026 | Sprint 0 · CP3 | Motor, adaptador, prompts, `preparar-situacao` e `simular` publicadas, telas M3 e M4. No navegador: plano da Ana com fatos citando fontes (relato F23, PDI F14, assessment F9–F13), hipóteses incluindo o papel do líder, versão 2 salva; simulação desafiadora com streaming e debrief nos 5 critérios sem nota; relato de assédio → encaminhamento com os canais, sem chamar a IA. `interacao_ia` só com metadados; custo da demonstração ≈ US$ 0,07. Testes: 74 unitários, 44 de RLS local e remoto | `5b33531` + ver `git log` |
+| 08/11/2026 | Inclusões (decisão, agenda, régua, insights) | Migration 0007 (compromisso, decisao, email_envio, insight_semanal, config_sistema; régua nos lembretes; pg_cron `copiloto-envios` e `copiloto-insights`), funções `apoiar-decisao`, `processar-envios` e `insights-semanais`, telas Agenda, Decisões e Lembretes e insights. Testes: 132 unitários, 89 de RLS (local). Ensaio real: análise de decisão ≈ US$ 0,05 (3 alternativas, alçada citada), insights ≈ US$ 0,02 (7 sinais, 5 recomendações). Não publicado: token do Supabase recusado | ver `git log` |

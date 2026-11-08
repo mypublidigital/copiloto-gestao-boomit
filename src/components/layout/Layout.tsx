@@ -48,7 +48,9 @@ export function Layout() {
                 <nav aria-label="Atalhos" className="flex gap-1">
                   {(
                     [
+                      ['/agenda', 'Agenda'],
                       ['/preparar', 'Preparar'],
+                      ['/decisoes', 'Decidir'],
                       ['/registrar', 'Registrar'],
                       ['/combinados', 'Combinados'],
                       ['/fontes', 'Subir reunião'],

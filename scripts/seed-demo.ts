@@ -131,3 +131,41 @@ for (const p of PERSONAS) {
   console.log(`Persona ${p.nome} (${p.papel}) pronta`)
 }
 console.log('Seed de demonstração concluído.')
+
+// 4. Agenda e decisões fictícias da Marina (inclusões de 08/11/2026), relativas a hoje.
+//    Só na primeira vez: se ela já tem compromissos, não mexe (o que ela criar na demo fica).
+const marina = PERSONAS.find((p) => p.colaboradorEmail === 'marina.costa@exemplotech.com' && p.papel === 'lider')
+const marinaUser = marina ? existentes.get(marina.email) ?? (await db.auth.admin.listUsers()).data.users.find((u) => u.email === marina.email)?.id : undefined
+if (marina && marinaUser) {
+  const jaTem = await db.from('compromisso').select('id', { count: 'exact', head: true }).eq('criado_por', marinaUser)
+  if ((jaTem.count ?? 0) === 0) {
+    const hoje = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date())
+    const dia = (n: number) => {
+      const d = new Date(`${hoje}T12:00:00Z`)
+      d.setUTCDate(d.getUTCDate() + n)
+      return d.toISOString().slice(0, 10)
+    }
+    const quando = (n: number, hora: string) => `${dia(n)}T${hora}:00-03:00`
+    const lider = idDe('marina.costa@exemplotech.com')
+    const base = { empresa_id: empresaId, lider_id: lider, criado_por: marinaUser }
+    exigir(
+      await db.from('compromisso').insert([
+        { ...base, colaborador_id: idDe('ana.faria@exemplotech.com'), tipo: 'um_a_um', titulo: '1:1 com Ana Faria', inicio: quando(-6, '10:00'), duracao_min: 30, status: 'realizado', realizado_em: quando(-6, '10:30'), relato: 'Revisamos o plano semanal; ela vai testar o quadro de prioridades.' },
+        { ...base, colaborador_id: idDe('joao.lima@exemplotech.com'), tipo: 'feedback', titulo: 'Feedback sobre prazos de entrega', inicio: quando(-2, '15:00'), duracao_min: 45, local: 'Sala 3' },
+        { ...base, colaborador_id: idDe('beatriz.rocha@exemplotech.com'), tipo: 'um_a_um', titulo: '1:1 com Beatriz Rocha', inicio: quando(0, '16:00'), duracao_min: 30, local: 'Meet' },
+        { ...base, colaborador_id: idDe('carlos.nunes@exemplotech.com'), tipo: 'pdi', titulo: 'Conversa de PDI com Carlos', inicio: quando(1, '10:00'), duracao_min: 60, observacao: 'Foco em comunicação com clientes' },
+        { ...base, colaborador_id: null, tipo: 'reuniao_equipe', titulo: 'Reunião de prioridades do suporte', inicio: quando(3, '09:30'), duracao_min: 60, local: 'Sala grande' },
+        { ...base, colaborador_id: idDe('daniela.prado@exemplotech.com'), tipo: 'um_a_um', titulo: '1:1 com Daniela Prado', inicio: quando(8, '11:00'), duracao_min: 30 },
+      ]),
+      'agenda da Marina',
+    )
+    exigir(
+      await db.from('decisao').insert([
+        { ...base, titulo: 'Escala de plantão de dezembro', pergunta: 'Como dividir o plantão de fim de ano entre as pessoas do suporte sem prejudicar o atendimento?', contexto: 'Equipe de 8 pessoas, 3 já pediram férias na segunda quinzena. O volume de chamados cai cerca de 30% em dezembro (fictício).', opcoes_iniciais: ['Rodízio semanal', 'Plantão voluntário com folga compensatória'], prazo_decisao: dia(4) },
+        { ...base, titulo: 'Ferramenta para o quadro de prioridades', pergunta: 'Qual ferramenta a equipe usa para o quadro de prioridades da semana?', opcoes_iniciais: ['Planilha compartilhada', 'Quadro no sistema de chamados'], status: 'decidida', opcao_escolhida: 'Quadro no sistema de chamados', justificativa: 'Fica junto dos chamados e não exige outro acesso.', decidida_em: quando(-20, '17:00'), revisar_em: dia(-1) },
+      ]),
+      'decisões da Marina',
+    )
+    console.log('Agenda e decisões fictícias da Marina criadas')
+  } else console.log('Agenda da Marina já existe: mantida')
+}
