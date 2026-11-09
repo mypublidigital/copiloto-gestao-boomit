@@ -54,6 +54,8 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 
 | 08/11/2026 | **Frentes de gestão** são a visão do líder sobre a própria equipe; RH e mentor veem um aviso que leva à Visão geral (o painel deles). Indicadores Boomit aparecem como referência ("nunca nota da pessoa"); Crises não lista títulos nem relatos, só a data do encaminhamento. | Regras 1, 3 e 4; ensaios são privados do líder. | `src/paginas/frentes/`. |
 
+| 09/11/2026 | **Demonstração aberta para qualquer pessoa com o link** (pedido do Marcelo, revertendo a proteção de 04/11). Mitigações: teto de 60 chamadas de IA por usuário em 24 h (`COTA_IA_DIARIA`) nas 5 funções de IA; site marcado `noindex` (meta e cabeçalho); só dados fictícios. Riscos aceitos: a senha das personas vai no código do site, então qualquer pessoa entra como persona, pode alterar os dados fictícios e trocar a senha delas (`npm run seed:demo` restaura). | Pedido explícito; dados fictícios. | `npm run publicar:demo` (sem `--publico`) volta a exigir login. |
+
 ## Decisões técnicas
 
 | Data | Decisão |

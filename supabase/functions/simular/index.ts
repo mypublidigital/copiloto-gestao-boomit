@@ -3,7 +3,7 @@
 //   acao "debrief": rubrica com os cinco critérios, sem nota.
 import { z } from 'zod'
 import { carregarContextoDaPessoa } from '../_shared/adaptadores/boomit/carregar.ts'
-import { clienteDoUsuario, CORS, ErroHttp, exigirEnv, registrarInteracao, responder } from '../_shared/http.ts'
+import { clienteDoUsuario, CORS, ErroHttp, exigirCotaDeIA, exigirEnv, registrarInteracao, responder } from '../_shared/http.ts'
 import { ClienteAnthropic } from '../_shared/motor/anthropic.ts'
 import type { Json } from '../_shared/tipos/banco.ts'
 import { RecusaDoModeloError } from '../_shared/motor/modelo.ts'
@@ -27,6 +27,7 @@ async function tratar(req: Request): Promise<Response> {
 
   const sit = await db.from('situacao').select('id, empresa_id, colaborador_id, autor_user_id, status, sensivel').eq('id', c.situacao_id).maybeSingle()
   if (!sit.data || sit.data.autor_user_id !== usuario.id) throw new ErroHttp(404, 'Situação não encontrada')
+  await exigirCotaDeIA(db, usuario.id, env)
   if (sit.data.sensivel) throw new ErroHttp(409, 'Situação em modo encaminhamento: não há simulação')
   if (!sit.data.colaborador_id) throw new ErroHttp(400, 'Simulação de grupo ainda não disponível')
   const situacao = sit.data

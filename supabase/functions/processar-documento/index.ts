@@ -6,7 +6,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { z } from 'zod'
 import { dividirEmTrechos, detectarFormato, extrairTexto, formatoDoArquivo, sugerirPessoas } from '../_shared/documentos/texto.ts'
-import { clienteDoUsuario, CORS, ErroHttp, exigirEnv, responder } from '../_shared/http.ts'
+import { clienteDoUsuario, CORS, ErroHttp, exigirCotaDeIA, exigirEnv, responder } from '../_shared/http.ts'
 import { ClienteAnthropic } from '../_shared/motor/anthropic.ts'
 import { extrairDeTrechos } from '../_shared/motor/extracao.ts'
 import { estimarCusto } from '../_shared/motor/modelo.ts'
@@ -109,6 +109,7 @@ async function tratar(req: Request): Promise<Response> {
   // Com o JWT do usuário: a RLS só mostra documentos que ele pode ver.
   const { data: doc } = await db.from('documento_fonte').select('id, enviado_por, status_processamento').eq('id', corpo.data.documento_id).maybeSingle()
   if (!doc || doc.enviado_por !== usuario.id) throw new ErroHttp(404, 'Documento não encontrado')
+  await exigirCotaDeIA(db, usuario.id, env)
   if (doc.status_processamento === 'processando') return responder(202, { documento_id: doc.id, status: 'processando' })
 
   const servico = createClient<Database>(exigirEnv('SUPABASE_URL', env), exigirEnv('SUPABASE_SERVICE_ROLE_KEY', env), { auth: { persistSession: false } })

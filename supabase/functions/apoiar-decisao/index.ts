@@ -3,7 +3,7 @@
 // principal, verifica no motor e grava em decisao.analise (nova versão). interacao_ia: só metadados.
 import { z } from 'zod'
 import { carregarContextoDaDecisao } from '../_shared/adaptadores/boomit/carregar.ts'
-import { clienteDoUsuario, CORS, ErroHttp, exigirEnv, registrarInteracao, responder } from '../_shared/http.ts'
+import { clienteDoUsuario, CORS, ErroHttp, exigirCotaDeIA, exigirEnv, registrarInteracao, responder } from '../_shared/http.ts'
 import { ClienteAnthropic } from '../_shared/motor/anthropic.ts'
 import { apoiarDecisao } from '../_shared/motor/decisao.ts'
 import { RecusaDoModeloError, SaidaInvalidaError } from '../_shared/motor/modelo.ts'
@@ -13,7 +13,8 @@ const env = (n: string) => Deno.env.get(n)
 const corpoSchema = z.object({ decisao_id: z.uuid() })
 
 async function tratar(req: Request): Promise<Response> {
-  const { db } = await clienteDoUsuario(req, env)
+  const { db, usuario } = await clienteDoUsuario(req, env)
+  await exigirCotaDeIA(db, usuario.id, env)
   const corpo = corpoSchema.safeParse(await req.json().catch(() => null))
   if (!corpo.success) throw new ErroHttp(400, 'Pedido inválido')
 

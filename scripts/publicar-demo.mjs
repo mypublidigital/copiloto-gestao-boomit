@@ -6,6 +6,9 @@
 //   3. publica pela API como PRÉ-VISUALIZAÇÃO e depois aponta o endereço principal para ela;
 //   4. abre o link sem login: se não pedir autenticação, APAGA a publicação e falha.
 // Uso: npm run publicar:demo   (VERCEL_TOKEN no .env.local; VERCEL_TIME opcional, slug do time)
+//      npm run publicar:demo -- --publico   ABERTO para qualquer pessoa com o link (decisão do
+//      Marcelo em 09/11/2026): desliga a proteção e confere que o endereço principal abre sem login.
+//      Só com dados fictícios; a cota diária de IA por usuário (COTA_IA_DIARIA) limita o custo.
 import { execFileSync, execSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { copyFileSync, readdirSync, readFileSync, statSync } from 'node:fs'
@@ -13,6 +16,7 @@ import path from 'node:path'
 
 const RAIZ = path.resolve(import.meta.dirname, '..')
 const PROJETO = 'copiloto-gestao-boomit-demo'
+const PUBLICO = process.argv.includes('--publico')
 const { VERCEL_TOKEN, VERCEL_TIME, VITE_MODO_DEMO, VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY } = process.env
 if (!VERCEL_TOKEN) throw new Error('Falta VERCEL_TOKEN no .env.local (vercel.com › Account Settings › Tokens)')
 if (VITE_MODO_DEMO !== 'true') throw new Error('Este script publica só a demonstração (VITE_MODO_DEMO=true)')
@@ -48,11 +52,19 @@ if (projeto.status === 404) projeto = await api('POST', '/v11/projects', { name:
 if (projeto.status >= 300) throw new Error(`Projeto Vercel: ${projeto.json.error?.message ?? projeto.status}`)
 // Proteção em TODOS os endereços ("all"). A padrão ("Standard") deixou o endereço principal de
 // produção aberto no teste de 04/11/2026, e a Vercel cria esse endereço mesmo com --target=preview.
-if (projeto.json.ssoProtection?.deploymentType !== 'all') {
-  const p = await api('PATCH', `/v9/projects/${projeto.json.id}`, { ssoProtection: { deploymentType: 'all' } })
-  if (p.status >= 300) throw new Error(`Não foi possível ligar a proteção: ${p.json.error?.message ?? p.status}`)
+if (PUBLICO) {
+  if (projeto.json.ssoProtection) {
+    const p = await api('PATCH', `/v9/projects/${projeto.json.id}`, { ssoProtection: null })
+    if (p.status >= 300) throw new Error(`Não foi possível desligar a proteção: ${p.json.error?.message ?? p.status}`)
+  }
+  console.log(`Projeto ${PROJETO}: ABERTO para qualquer pessoa com o link`)
+} else {
+  if (projeto.json.ssoProtection?.deploymentType !== 'all') {
+    const p = await api('PATCH', `/v9/projects/${projeto.json.id}`, { ssoProtection: { deploymentType: 'all' } })
+    if (p.status >= 300) throw new Error(`Não foi possível ligar a proteção: ${p.json.error?.message ?? p.status}`)
+  }
+  console.log(`Projeto ${PROJETO}: proteção de acesso ligada`)
 }
-console.log(`Projeto ${PROJETO}: proteção de acesso ligada`)
 
 // O token nunca vai na linha de comando (apareceria em mensagens de erro e na lista de processos).
 const rodar = (cmd, args) => {
@@ -103,7 +115,7 @@ const pedeLogin = async (e) => {
 const enderecos = [...new Set([url, ...(publicacao.alias ?? []).map((a) => `https://${a}`)])]
 const abertos = []
 for (const e of enderecos) if (!(await pedeLogin(e))) abertos.push(e)
-if (abertos.length) {
+if (abertos.length && !PUBLICO) {
   if (publicacao.id) await api('DELETE', `/v13/deployments/${publicacao.id}`)
   throw new Error(`Publicação apagada: abriu sem login em ${abertos.join(', ')}.`)
 }
@@ -112,7 +124,9 @@ if (abertos.length) {
 //    assume sozinha; sem isso ele continuaria servindo a versão anterior).
 const alias = await api('POST', `/v2/deployments/${publicacao.id}/aliases`, { alias: PRINCIPAL })
 if (alias.status >= 300) throw new Error(`Não foi possível apontar ${PRINCIPAL}: ${alias.json.error?.message ?? alias.status}`)
-if (!(await pedeLogin(`https://${PRINCIPAL}`))) {
+const principalProtegido = await pedeLogin(`https://${PRINCIPAL}`)
+if (PUBLICO && principalProtegido) throw new Error(`${PRINCIPAL} ainda pede login: a proteção não foi desligada.`)
+if (!PUBLICO && !principalProtegido) {
   throw new Error(`${PRINCIPAL} abriu sem login depois de apontado. Verifique a proteção do projeto na Vercel agora.`)
 }
-console.log(`\nPublicado com proteção de acesso.\nhttps://${PRINCIPAL}  (publicação ${url})`)
+console.log(`\nPublicado ${PUBLICO ? 'ABERTO (qualquer pessoa com o link)' : 'com proteção de acesso'}.\nhttps://${PRINCIPAL}  (publicação ${url})`)

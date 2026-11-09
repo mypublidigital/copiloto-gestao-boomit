@@ -8,7 +8,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { fatosDaSemana, lerSemana, type Semana } from '../_shared/agentes/semana.ts'
 import { emailDeInsights } from '../_shared/email/modelos.ts'
 import { decidirDestino, provedorDoAmbiente } from '../_shared/email/provedor.ts'
-import { clienteDeServico, clienteDoUsuario, CORS, ehAgendador, ErroHttp, registrarInteracao, responder, urlDoApp } from '../_shared/http.ts'
+import { clienteDeServico, clienteDoUsuario, CORS, ehAgendador, ErroHttp, exigirCotaDeIA, registrarInteracao, responder, urlDoApp } from '../_shared/http.ts'
 import { ClienteAnthropic } from '../_shared/motor/anthropic.ts'
 import { gerarInsights, insightsDeterministicos, type InsightsVerificados } from '../_shared/motor/insights.ts'
 import type { Database, Json } from '../_shared/tipos/banco.ts'
@@ -139,6 +139,7 @@ async function tratar(req: Request): Promise<Response> {
 
   // O próprio líder pede os insights da semana (e, se quiser, o e-mail).
   const { db, usuario } = await clienteDoUsuario(req, env)
+  await exigirCotaDeIA(db, usuario.id, env)
   const corpo = (await req.json().catch(() => ({}))) as { enviar_email?: boolean }
   const { data: membro } = await db.from('membro').select('user_id, empresa_id, colaborador_id').eq('user_id', usuario.id).eq('papel', 'lider').limit(1).maybeSingle()
   if (!membro?.colaborador_id) throw new ErroHttp(403, 'Só líderes têm insights semanais')

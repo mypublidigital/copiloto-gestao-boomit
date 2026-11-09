@@ -83,3 +83,16 @@ export async function urlDoApp(servico: SupabaseClient<Database>): Promise<strin
   const { data } = await servico.from('config_sistema').select('valor').eq('chave', 'url_app').maybeSingle()
   return (data?.valor ?? '').replace(/\/$/, '')
 }
+
+/**
+ * Teto de chamadas de IA por usuário em 24 horas (COTA_IA_DIARIA, padrão 60). Protege o custo
+ * quando a demonstração fica aberta para qualquer pessoa com o link (decisão de 09/11/2026).
+ */
+export async function exigirCotaDeIA(db: SupabaseClient<Database>, usuarioId: string, env: (n: string) => string | undefined): Promise<void> {
+  const limite = Number(env('COTA_IA_DIARIA') ?? 60)
+  if (!Number.isFinite(limite) || limite <= 0) return
+  const desde = new Date(Date.now() - 86_400_000).toISOString()
+  const { count, error } = await db.from('interacao_ia').select('id', { count: 'exact', head: true }).eq('user_id', usuarioId).gte('criado_em', desde)
+  if (error) return
+  if ((count ?? 0) >= limite) throw new ErroHttp(429, 'Limite diário de uso da IA atingido nesta conta. Tente de novo amanhã.')
+}

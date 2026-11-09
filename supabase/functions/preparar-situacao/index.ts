@@ -4,7 +4,7 @@
 //                 preparacao (versão 1) e interacao_ia (só metadados).
 import { z } from 'zod'
 import { carregarContextoDaPessoa } from '../_shared/adaptadores/boomit/carregar.ts'
-import { clienteDoUsuario, CORS, ErroHttp, exigirEnv, registrarInteracao, responder } from '../_shared/http.ts'
+import { clienteDoUsuario, CORS, ErroHttp, exigirCotaDeIA, exigirEnv, registrarInteracao, responder } from '../_shared/http.ts'
 import { ClienteAnthropic } from '../_shared/motor/anthropic.ts'
 import { RecusaDoModeloError, SaidaInvalidaError } from '../_shared/motor/modelo.ts'
 import { prepararSituacao } from '../_shared/motor/preparar.ts'
@@ -44,6 +44,7 @@ async function tratar(req: Request): Promise<Response> {
     return responder(200, { pessoa: contexto.pessoa, fontes: contexto.itens })
   }
   if (c.relato.length < 10) throw new ErroHttp(400, 'Escreva um relato com pelo menos uma frase')
+  await exigirCotaDeIA(db, usuario.id, env)
 
   const cliente = new ClienteAnthropic(exigirEnv('ANTHROPIC_API_KEY', env))
   const modelos = { principal: exigirEnv('MODELO_PRINCIPAL', env), rapido: exigirEnv('MODELO_RAPIDO', env) }
