@@ -7,7 +7,7 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 
 - **Etapa:** **Sprints 0, 2, 3, 4 e 6 concluídas** (04/11/2026), código no GitHub, migrations e
   Edge Functions no Supabase de desenvolvimento.
-- **Inclusões de 08/11/2026 no Supabase de desenvolvimento:** apoio à decisão, agenda da liderança (dia/semana/mês com busca), régua de comunicação por e-mail e insights semanais. Migration 0007 aplicada, 89 testes de RLS no remoto, funções publicadas, agendamentos ativos, agenda fictícia da Marina no seed; conferido no navegador (local). **Falta republicar o site**: o `VERCEL_TOKEN` perdeu acesso ao time (HTTP 403). E-mails ficam na caixa de saída até existir provedor (N15).
+- **Inclusões de 08/11/2026 no Supabase de desenvolvimento:** apoio à decisão, agenda da liderança (dia/semana/mês com busca), régua de comunicação por e-mail e insights semanais. Migration 0007 aplicada, 89 testes de RLS no remoto, funções publicadas, agendamentos ativos, agenda fictícia da Marina no seed; conferido no navegador (local). Site de demonstração republicado em 08/11/2026, com login exigido em todos os endereços. E-mails ficam na caixa de saída até existir provedor (N15).
 - **Situação:** site de demonstração republicado com as sprints novas (04/11/2026), com login exigido em
   todos os endereços.
   Próximas: Sprint 0A e 1 (acesso ao repositório e API Boomit, N9 e N10), Sprint 5 (arquivos das
@@ -20,7 +20,6 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 |---|---|---|---|---|
 | 2 | Alçadas reais dos gestores (N12) — hoje há duas alçadas fictícias | `_entrada/` | Decisão na alçada com regras da EasyJur | 04/11/2026 |
 | 3 | Provedor de e-mail transacional (N15). Código pronto para Resend: `EMAIL_API_KEY`, `EMAIL_REMETENTE` (e, para testar com as personas, `EMAIL_DESTINO_TESTE`) e `npm run db:segredos`. Até lá os e-mails ficam na caixa de saída do app | `.env.local` | Envio real dos e-mails | 04/11/2026 |
-| 4 | Novo `VERCEL_TOKEN` com acesso ao time `marcelos-projects` (o atual recebe 403) | `.env.local` | Republicar o site com as inclusões de 08/11 | 08/11/2026 |
 
 ## Incidentes
 
@@ -110,3 +109,4 @@ para o Marcelo revisar de forma assíncrona. Resumo rápido: `/status`.
 | 04/11/2026 | Sprint 0 · CP3 | Motor, adaptador, prompts, `preparar-situacao` e `simular` publicadas, telas M3 e M4. No navegador: plano da Ana com fatos citando fontes (relato F23, PDI F14, assessment F9–F13), hipóteses incluindo o papel do líder, versão 2 salva; simulação desafiadora com streaming e debrief nos 5 critérios sem nota; relato de assédio → encaminhamento com os canais, sem chamar a IA. `interacao_ia` só com metadados; custo da demonstração ≈ US$ 0,07. Testes: 74 unitários, 44 de RLS local e remoto | `5b33531` + ver `git log` |
 | 08/11/2026 | Inclusões (decisão, agenda, régua, insights) | Migration 0007 (compromisso, decisao, email_envio, insight_semanal, config_sistema; régua nos lembretes; pg_cron `copiloto-envios` e `copiloto-insights`), funções `apoiar-decisao`, `processar-envios` e `insights-semanais`, telas Agenda, Decisões e Lembretes e insights. Testes: 132 unitários, 89 de RLS (local). Ensaio real: análise de decisão ≈ US$ 0,05 (3 alternativas, alçada citada), insights ≈ US$ 0,02 (7 sinais, 5 recomendações). Não publicado: token do Supabase recusado | ver `git log` |
 | 08/11/2026 | Inclusões publicadas no Supabase | Token do Supabase renovado (veio colado no `.env.example`; movido para o `.env.local` sem exibir, nada foi para o GitHub). 0007 aplicada; RLS 89/89 no remoto; `apoiar-decisao`, `processar-envios` e `insights-semanais` publicadas; pg_cron disparou `processar-envios` (200; 6 e-mails na caixa, aguardando provedor). No navegador: agenda (semana, busca, detalhe com a régua), análise real da decisão de plantão (alçada citada, 3 alternativas) e insights reais da semana (5 recomendações). Correção: apelidos de fonte "(F7)" saem do texto livre. Site não republicado: token da Vercel sem acesso | ver `git log` |
+| 08/11/2026 | Site republicado | Token da Vercel renovado (também veio no `.env.example`; movido para o `.env.local` sem exibir, nada foi para o GitHub). Publicação com as inclusões; endereço principal e da publicação devolvem 302 (pedem login) | ver `git log` |
