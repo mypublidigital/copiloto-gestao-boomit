@@ -38,9 +38,11 @@ export type AnaliseGravada = z.infer<typeof analiseGravadaSchema>
 
 // Análises antigas podem trazer apelidos de fonte no texto, como "(F7)": saem na leitura.
 const APELIDOS_NO_TEXTO = /\s*\((?:F\d+(?:\s*[,e]\s*)?)+\)/g
+// "(dado do relato, F9)" → "(dado do relato)"
+const APELIDO_NO_FIM_DE_PARENTESE = /(?:,\s*|\s+)F\d+(?=\))/g
 
 export function lerAnalise(json: unknown): AnaliseGravada | null {
-  const limpo: unknown = json == null ? json : JSON.parse(JSON.stringify(json).replace(APELIDOS_NO_TEXTO, ''))
+  const limpo: unknown = json == null ? json : JSON.parse(JSON.stringify(json).replace(APELIDOS_NO_TEXTO, '').replace(APELIDO_NO_FIM_DE_PARENTESE, ''))
   const r = analiseGravadaSchema.safeParse(limpo)
   return r.success ? r.data : null
 }

@@ -133,3 +133,10 @@ describe('apelidos no texto livre', () => {
     expect(semApelidos({ a: 'Meta de NPS (F7); carga (F1, F3).', b: ['Sem fonte'] })).toEqual({ a: 'Meta de NPS; carga.', b: ['Sem fonte'] })
   })
 })
+
+describe('apelido no fim de um parêntese', () => {
+  it('sai sem levar o resto do parêntese', async () => {
+    const { semApelidos } = await import('./pacote.ts')
+    expect(semApelidos('Queda de 30% (dado do relato, F9); ok.')).toBe('Queda de 30% (dado do relato); ok.')
+  })
+})
