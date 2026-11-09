@@ -383,6 +383,24 @@ export type Database = {
           },
         ]
       }
+      competencia_sinonimo: {
+        Row: {
+          categoria: string | null
+          chave_normalizada: string
+          competencia_canonica: string
+        }
+        Insert: {
+          categoria?: string | null
+          chave_normalizada: string
+          competencia_canonica: string
+        }
+        Update: {
+          categoria?: string | null
+          chave_normalizada?: string
+          competencia_canonica?: string
+        }
+        Relationships: []
+      }
       compromisso: {
         Row: {
           atualizado_em: string
@@ -450,17 +468,17 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "compromisso_lider_id_fkey"
-            columns: ["lider_id"]
-            isOneToOne: false
-            referencedRelation: "colaborador"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "compromisso_empresa_id_fkey"
             columns: ["empresa_id"]
             isOneToOne: false
             referencedRelation: "empresa"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "compromisso_lider_id_fkey"
+            columns: ["lider_id"]
+            isOneToOne: false
+            referencedRelation: "colaborador"
             referencedColumns: ["id"]
           },
           {
@@ -471,39 +489,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      competencia_sinonimo: {
-        Row: {
-          categoria: string | null
-          chave_normalizada: string
-          competencia_canonica: string
-        }
-        Insert: {
-          categoria?: string | null
-          chave_normalizada: string
-          competencia_canonica: string
-        }
-        Update: {
-          categoria?: string | null
-          chave_normalizada?: string
-          competencia_canonica?: string
-        }
-        Relationships: []
-      }
-      config_sistema: {
-        Row: {
-          chave: string
-          valor: string
-        }
-        Insert: {
-          chave: string
-          valor: string
-        }
-        Update: {
-          chave?: string
-          valor?: string
-        }
-        Relationships: []
       }
       conector_execucao: {
         Row: {
@@ -548,6 +533,21 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      config_sistema: {
+        Row: {
+          chave: string
+          valor: string
+        }
+        Insert: {
+          chave: string
+          valor: string
+        }
+        Update: {
+          chave?: string
+          valor?: string
+        }
+        Relationships: []
       }
       contexto_colaborador: {
         Row: {
@@ -762,17 +762,17 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "decisao_lider_id_fkey"
-            columns: ["lider_id"]
-            isOneToOne: false
-            referencedRelation: "colaborador"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "decisao_empresa_id_fkey"
             columns: ["empresa_id"]
             isOneToOne: false
             referencedRelation: "empresa"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "decisao_lider_id_fkey"
+            columns: ["lider_id"]
+            isOneToOne: false
+            referencedRelation: "colaborador"
             referencedColumns: ["id"]
           },
         ]
@@ -939,7 +939,7 @@ export type Database = {
           {
             foreignKeyName: "email_envio_lembrete_id_fkey"
             columns: ["lembrete_id"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "lembrete"
             referencedColumns: ["id"]
           },
@@ -1150,11 +1150,11 @@ export type Database = {
           combinado_id: string | null
           compromisso_id: string | null
           decisao_id: string | null
-          etapa: string
           destinatario_user_id: string
           empresa_id: string
           enviado_em: string | null
           enviar_em: string
+          etapa: string
           id: string
           lido_em: string | null
         }
@@ -1163,11 +1163,11 @@ export type Database = {
           combinado_id?: string | null
           compromisso_id?: string | null
           decisao_id?: string | null
-          etapa?: string
           destinatario_user_id: string
           empresa_id: string
           enviado_em?: string | null
           enviar_em: string
+          etapa?: string
           id?: string
           lido_em?: string | null
         }
@@ -1176,11 +1176,11 @@ export type Database = {
           combinado_id?: string | null
           compromisso_id?: string | null
           decisao_id?: string | null
-          etapa?: string
           destinatario_user_id?: string
           empresa_id?: string
           enviado_em?: string | null
           enviar_em?: string
+          etapa?: string
           id?: string
           lido_em?: string | null
         }
@@ -1773,6 +1773,7 @@ export type Database = {
         }[]
       }
       auditoria_metadados: { Args: { j: Json }; Returns: Json }
+      chamar_funcao: { Args: { p_funcao: string }; Returns: undefined }
       documento_do_caminho: { Args: { p_nome: string }; Returns: string }
       eh_admin: { Args: { p_empresa: string }; Returns: boolean }
       eh_membro: { Args: { p_empresa: string }; Returns: boolean }
@@ -1786,6 +1787,19 @@ export type Database = {
       }
       pode_ver_documento: { Args: { p_documento: string }; Returns: boolean }
       pode_ver_situacao: { Args: { p_situacao: string }; Returns: boolean }
+      regua_agendar: {
+        Args: {
+          p_canais: string[]
+          p_combinado?: string
+          p_compromisso?: string
+          p_decisao?: string
+          p_destinatario: string
+          p_empresa: string
+          p_etapa: string
+          p_quando: string
+        }
+        Returns: undefined
+      }
       sou_mentor_de: { Args: { p_lider: string }; Returns: boolean }
       tem_papel: {
         Args: {
@@ -1796,9 +1810,6 @@ export type Database = {
       }
     }
     Enums: {
-      status_compromisso: "agendado" | "realizado" | "cancelado"
-      status_decisao: "em_analise" | "decidida" | "revisada" | "cancelada"
-      tipo_compromisso: "um_a_um" | "feedback" | "pdi" | "conversa" | "reuniao_equipe" | "mentoria" | "outro"
       fonte_snapshot: "api" | "importacao_excel" | "importacao_pdf" | "mock"
       frente_gestao:
         | "desempenho"
@@ -1818,6 +1829,8 @@ export type Database = {
         | "renegociado"
         | "nao_cumprido"
         | "cancelado"
+      status_compromisso: "agendado" | "realizado" | "cancelado"
+      status_decisao: "em_analise" | "decidida" | "revisada" | "cancelada"
       status_processamento: "recebido" | "processando" | "processado" | "erro"
       status_revisao: "pendente" | "aprovado" | "descartado"
       status_situacao:
@@ -1828,6 +1841,14 @@ export type Database = {
         | "em_acompanhamento"
         | "encerrada"
         | "encaminhada"
+      tipo_compromisso:
+        | "um_a_um"
+        | "feedback"
+        | "pdi"
+        | "conversa"
+        | "reuniao_equipe"
+        | "mentoria"
+        | "outro"
       tipo_documento:
         | "transcricao_mentoria"
         | "transcricao_reuniao"
@@ -1975,9 +1996,6 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      status_compromisso: ["agendado", "realizado", "cancelado"],
-      status_decisao: ["em_analise", "decidida", "revisada", "cancelada"],
-      tipo_compromisso: ["um_a_um", "feedback", "pdi", "conversa", "reuniao_equipe", "mentoria", "outro"],
       fonte_snapshot: ["api", "importacao_excel", "importacao_pdf", "mock"],
       frente_gestao: [
         "desempenho",
@@ -1999,6 +2017,8 @@ export const Constants = {
         "nao_cumprido",
         "cancelado",
       ],
+      status_compromisso: ["agendado", "realizado", "cancelado"],
+      status_decisao: ["em_analise", "decidida", "revisada", "cancelada"],
       status_processamento: ["recebido", "processando", "processado", "erro"],
       status_revisao: ["pendente", "aprovado", "descartado"],
       status_situacao: [
@@ -2009,6 +2029,15 @@ export const Constants = {
         "em_acompanhamento",
         "encerrada",
         "encaminhada",
+      ],
+      tipo_compromisso: [
+        "um_a_um",
+        "feedback",
+        "pdi",
+        "conversa",
+        "reuniao_equipe",
+        "mentoria",
+        "outro",
       ],
       tipo_documento: [
         "transcricao_mentoria",

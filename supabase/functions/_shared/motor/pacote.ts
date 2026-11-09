@@ -83,3 +83,11 @@ export function montarPacote(itens: ItemDeContexto[], opcoes: OpcoesPacote = {})
     cortados,
   }
 }
+
+// Apelidos (F1, F2…) que o modelo às vezes cita no meio do texto livre: "(F7)", "(F1, F3)".
+const APELIDOS_NO_TEXTO = /\s*\((?:F\d+(?:\s*[,e]\s*)?)+\)/g
+
+/** Remove apelidos citados no texto livre: as fontes já vão em fonte_ids, com rótulo legível. */
+export function semApelidos<T>(valor: T): T {
+  return JSON.parse(JSON.stringify(valor).replace(APELIDOS_NO_TEXTO, '')) as T
+}

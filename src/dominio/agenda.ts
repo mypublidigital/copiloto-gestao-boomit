@@ -145,6 +145,7 @@ export function pedeRegistro(e: EventoAgenda, agora = new Date()): boolean {
 
 /** Etapas da régua de lembretes (lembrete.etapa). */
 export const ETAPAS: Record<string, string> = {
+  prazo: 'Prazo do combinado',
   confirmacao: 'Confirmação do agendamento',
   remarcado: 'Aviso de remarcação',
   vespera: 'Véspera',

@@ -36,8 +36,12 @@ export const analiseGravadaSchema = z.discriminatedUnion('tipo', [
 ])
 export type AnaliseGravada = z.infer<typeof analiseGravadaSchema>
 
+// Análises antigas podem trazer apelidos de fonte no texto, como "(F7)": saem na leitura.
+const APELIDOS_NO_TEXTO = /\s*\((?:F\d+(?:\s*[,e]\s*)?)+\)/g
+
 export function lerAnalise(json: unknown): AnaliseGravada | null {
-  const r = analiseGravadaSchema.safeParse(json)
+  const limpo: unknown = json == null ? json : JSON.parse(JSON.stringify(json).replace(APELIDOS_NO_TEXTO, ''))
+  const r = analiseGravadaSchema.safeParse(limpo)
   return r.success ? r.data : null
 }
 

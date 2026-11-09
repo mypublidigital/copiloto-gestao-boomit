@@ -8,7 +8,7 @@ import * as prompt from '../prompts/decisao.ts'
 import { CAMADAS, type ItemDeContexto } from './contexto.ts'
 import { detectarSensivelPorTermos, GUARDRAILS, termosProibidos } from './guardrails.ts'
 import type { ClienteModelo, Uso } from './modelo.ts'
-import { montarPacote, type FonteDoPacote } from './pacote.ts'
+import { montarPacote, semApelidos, type FonteDoPacote } from './pacote.ts'
 
 const texto = z.string()
 
@@ -170,5 +170,6 @@ export async function apoiarDecisao(e: EntradaDecisao): Promise<ResultadoDecisao
     return { tipo: 'encaminhamento', motivo: r.dados.encaminhamento.motivo, uso: r.uso, versao_prompt: prompt.VERSAO, fontes_ids }
   }
   const v = verificarDecisao(r.dados, pacote.fontes)
+  v.analise = semApelidos(v.analise)
   return { tipo: 'analise', analise: v.analise, alertas: v.alertas, uso: r.uso, versao_prompt: prompt.VERSAO, fontes_ids }
 }

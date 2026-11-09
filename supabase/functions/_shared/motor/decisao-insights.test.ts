@@ -126,3 +126,10 @@ describe('insights semanais', () => {
     expect(r.alertas).toEqual(expect.arrayContaining(['recomendacao_sem_sinal', 'insight_removido_por_regra', 'sinal_alto_incluido_pelas_regras']))
   })
 })
+
+describe('apelidos no texto livre', () => {
+  it('saem do texto, sem mexer no resto', async () => {
+    const { semApelidos } = await import('./pacote.ts')
+    expect(semApelidos({ a: 'Meta de NPS (F7); carga (F1, F3).', b: ['Sem fonte'] })).toEqual({ a: 'Meta de NPS; carga.', b: ['Sem fonte'] })
+  })
+})

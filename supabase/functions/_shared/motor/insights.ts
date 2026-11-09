@@ -7,7 +7,7 @@ import * as prompt from '../prompts/insights.ts'
 import { CAMADAS, type ItemDeContexto } from './contexto.ts'
 import { GUARDRAILS, termosProibidos } from './guardrails.ts'
 import type { ClienteModelo, Uso } from './modelo.ts'
-import { montarPacote } from './pacote.ts'
+import { montarPacote, semApelidos } from './pacote.ts'
 
 const texto = z.string()
 const PRIORIDADES = ['alta', 'media', 'baixa'] as const
@@ -149,14 +149,14 @@ export async function gerarInsights(e: {
 
   const resumo = proibido(r.dados.resumo_da_semana) ? insightsDeterministicos(e.sinais).resumo_da_semana : r.dados.resumo_da_semana
   return {
-    insights: {
+    insights: semApelidos({
       resumo_da_semana: resumo,
       destaques,
       recomendacoes: recomendacoes.slice(0, 6),
       pergunta_reflexao: proibido(r.dados.pergunta_reflexao) ? '' : r.dados.pergunta_reflexao,
       sinais: e.sinais,
-      gerado_por: 'modelo',
-    },
+      gerado_por: 'modelo' as const,
+    }),
     alertas,
     uso: r.uso,
     versao_prompt: prompt.VERSAO,
