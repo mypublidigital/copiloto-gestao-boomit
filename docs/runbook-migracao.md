@@ -23,7 +23,7 @@ feito à mão num painel entra aqui, com data. Se não está aqui nem no reposit
 | GitHub | `mypublidigital/copiloto-gestao-boomit` | a definir |
 | Supabase (desenvolvimento) | `copiloto-gestao-boomit-dev` (ref `tdghjpunfqlhpugrsbtr`), organização mypublicompany, `sa-east-1` | a definir |
 | Anthropic | chave exclusiva do projeto, com limite de gasto — **pendente** | a definir |
-| Hospedagem do front | Vercel, time `marcelos-projects`, projeto `copiloto-gestao-boomit-demo` (com proteção de acesso) | a definir |
+| Hospedagem do front | Vercel, time `marcelos-projects`, projeto `copiloto-gestao-boomit-demo` (aberto com o link desde 09/11/2026; `npm run publicar:demo` sem `--publico` volta a exigir login) | a definir |
 | E-mail transacional | Resend previsto (N15 aberta); sem chave, e-mails ficam na caixa de saída do app | a definir |
 
 ## 3. Passos manuais registrados
