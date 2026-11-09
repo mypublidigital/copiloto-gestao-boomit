@@ -167,3 +167,61 @@ if (marina && marinaUser) {
     console.log('Agenda e decisões fictícias da Marina criadas')
   } else console.log('Agenda da Marina já existe: mantida')
 }
+
+// 5. Frentes de gestão (desempenho, desenvolvimento, comportamento, liderança): registros,
+//    ações de PDI, combinados já encerrados e mais 1:1 realizados. Só na primeira vez.
+if (marina && marinaUser) {
+  const lider = idDe('marina.costa@exemplotech.com')
+  const jaTem = await db.from('acao_desenvolvimento').select('id', { count: 'exact', head: true }).eq('criado_por', marinaUser)
+  if ((jaTem.count ?? 0) === 0) {
+    const hoje = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date())
+    const dia = (n: number) => {
+      const d = new Date(`${hoje}T12:00:00Z`)
+      d.setUTCDate(d.getUTCDate() + n)
+      return d.toISOString().slice(0, 10)
+    }
+    const p = (email: string) => idDe(`${email}@exemplotech.com`)
+    const um = async (tabela: 'registro' | 'acao_desenvolvimento' | 'combinado' | 'compromisso', linha: Record<string, unknown>) =>
+      exigir(await db.from(tabela).insert(linha as never).select('id'), `${tabela} (frentes)`)
+    const reg = (email: string, tipo: string, texto: string, n: number, visibilidade = 'privado') =>
+      um('registro', { empresa_id: empresaId, colaborador_id: p(email), autor_user_id: marinaUser, tipo, texto, data_fato: dia(n), visibilidade })
+    await reg('joao.lima', 'feedback', 'Duas respostas a cliente saíram depois do prazo combinado; conversamos sobre priorizar a fila pela manhã.', -9)
+    await reg('beatriz.rocha', 'reconhecimento', 'Montou o roteiro de atendimento de primeiro nível; a equipe passou a usar no mesmo dia.', -5, 'linha_gestao')
+    await reg('carlos.nunes', 'observacao', 'Na reunião de implantação, apresentou o cronograma sem consultar o suporte; combinamos alinhar antes da próxima.', -12)
+    await reg('daniela.prado', 'alinhamento', 'Alinhamos que chamados críticos são escalados em até 30 minutos, com registro no sistema.', -15)
+    await reg('eduardo.sales', 'feedback', 'Documentação do incidente da semana veio completa e no prazo; pedi para virar modelo da equipe.', -3, 'linha_gestao')
+    await reg('fernanda.melo', 'reconhecimento', 'Auditoria de qualidade do mês entregue dois dias antes, com sugestões de melhoria.', -20, 'linha_gestao')
+    await reg('gabriel.torres', 'observacao', 'Pediu ajuda para usar o assistente de IA nas respostas padrão; combinamos uma sessão com o Carlos.', -7)
+    await reg('ana.faria', 'feedback', 'Plano semanal enviado nas duas últimas segundas; ainda falta indicar as dependências de outras áreas.', -6)
+
+    const acao = (email: string, descricao: string, competencia: string, prazo: number, status: string) =>
+      um('acao_desenvolvimento', { empresa_id: empresaId, colaborador_id: p(email), descricao, competencia, prazo: dia(prazo), status, origem: 'boomit_pdi', criado_por: marinaUser })
+    await acao('ana.faria', 'Usar o quadro de prioridades toda segunda e revisar na sexta', 'Planejamento', 21, 'em_andamento')
+    await acao('joao.lima', 'Praticar resumo de 3 pontos antes de responder clientes por escrito', 'Comunicação Objetiva', 30, 'em_andamento')
+    await acao('beatriz.rocha', 'Conduzir uma reunião de alinhamento com o suporte por mês', 'Comunicação', 45, 'planejada')
+    await acao('carlos.nunes', 'Mapear riscos do cronograma com o suporte antes de cada implantação', 'Riscos Calculados', 14, 'em_andamento')
+    await acao('gabriel.torres', 'Sessão de prática com assistente de IA em respostas padrão', 'Maturidade em IA', -2, 'concluida')
+    await acao('fernanda.melo', 'Apresentar o resultado da auditoria para a equipe', 'Conhecimento do Setor', -10, 'concluida')
+
+    const comb = (email: string, descricao: string, prazo: number, status: string) =>
+      um('combinado', {
+        empresa_id: empresaId, lider_id: lider, colaborador_id: p(email), descricao, responsavel_tipo: 'colaborador', prazo: dia(prazo), status, origem: 'manual', criado_por: marinaUser,
+        ...(status === 'cumprido' ? { concluido_em: dia(prazo), evidencia_registrada: 'Conferido no 1:1' } : {}),
+      })
+    await comb('eduardo.sales', 'Transformar o relatório de incidente em modelo da equipe', -4, 'cumprido')
+    await comb('fernanda.melo', 'Enviar a auditoria de qualidade do mês', -22, 'cumprido')
+    await comb('daniela.prado', 'Escalar chamados críticos em até 30 minutos', -8, 'cumprido')
+    await comb('carlos.nunes', 'Revisar o cronograma de implantação com o suporte', -5, 'nao_cumprido')
+    await comb('gabriel.torres', 'Testar o assistente de IA em 10 respostas padrão', 5, 'aberto')
+
+    const umAUm = (email: string, nome: string, n: number) =>
+      um('compromisso', {
+        empresa_id: empresaId, lider_id: lider, criado_por: marinaUser, colaborador_id: p(email), tipo: 'um_a_um', titulo: `1:1 com ${nome}`,
+        inicio: `${dia(n)}T14:00:00-03:00`, duracao_min: 30, status: 'realizado', realizado_em: `${dia(n)}T14:30:00-03:00`, relato: 'Conversa de acompanhamento (fictícia).',
+      })
+    await umAUm('joao.lima', 'João Lima', -12)
+    await umAUm('eduardo.sales', 'Eduardo Sales', -18)
+    await umAUm('fernanda.melo', 'Fernanda Melo', -41)
+    console.log('Dados das frentes de gestão criados')
+  } else console.log('Dados das frentes já existem: mantidos')
+}

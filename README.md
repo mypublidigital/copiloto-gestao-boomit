@@ -2,6 +2,8 @@
 
 Base para construir o Copiloto no Claude Code, com a EasyJur como cliente-piloto e a Plataforma Boomit como fonte de dados.
 
+> **Versão atual: desenvolvimento para demonstração**, com dados fictícios (08/11/2026). O que falta para a produção está em `src/config/versao.ts`, na página `/sobre` do sistema e em `docs/progresso.md`.
+
 **Status:** v0.3 (03/11/2026), com modo autoplay. Escopo em validação com a Boomit; desenvolvimento começando nas contas da Leadrix, com dados fictícios, enquanto o acesso ao repositório Boomit não sai. A migration e os testes de RLS rodam em Postgres local.
 
 | Arquivo | Conteúdo |

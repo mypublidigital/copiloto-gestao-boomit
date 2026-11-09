@@ -23,7 +23,7 @@ const conteudo = arquivos.map((f) => readFileSync(path.join(SAIDA, f), 'utf8')).
 const proibidos = [
   ['seletor de persona', 'Ver como:'],
   ['tela de personas', 'Entrar como persona fictícia'],
-  ['faixa de demonstração', 'Ambiente de demonstração'],
+  ['faixa de demonstração', 'Versão de desenvolvimento para demonstração'],
   ['e-mail de persona', 'marina.costa@exemplotech.com'],
   ['e-mail de persona', 'admin.rh@exemplotech.com'],
 ]
@@ -35,6 +35,12 @@ for (const [nome, marca] of proibidos) {
   // Nunca imprime a marca: uma delas é a senha.
   console.log(`${achou ? 'FALHOU' : 'ok    '}  ${nome} ${achou ? 'presente' : 'ausente'} no build de produção`)
   ok &&= !achou
+}
+// Produção precisa sinalizar o que falta (registro de 08/11/2026): faixa e página /sobre.
+for (const [nome, marca] of [['aviso de implantação pendente', 'ver o que falta'], ['lista do que falta para a produção', 'Integração com a Plataforma Boomit']]) {
+  const achou = conteudo.includes(marca)
+  console.log(`${achou ? 'ok    ' : 'FALHOU'}  ${nome} ${achou ? 'presente' : 'ausente'} no build de produção`)
+  ok &&= achou
 }
 rmSync(SAIDA, { recursive: true, force: true })
 console.log(ok ? '\nBuild de produção limpo.' : '\nO build de produção contém itens do modo demonstração.')

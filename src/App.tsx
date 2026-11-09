@@ -17,6 +17,7 @@ import { Preparar } from '@/paginas/Preparar'
 import { Registrar } from '@/paginas/Registrar'
 import { Secao } from '@/paginas/Secao'
 import { Simular } from '@/paginas/Simular'
+import { Sobre } from '@/paginas/Sobre'
 import { Situacao } from '@/paginas/Situacao'
 
 function Rotas() {
@@ -39,6 +40,7 @@ function Rotas() {
         <Route path="decisoes" element={<Decisoes />} />
         <Route path="decisoes/:id" element={<Decisao />} />
         <Route path="comunicacao" element={<Comunicacao />} />
+        <Route path="sobre" element={<Sobre />} />
         {SECOES.filter((s) => !s.propria).map((secao) => (
           <Route key={secao.caminho} path={secao.caminho.slice(1)} element={<Secao secao={secao} />} />
         ))}

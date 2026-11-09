@@ -36,6 +36,9 @@ export function Layout() {
               </NavLink>
             ))}
           </nav>
+          <NavLink to="/sobre" className="mt-auto px-3 pt-6 text-xs text-boomit-taupe hover:text-boomit-claro hover:underline">
+            Sobre esta versão
+          </NavLink>
         </aside>
         <div className="min-w-0 flex-1">
           <header className="flex flex-wrap items-center justify-between gap-3 border-b bg-card px-6 py-3 md:px-10">
